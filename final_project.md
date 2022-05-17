@@ -31,6 +31,8 @@
 
 - 목업 구상 (유저 시나리오 구성)
 
+  https://www.figma.com/file/k1Lz7Fjnq88zOU0xguTGHk/Untitled?node-id=0%3A1
+
   
 
 - 디자인
@@ -54,6 +56,8 @@
     - 로그인/회원가입 - 카카오 api
     
       https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api
+    
+      소셜 로그인 https://loffin.tistory.com/47
     
     - 지도 
     
@@ -88,3 +92,8 @@
 로딩 애니메이션 https://story.pxd.co.kr/922
 
 타이포그래피 https://www.youtube.com/watch?v=vJNVramny9k
+
+눈 내리는 효과 https://www.blueb.co.kr/?r=home&c=1/20&m=bluebdata&bid=js_3d&cat=Canvas
+
+로그인 디자인 구현 https://lucidmaj7.tistory.com/251
+
