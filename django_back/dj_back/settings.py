@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'weathers',
 
     'rest_framework',
+    'rest_framework.authtoken', 
+    'dj_rest_auth.registration',
+
+    'allauth', 
+    'allauth.account',
+    'allauth.socialaccount',
+
+    'corsheaders',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,9 +52,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites', 
 ]
 
+SITE_ID = 1
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,3 +144,23 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+# 모든 origin 허용
+CORS_ALLOW_ALL_ORIGINS = True
+# 특정 origin 에게만 교차 출처 허용!!
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:8080',
+#     'http://127.0.0.1:8001',
+# ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        
+        'rest_framework.permissions.AllowAny', 
+
+        # 'rest_framework.permissions.IsAuthenticated'
+    ]
+}
