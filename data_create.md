@@ -60,7 +60,7 @@
 [v] "adult": false,  
 [v] "backdrop_path": "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg", 
 [v] "belongs_to_collection": null,
-[v] "budget": 63000000, 
+[0] "budget": 63000000, 
     "genres": [
         {
         "id": 18,
@@ -79,7 +79,7 @@
         {
         "id": 508,
         "logo_path": "/7PzJdsLGlR7oW4J0J5Xcd0pHGRg.png",
-        "name": "Regency Enterprises",
+[v]     "name": "Regency Enterprises",
         "origin_country": "US"
         },
         {
@@ -126,12 +126,12 @@
         }
     ],
 [v] "release_date": "1999-10-12",
-[v] "revenue": 100853753,
+[0] "revenue": 100853753,
 [v] "runtime": 139,
     "spoken_languages": [
         {
-        "iso_639_1": "en",
-[v]     "name": "English"
+[v]     "iso_639_1": "en",
+[0]     "name": "English"
         }
     ],
     "status": "Released",
@@ -151,31 +151,29 @@
 
 ```python
 class Movies(models.Model):
-    # varchar : 최대길이 명시하고 사용. 저장 공간에 더 효율적
     movie_id = models.IntegerField()
     title = models.CharField(max_length=20)
     genres = models.CharField(max_length=100)
     release_date = models.DateField(null=True)
-    poster_path = models.TextField()
+    poster_path = models.CharField(max_length=150, null=True)
     overview = models.TextField()
     tagline = models.TextField(null=True)
     adult = models.BooleanField(null=True)
-    backdrop_path = models.TextField(null=True)
-    budget = models.IntegerField(null=True)
+    backdrop_path = models.CharField(max_length=150, null=True)
     original_language = models.CharField(max_length=5)
     original_title = models.CharField(max_length=30)
     popularity = models.FloatField(null=True)
     production_countries = models.CharField(max_length=20)
-    revenue = models.IntegerField(null=True)
     runtime = models.IntegerField(null=True)
     spoken_languages = models.CharField(max_length=10)
     vote_average = models.FloatField(null=True)
     vote_count = models.IntegerField(null=True)
+    production_companies = models.TextField(null=True)
 ```
 
 
 
-### 2. views.py
+### 2. views.py (모델 수정 전)
 
 ```python
 import requests
@@ -243,3 +241,69 @@ def get_movie_datas(request):
                 my_movie.save()
 ```
 
+### 3. views.py 수정
+
+```python
+from django.shortcuts import render
+import requests
+import json
+
+
+TMDB_API_KEY = '******' #DB만 받아올 앱이라 키 그냥 씀
+
+def get_movie_datas(request):
+    total_data = []
+    for i in range(1,501):
+        request_url = f"https://api.themoviedb.org/3/movie/popular?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
+        movies = requests.get(request_url).json()
+        for movie in movies['results']:
+            if movie.get('overview'):
+                movie_id = movie['id']
+                detail_url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}&language=ko-KR"
+                detail = requests.get(detail_url).json()
+                genres = ''
+                for genre in detail['genres']:
+                    genres += genre['name']+', '
+                if detail['release_date']:
+                    release_date = detail['release_date']
+                if detail['production_countries']:
+                    production_countries = detail['production_countries'][0]['name']
+                if detail['spoken_languages']:
+                    spoken_languages = detail['spoken_languages'][0]['iso_639_1']
+                production_companies = ''
+                for production in detail['production_companies']:
+                    production_companies += production['name'] + ', '
+                    
+                fields = {
+                    'title' : detail['title'],
+                    'genres' : genres,
+                    'release_date' : release_date, 
+                    'poster_path' : detail['poster_path'],  # 'https://image.tmdb.org/t/p/w500' +poster_path
+                    'overview' : detail['overview'],
+                    'tagline' : detail['tagline'],
+                    'adult' : detail['adult'],
+                    'backdrop_path' : detail['backdrop_path'],
+                    'original_language' : detail['original_language'],
+                    'original_title' : detail['original_title'],
+                    'popularity' : detail['popularity'],
+                    'production_countries' : production_countries,
+                    'runtime' : detail['runtime'],
+                    'spoken_languages' : spoken_languages,
+                    'vote_average' : detail['vote_average'],
+                    'vote_count' : detail['vote_count'],
+                    'production_companies' : production_companies,
+                }
+                data = {
+                    "pk" : movie_id,
+                    "model" : "movies.movie",
+                    "fields" : fields,
+                }
+                total_data.append(data)
+    with open("movie_db.json", "w", encoding="utf-8") as w:
+        json.dump(total_data, w, indent=4, ensure_ascii=False)
+```
+
+## 4. 추가할 것
+
+- video 필드, tmdb에서 movie_id로 검색
+- https://developers.themoviedb.org/3/movies/get-movie-videos
