@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from movies.models import Movie
 
-class Review(models.Model):
+class Drop(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
     movie = models.ForeignKey(Movie, on_delete=models.SET_DEFAULT, default=0)
     title = models.CharField(max_length=100)
@@ -15,4 +15,4 @@ class Review(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
-    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
+    drop = models.ForeignKey(Drop, on_delete=models.CASCADE, related_name='comments')
