@@ -2,15 +2,13 @@
 
 
 
-![캡처](final_project.assets/캡처-16526784052571.PNG)
-
-**move in, movien!**
+movie cloud
 
 
 
 - 아이디어 구상
 
-  - 컨셉 : **move in, movien!** 날씨 그리고 영화로의 여행
+  - 컨셉 : **movie cloud!** 날씨 + 물방울이 모여 하나의 구름 cloud
 
   - Main Topic :  날씨에 따른 영화 추천, 그리고 영화 기록 서비스 (방구석 1열의 영화로그)
 
@@ -27,19 +25,29 @@
 
   https://www.erdcloud.com/d/G8cXxibj3XtrzyNzo
 
-  
-
-- 목업 구상 (유저 시나리오 구성)
-
-  https://www.figma.com/file/k1Lz7Fjnq88zOU0xguTGHk/Untitled?node-id=0%3A1
+  ![캡처](final_project.assets/캡처-16529446236811.PNG)
 
   
+
+- 컴포넌트 모델링
+
+  https://app.diagrams.net/?src=about#G1JWp5ZrQux3Rr7myTiI-TF0OEcIUqQLBF
+
+  ![Untitled Diagram-Page-3.drawio](final_project.assets/Untitled Diagram-Page-3.drawio.png)
+
+  ![Untitled Diagram-Page-2.drawio](final_project.assets/Untitled Diagram-Page-2.drawio.png)
+
+  ![Untitled Diagram-Page-1.drawio](final_project.assets/Untitled Diagram-Page-1.drawio.png)
 
 - 디자인
 
-  
+  https://www.figma.com/file/k1Lz7Fjnq88zOU0xguTGHk/movie_project
 
 - 기능 개발
+
+  - 추천 알고리즘 (유저 기반)
+
+    https://proinlab.com/archives/2103
 
   - API ?
 
@@ -48,9 +56,9 @@
       https://developers.themoviedb.org/3
 
       - 영화 데이터 가져와 저장법
-
+  
         https://velog.io/@ready2start/Mollbar-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EC%98%81%ED%99%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0
-
+  
         
     
     - 로그인/회원가입 - 카카오 api
