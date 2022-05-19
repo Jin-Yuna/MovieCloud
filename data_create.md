@@ -147,9 +147,10 @@
 
 ## 3. 코드
 
-### 1. models.py
+### 1. models.py : key를 move_id로 하려다 그냥 필드로 따로 만들어줬습니다.
 
 ```python
+# dumpdata할때 뭐가 자꾸 오류가 나서 비어있으면 안되는 필드도 null=True로 우선 해둠.
 class Movies(models.Model):
     movie_id = models.IntegerField()
     title = models.CharField(max_length=20)
@@ -169,6 +170,7 @@ class Movies(models.Model):
     vote_average = models.FloatField(null=True)
     vote_count = models.IntegerField(null=True)
     production_companies = models.TextField(null=True)
+    video_key = models.CharField(max_length=40, null=True)
 ```
 
 
@@ -248,22 +250,32 @@ from django.shortcuts import render
 import requests
 import json
 
-
-TMDB_API_KEY = '******' #DB만 받아올 앱이라 키 그냥 씀
+TMDB_API_KEY = '*************' #DB만 받아올 앱이라 키 그냥 씀
 
 def get_movie_datas(request):
     total_data = []
     for i in range(1,501):
+        # 인기도에 따라 영화리스트 받기 : 한페이지 당 20개, 500페이지.
         request_url = f"https://api.themoviedb.org/3/movie/popular?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
         movies = requests.get(request_url).json()
+
         for movie in movies['results']:
-            if movie.get('overview'):
-                movie_id = movie['id']
+            # print(movie['id'])
+            movie_id = movie['id']
+            # 받아온 리스트의 영화 아이디로 video 검색
+            video_url = f"https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key={TMDB_API_KEY}&language=ko-KR"
+            videos = requests.get(video_url).json()
+            
+			# 비디오와 (한글)줄거리가 있는 데이터만 저장
+            if videos['results'] and movie.get('overview'):
+                # print(movie_id)
+                video_key = videos['results'][0]['key']
                 detail_url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}&language=ko-KR"
                 detail = requests.get(detail_url).json()
                 genres = ''
                 for genre in detail['genres']:
                     genres += genre['name']+', '
+                # print(detail['title'], genres)
                 if detail['release_date']:
                     release_date = detail['release_date']
                 if detail['production_countries']:
@@ -275,6 +287,7 @@ def get_movie_datas(request):
                     production_companies += production['name'] + ', '
                     
                 fields = {
+                    'movie_id' : movie_id,
                     'title' : detail['title'],
                     'genres' : genres,
                     'release_date' : release_date, 
@@ -292,10 +305,10 @@ def get_movie_datas(request):
                     'vote_average' : detail['vote_average'],
                     'vote_count' : detail['vote_count'],
                     'production_companies' : production_companies,
+                    'video_key': video_key,
                 }
                 data = {
-                    "pk" : movie_id,
-                    "model" : "movies.movie",
+                    "model" : "movies.movie", # 만들 앱과 모델 이름과 동일하게 해줘야 함.
                     "fields" : fields,
                 }
                 total_data.append(data)
