@@ -1,10 +1,10 @@
 from django.db import models
 from django.conf import settings
-from ..movies.models import Movie 
+from movies.models import Movie
 
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
-    movie = models.ForeignKey(Movie, on_delete=models.SET_DEFAULT, default='영화 데이터가 없습니다.')
+    movie = models.ForeignKey(Movie, on_delete=models.SET_DEFAULT, default=0)
     title = models.CharField(max_length=100)
     content = models.TextField()
     user_vote = models.FloatField()
