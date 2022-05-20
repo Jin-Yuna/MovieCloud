@@ -21,7 +21,7 @@ from .serializers import (
 def drop_create(request):
     if request.method == 'GET':
         drops = Drop.objects.annotate(comment_count=Count('comments', distinct=True)).order_by('-pk')
-        serializer = DropListSerializer(drops, many=True)
+        serializer = DropCreateSerializer(drops, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = DropCreateSerializer(data=request.data)
