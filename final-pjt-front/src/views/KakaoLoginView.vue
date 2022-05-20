@@ -5,15 +5,12 @@
 </template>
 
 <script>
-  
   export default {
     name: 'KakaoLoginView',
-    data() {
-    },
     methods: {
       kakaoLogin() {
         const params = {
-          redirectUri:'http://localhost:8080/accounts/kakaoLogin',
+          redirectUri:'http://localhost:8080/',
         }
         window.Kakao.Auth.authorize(params)
       }

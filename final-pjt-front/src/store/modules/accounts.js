@@ -10,7 +10,7 @@ export default {
     currentUser: {},
     // profile: {},
     authError: null,
-    code: ''
+    code: '',
   },
 
   getters: {
@@ -18,7 +18,7 @@ export default {
     currentUser: state => state.currentUser,
     // profile: state => state.profile,
     authError: state => state.authError,
-    authHeader: state => ({ Authorization: `Token ${state.token}`})
+    authHeader: state => ({ Authorization: `Token ${state.token}`}),
   },
 
   mutations: {
@@ -26,7 +26,11 @@ export default {
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     // SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
-    SET_CODE: (state, code) => state.code = code
+    SET_CODE: (state, code) => state.code = code,
+    setUser(state, payload) {
+      state.userName = payload.name;
+      state.platform = payload.platform;
+    },
   },
 
   actions: {

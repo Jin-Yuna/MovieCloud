@@ -13,6 +13,7 @@ import SignupView from '@/views/SignupView.vue'
 import KakaoLoginView from '@/views/KakaoLoginView.vue'
 // import ProfileView from '@/views/ProfileView.vue'
 import NotFound404 from '../views/NotFound404.vue'
+import KakaoLoginTokenView from '@/views/KakaoLoginToken.vue'
 
 Vue.use(VueRouter)
 
@@ -47,14 +48,19 @@ const routes = [
     component: KakaoLoginView
   },
   {
+    path: '',
+    name: 'kakaoLogin',
+    component: KakaoLoginTokenView
+  },
+  {
     path: '/404',
     name: 'NotFound404',
     component: NotFound404
   },
-  {
-    path: '*',
-    redirect: '/404'
-  },
+  // {
+  //   path: '*',
+  //   redirect: '/404'
+  // },
 ]
 
 const router = new VueRouter({
