@@ -31,21 +31,25 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # local apps
     'accounts',
     'movies',
     'clouds',
     'weathers',
 
+    # 3rd party apps
     'rest_framework',
     'rest_framework.authtoken', 
+    # DRF auth
+    'dj_rest_auth',
     'dj_rest_auth.registration',
-
+    # signup
     'allauth', 
     'allauth.account',
     'allauth.socialaccount',
 
     'corsheaders',
-
+    # native apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.sites', 
 ]
 
+# django.contrib.sites 사용시 반드시 SITE_ID 설정 필요
 SITE_ID = 1
 
 MIDDLEWARE = [
@@ -153,6 +158,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 #     'http://127.0.0.1:8001',
 # ]
 
+# DRF 인증 관련 설정
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -160,7 +166,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         
         'rest_framework.permissions.AllowAny', 
-
+        # 인증된 사용자만 모든일이 가능 / 비인증 사용자는 모두 401 Unauthorized
         # 'rest_framework.permissions.IsAuthenticated'
     ]
 }
