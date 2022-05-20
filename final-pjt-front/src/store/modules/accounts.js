@@ -10,7 +10,11 @@ export default {
     currentUser: {},
     // profile: {},
     authError: null,
+    // 카카오 정보
     code: '',
+    id: '',
+    userName: '', // 닉네임
+    // platform: '',
   },
 
   getters: {
@@ -19,6 +23,7 @@ export default {
     // profile: state => state.profile,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: `Token ${state.token}`}),
+    
   },
 
   mutations: {
@@ -27,10 +32,11 @@ export default {
     // SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
     SET_CODE: (state, code) => state.code = code,
-    setUser(state, payload) {
-      state.userName = payload.name;
-      state.platform = payload.platform;
-    },
+    setKakaoUser(state, payload) {
+      state.id = payload.id
+      state.userName = payload.name
+      // state.platform = payload.platform
+    }
   },
 
   actions: {
