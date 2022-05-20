@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Drop, Comment
+
+admin.site.register(Drop)
+admin.site.register(Comment)
