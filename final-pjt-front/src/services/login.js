@@ -24,8 +24,7 @@ const getKakaoToken = async (code) => {
         const result = await axios.post('https://kauth.kakao.com/oauth/token', queryString, { headers: kakaoHeader });
         // const result = await axios.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${data.client_id}&redirect_uri=${data.redirect_uri}&code=${data.code}`);
         // console.log('카카오 토큰', queryString);
-        // console.log(result)
-
+        console.log(result)
         const token_header = {
             'Token': result.data.access_token
         }
@@ -37,6 +36,21 @@ const getKakaoToken = async (code) => {
         return e;
     }
 };
+
+const getKakaoUserInfo = async () => {
+    let data = '';
+    await window.Kakao.API.request({
+        url: "/v2/user/me",
+        success: function (response) {
+            data = response;
+        },
+        fail: function (error) {
+            console.log(error);
+        },
+    });
+    console.log('카카오 계정 정보', data);
+    return data;
+}
 
 const refreshToken = async () => {
     try {
@@ -52,4 +66,5 @@ const refreshToken = async () => {
 export {
     getKakaoToken,
     refreshToken,
+    getKakaoUserInfo
 };
