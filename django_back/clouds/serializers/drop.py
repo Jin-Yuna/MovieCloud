@@ -10,6 +10,10 @@ class DropSerializer(serializers.ModelSerializer):
         model = User
         fields = ('pk', 'username', )
 
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = Drop
         fields = ('pk', 'user', 'title', )
+
+        
