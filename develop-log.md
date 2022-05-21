@@ -52,6 +52,8 @@ movie 데이터 재  전처리
 
 소셜 로그인 토큰 받기 완료
 
+git 오류 => push가 되지 않음 => git log를 출력해보니 origin/master와 master가 달라서 발생한 문제
+
 
 
 - 5/21
@@ -59,4 +61,22 @@ movie 데이터 재  전처리
 vue 컴포넌트 구조화 및 수정
 
 현재 위치 및 날씨 조회 기능 구현
+
+=> store에서 유지보수 관리를 위해 modules로 위치와 날씨 정보를 빼서 진행 => 데이터가 업데이트 되지 못하고 undefined로 처리됨 
+
+=> 모듈로 빼지 않고 store index.js 내에 적었더니 해결됨 
+
+=> 문제는 과연 무엇이었을까?
+
+지도 출력 
+
+=> 오류 : Indicate whether to send a cookie in a cross-site request by specifying its SameSite attribute 
+
+=> script로 sdk를 가져올 때 //dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=fcf79d7950891e2a0bcbec183a0187dd 
+
+대신 https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=fcf79d7950891e2a0bcbec183a0187dd 입력 
+
+=> 해결 완료! (크롬 쿠키 정책 때문에 그렇다고 함)
+
+
 

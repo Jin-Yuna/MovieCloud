@@ -2,9 +2,6 @@
   <div>
     <WeatherList />
     <BoxOfficeList />
-    <router-link :to="{ name: 'MovieBoxoffice' }">
-      BoxOffice
-    </router-link>
   </div>
 </template>
 
