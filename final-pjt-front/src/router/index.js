@@ -7,6 +7,11 @@ import LogoutView from '@/views/LogoutView.vue'
 import SignupView from '@/views/SignupView.vue'
 import KakaoLoginView from '@/views/KakaoLoginView.vue'
 
+import MovieView from'@/views/MovieView.vue'
+import MovieDetailView from'@/views/MovieDetailView.vue'
+import MovieWeatherView from'@/views/MovieWeatherView.vue'
+import MovieBoxofficeView from'@/views/MovieBoxOfficeView.vue'
+
 import NotFound404 from '../views/NotFound404.vue'
 
 import DropListView from '@/views/DropListView.vue'
@@ -59,6 +64,26 @@ const routes = [
     path: '/kakaoLogin',
     name: 'kakaoLogin',
     component: KakaoLoginView
+  },
+  {
+    path: '/movies',
+    name: 'MovieHome',
+    component: MovieView
+  },
+  {
+    path: '/movies/:moviePk',
+    name: 'MovieDetail',
+    component: MovieDetailView
+  },
+  {
+    path: '/movies/weather',
+    name: 'MovieWeather',
+    component: MovieWeatherView
+  },
+  {
+    path: '/movies/boxoffice',
+    name: 'MovieBoxoffice',
+    component: MovieBoxofficeView
   },
   { 
     path: '/drops',
