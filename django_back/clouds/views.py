@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.db.models import Count
 
@@ -24,6 +25,8 @@ def drop_create(request):
         serializer = DropCreateSerializer(drops, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
+        print(request, '////////??')
+        print(request.user, '*****')
         serializer = DropCreateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)

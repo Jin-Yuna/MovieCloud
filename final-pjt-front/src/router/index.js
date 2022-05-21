@@ -15,6 +15,8 @@ import KakaoLoginView from '@/views/KakaoLoginView.vue'
 import NotFound404 from '../views/NotFound404.vue'
 import KakaoLoginTokenView from '@/views/KakaoLoginToken.vue'
 
+import DropListView from '@/views/DropListView.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -51,6 +53,11 @@ const routes = [
     path: '',
     name: 'kakaoLogin',
     component: KakaoLoginTokenView
+  },
+  { 
+    path: '/drops',
+    name: 'DropList',
+    component: DropListView
   },
   {
     path: '/404',
