@@ -7,13 +7,15 @@
         <label for="username">username: </label>
         <input v-model="credentials.username" type="text" id="username" required />
       </div>
-
       <div>
         <label for="password">password: </label>
         <input v-model="credentials.password" type="password" id="password" required />
       </div>
       <button>Login</button>
     </form>
+    <div>
+    <button @click="kakaoLogin"><img src="http://gi.esmplus.com/buybye1/page/kakao-login.png" style="height:60px;width:auto;"></button>
+  </div>
   </div>
 </template>
 
@@ -38,7 +40,13 @@
       ...mapGetters(['authError'])
     },
     methods: {
-      ...mapActions(['login'])
+      ...mapActions(['login']),
+      kakaoLogin() {
+        const params = {
+          redirectUri:'http://localhost:8080/kakaoLogin',
+        }
+        window.Kakao.Auth.authorize(params)
+      }
     },
   }
 </script>

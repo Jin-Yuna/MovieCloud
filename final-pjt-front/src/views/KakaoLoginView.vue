@@ -1,21 +1,46 @@
 <template>
-  <div>
-    <button @click="kakaoLogin"><img src="http://gi.esmplus.com/buybye1/page/kakao-login.png" style="height:60px;width:auto;"></button>
-  </div>
+<div></div>
 </template>
 
 <script>
-  export default {
-    name: 'KakaoLoginView',
-    methods: {
-      kakaoLogin() {
-        const params = {
-          redirectUri:'http://localhost:8080/',
-        }
-        window.Kakao.Auth.authorize(params)
+import { getKakaoToken, getKakaoUserInfo } from '@/services/login'
+
+export default {
+  name: 'KakaoLoginView',
+  created() {
+      if (this.$route.query.code) {
+        this.setKakaoToken();
       }
     },
-  }
-</script>
+  methods: {
+    async setKakaoToken () {
+      // 카카오 인증 코드
+      const { data } = await getKakaoToken(this.$route.query.code);
 
-<style></style>
+      if (data.error) {
+          alert('카카오톡 로그인 오류입니다.');
+          this.$router.replace('/login');
+          return;
+      }
+
+      window.Kakao.Auth.setAccessToken(data.access_token);
+      this.$cookies.set('access-token', data.access_token, '1d');
+      this.$cookies.set('refresh-token', data.refresh_token, '1d');
+      await this.setUserInfo();
+      this.$router.replace('/');
+      this.$store.commit('SET_TOKEN', data.access_token)
+    },
+    
+    // 유저 정보 뽑아오기
+    async setUserInfo () {
+      const res = await getKakaoUserInfo();
+      const userInfo = {
+        id: res.id,
+        name: res.kakao_account.profile.nickname,
+        // platform: 'kakao',
+      };
+      this.$store.commit('setKakaoUser', userInfo);
+    },
+  }
+}
+</script>
