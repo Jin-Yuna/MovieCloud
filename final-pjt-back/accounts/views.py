@@ -22,22 +22,20 @@ def kakaoLogin(request):
     is_exist = False
     users = User.objects.all()
     for user in users:
-        if user.id == user_info_response['id']:
+        if user.username == user_info_response['id']:
             is_exist = True
             break
-    
+    # 회원 가입
     if is_exist == False:
         print(user_info_response['id'])
-        # User.objects.create(
-        #     id = user_info_response['id'],
-        #     is_superuser = 0,
-        #     is_staff = 0,
-        #     is_active = 1, 
-        #     date_joined = user_info_response['connected_at'],
-        #     username = user_info_response['properties']['nickname']
-        # )
-
-    print(User.objects.filter(pk=user_info_response['id']))
+        User.objects.create(
+            username = user_info_response['id'],
+            is_superuser = 0,
+            is_staff = 0,
+            is_active = 1, 
+            date_joined = user_info_response['connected_at'],
+            nickname = user_info_response['properties']['nickname']
+        )
 
     return JsonResponse({'user_info': user_info_response})
 
