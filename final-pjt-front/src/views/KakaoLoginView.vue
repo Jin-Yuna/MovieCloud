@@ -3,7 +3,7 @@
 </template>
 
 <script>
-// import { getKakaoToken, getKakaoUserInfo } from '@/services/login'
+// import { getKakaoToken } from '@/services/login'
 
 // export default {
 //   name: 'KakaoLoginView',
@@ -31,16 +31,16 @@
 //       this.$store.commit('SET_TOKEN', data.access_token)
 //     },
     
-//     // 유저 정보 뽑아오기
-//     async setUserInfo () {
-//       const res = await getKakaoUserInfo();
-//       const userInfo = {
-//         id: res.id,
-//         name: res.kakao_account.profile.nickname,
-//         // platform: 'kakao',
-//       };
-//       this.$store.commit('setKakaoUser', userInfo);
-//     },
+//     // // 유저 정보 뽑아오기
+//     // async setUserInfo () {
+//     //   const res = await getKakaoUserInfo();
+//     //   const userInfo = {
+//     //     id: res.id,
+//     //     name: res.kakao_account.profile.nickname,
+//     //     // platform: 'kakao',
+//     //   };
+//     //   this.$store.commit('setKakaoUser', userInfo);
+//     // },
 //   }
 // }
 </script>

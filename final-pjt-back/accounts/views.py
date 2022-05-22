@@ -18,22 +18,25 @@ def kakaoLogin(request):
     headers={"Authorization": f'Bearer ${access_token}'})
     user_info_response = user_info_response.json()
 
+
     # 이미 있는 회원인지 검사
     is_exist = False
     users = User.objects.all()
     for user in users:
-        if user.username == user_info_response['id']:
+        if user.kakao_id == user_info_response['id']:
             is_exist = True
             break
+    user_123 = User.objects.filter(pk=7)
+    user_123.delete()
     # 회원 가입
     if is_exist == False:
-        print(user_info_response['id'])
         User.objects.create(
-            username = user_info_response['id'],
+            kakao_id = user_info_response['id'],
             is_superuser = 0,
             is_staff = 0,
             is_active = 1, 
             date_joined = user_info_response['connected_at'],
+            password = access_token,
             nickname = user_info_response['properties']['nickname']
         )
 

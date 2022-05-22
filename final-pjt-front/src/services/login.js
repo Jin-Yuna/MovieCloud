@@ -13,17 +13,13 @@
 //         const data = {
 //             grant_type: 'authorization_code',
 //             client_id: '683d19aa3f66f6c7d4ca3b08f6f139ed',
-//             redirect_uri: 'http://127.0.0.1:8000/kakaoLogin',
+//             redirect_uri: 'http://localhost:8081/kakaoLogin',
 //             code: code,
 //         };
 //         var esc = encodeURIComponent;
 //         var queryString = Object.keys(data).map(k => esc(k) + '=' + esc(data[k])).join('&')
 
-
-//         // ('https://kauth.kakao.com/oauth/token', queryString, { headers: kakaoHeader })
-
-//         await axios
-//         .post('https://kauth.kakao.com/oauth/token', queryString, { headers: kakaoHeader })
+//         await axios.post('https://kauth.kakao.com/oauth/token', queryString, { headers: kakaoHeader })
 //         // const result = await axios.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${data.client_id}&redirect_uri=${data.redirect_uri}&code=${data.code}`)
 //         // '카카오 토큰', result.data.access_token
 //             .then(res => {
