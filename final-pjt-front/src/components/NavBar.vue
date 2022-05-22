@@ -7,14 +7,14 @@
       <li v-if="!isLoggedIn">
         <router-link :to="{ name: 'signup' }">Signup</router-link>
       </li>
-      <li>
-        <router-link :to="{ name: 'kakaoLogin' }">KakaoLogin</router-link>
-      </li>
       <li v-if="isLoggedIn">
         <router-link :to="{ name: 'logout' }">Logout</router-link>
       </li>
       <li>
         <router-link :to="{ name: 'DropList' }">새글쓰기</router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'MovieHome' }">HOME</router-link>
       </li>
     </ul>
   </nav>

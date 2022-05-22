@@ -13,19 +13,18 @@ const getKakaoToken = async (code) => {
         const data = {
             grant_type: 'authorization_code',
             client_id: '683d19aa3f66f6c7d4ca3b08f6f139ed',
-            redirect_uri: 'http://localhost:8080/',
+            redirect_uri: 'http://localhost:8080/kakaoLogin',
             code: code,
         };
         var esc = encodeURIComponent;
         var queryString = Object.keys(data).map(k => esc(k) + '=' + esc(data[k])).join('&')
 
-        // console.log(queryString)
-        // console.log(('https://kauth.kakao.com/oauth/token', queryString, { headers: kakaoHeader }))
+
+        // ('https://kauth.kakao.com/oauth/token', queryString, { headers: kakaoHeader })
 
         const result = await axios.post('https://kauth.kakao.com/oauth/token', queryString, { headers: kakaoHeader });
-        // const result = await axios.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${data.client_id}&redirect_uri=${data.redirect_uri}&code=${data.code}`);
-        // console.log('카카오 토큰', queryString);
-        console.log(result.data.access_token)
+        // const result = await axios.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${data.client_id}&redirect_uri=${data.redirect_uri}&code=${data.code}`)
+        // '카카오 토큰', result.data.access_token
         const token_header = {
             'Token': result.data.access_token
         }
@@ -50,7 +49,7 @@ const getKakaoUserInfo = async () => {
             console.log(error);
         },
     });
-    console.log('카카오 계정 정보', data);
+    // 카카오 계정 정보 : data
     return data;
 }
 

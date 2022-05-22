@@ -23,7 +23,6 @@ export default {
     // profile: state => state.profile,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: `Token ${state.token}`}),
-    
   },
 
   mutations: {

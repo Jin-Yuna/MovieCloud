@@ -33,6 +33,10 @@ movie cloud
 
   https://app.diagrams.net/?src=about#G1JWp5ZrQux3Rr7myTiI-TF0OEcIUqQLBF
 
+  ![Untitled Diagram-Page-4.drawio](final_project.assets/Untitled Diagram-Page-4.drawio.png)
+
+  ![뷰 구조화](final_project.assets/뷰 구조화.PNG)
+
   ![Untitled Diagram-Page-3.drawio](final_project.assets/Untitled Diagram-Page-3.drawio.png)
 
   ![Untitled Diagram-Page-2.drawio](final_project.assets/Untitled Diagram-Page-2.drawio.png)
