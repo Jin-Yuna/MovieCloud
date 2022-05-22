@@ -16,11 +16,6 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = ('title', )
 
-class MovieAllSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Movie
-        fields = '__all__'
-
 
 class DropListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -54,10 +49,16 @@ class CommentSimpleSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('user_name', 'content', )
 
-
+# 디테일에 필요한 데이터만 출력되도록 구조가 정해지면 수정하기
 class DropDretailSerializer(serializers.ModelSerializer):
     # comment_count = serializers.IntegerField(source='comments.count', read_only=True)
+    class MovieForDropDeatailSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Movie
+            fields = '__all__'
+    movie = MovieForDropDeatailSerializer()
     user = UserSerializer(read_only=True)
+    comments = CommentSimpleSerializer(many=True, read_only=True)
     like_users = UserSerializer(read_only=True, many=True)
     class Meta:
         model = Drop
@@ -71,9 +72,15 @@ class CommentCreateSerializer(serializers.ModelSerializer):
         exclude = ('drop', 'user')
 
 
+# 카드에 필요한 데이터만 출력되도록 구조가 정해지면 수정하기
 class DropCardSerializer(serializers.ModelSerializer):
-    movie = MovieAllSerializer()
-    comments = CommentSimpleSerializer(many=True, read_only=True)
+
+    class MovieForDropCardSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Movie
+            fields = '__all__'
+
+    movie = MovieForDropCardSerializer()
     user = UserSerializer(read_only=True)
     like_users = UserSerializer(read_only=True, many=True)
     comment_count = serializers.IntegerField(source='comments.count', read_only=True)

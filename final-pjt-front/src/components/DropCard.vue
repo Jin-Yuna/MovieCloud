@@ -1,7 +1,10 @@
 <template>
   <div class="video-list-item">
     <img :src="posterUrl" alt="포스터">
-    <h3>{{ drop.title }}</h3>
+    <router-link 
+      :to="{ name: 'DropDetailView', params: {dropPk: drop.id} }">
+      <h3>{{ drop.title }}</h3>
+    </router-link>
     <p>{{ drop.content }}</p>
     <p>{{ drop.user.username }}</p>
     <p>총 drop 데이터 : {{ drop }}</p>

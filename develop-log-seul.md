@@ -15,6 +15,14 @@
 
 - Drop 작성 시에 select폼에는 movie타이틀이 출력되게 하고, 데이터로는 선택된 타이틀의 id만 넘기는 방법을 찾아야 한다.
 
+- vue컴포넌트에서 모듈 컴포넌트에 접근하는 방법 (ex: ) accounts 모듈 안의 토큰)
+
+  ```
+  console.log(this.$store.state.accounts.token)
+  ```
+
+
+
 ### Back
 
 - 

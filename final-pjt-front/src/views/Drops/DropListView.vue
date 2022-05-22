@@ -11,10 +11,11 @@
 
 <script>
 import axios from 'axios'
+import drf from '@/api/drf'
 import DropCard from '@/components/DropCard.vue'
 
 export default {
-  name: 'DropList',
+  name: 'DropListView',
   components: {
     DropCard,
   },
@@ -24,9 +25,12 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:8000/drops/cards/')
-      .then(response => {
-        this.drops = response.data
+    axios({
+      url: drf.drops.drops(),
+      method: 'get',
+    })
+    .then(response => {
+      this.drops = response.data
       })
   }
 }

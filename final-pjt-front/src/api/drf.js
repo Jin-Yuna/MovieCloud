@@ -2,6 +2,9 @@ const HOST = 'http://127.0.0.1:8000/'
 
 const ACCOUNTS = 'accounts/'
 
+const DROPS = 'drops/'
+// const COMMENTS = 'comments/'
+
 export default {
   accounts: {
     login: () => HOST + ACCOUNTS + 'login/',
@@ -13,5 +16,13 @@ export default {
     // username으로 프로필 제공
     // profile: username => HOST + ACCOUNTS + 'profile/' + username,
   },
-
+  drops: {
+    newDrop: () => HOST + DROPS + 'new/',
+    drops: () => HOST + DROPS + 'list/',
+    drop: dropPk => HOST + DROPS + `${dropPk}/`
+    // likeArticle: articlePk => HOST + ARTICLES + `${articlePk}/` + 'like/',
+    // comments: articlePk => HOST + ARTICLES + `${articlePk}/` + COMMENTS,
+    // comment: (articlePk, commentPk) =>
+    //   HOST + ARTICLES + `${articlePk}/` + COMMENTS + `${commentPk}/`,
+  },
 }
