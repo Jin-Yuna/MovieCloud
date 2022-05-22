@@ -5,6 +5,12 @@ from movies.models import Movie
 
 User = get_user_model()
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('pk', 'username')
+
+
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
@@ -50,10 +56,9 @@ class CommentSimpleSerializer(serializers.ModelSerializer):
 
 
 class DropDretailSerializer(serializers.ModelSerializer):
-    movie = MovieSerializer()
-    comments = CommentSimpleSerializer(many=True, read_only=True)
-    comment_count = serializers.IntegerField(source='comments.count', read_only=True)
-    # like_users = serializers.CharField(source='user.username', read_only = True)
+    # comment_count = serializers.IntegerField(source='comments.count', read_only=True)
+    user = UserSerializer(read_only=True)
+    like_users = UserSerializer(read_only=True, many=True)
     class Meta:
         model = Drop
         fields = '__all__'
@@ -65,11 +70,14 @@ class CommentCreateSerializer(serializers.ModelSerializer):
         model = Comment
         exclude = ('drop', 'user')
 
+
 class DropCardSerializer(serializers.ModelSerializer):
-    movie = MovieSerializer()
+    movie = MovieAllSerializer()
     comments = CommentSimpleSerializer(many=True, read_only=True)
+    user = UserSerializer(read_only=True)
+    like_users = UserSerializer(read_only=True, many=True)
     comment_count = serializers.IntegerField(source='comments.count', read_only=True)
-    # like_users = serializers.CharField(source='user.username', read_only = True)
+
     class Meta:
         model = Drop
         fields = '__all__'

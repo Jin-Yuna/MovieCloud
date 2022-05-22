@@ -3,7 +3,7 @@
     <img :src="posterUrl" alt="포스터">
     <h3>{{ drop.title }}</h3>
     <p>{{ drop.content }}</p>
-    <p>{{ drop.like_users }}</p>
+    <p>{{ drop.user.username }}</p>
     <p>총 drop 데이터 : {{ drop }}</p>
   </div>
 </template>
