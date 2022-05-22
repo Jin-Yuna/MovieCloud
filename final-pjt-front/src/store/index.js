@@ -2,13 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import accounts from './modules/accounts'
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    latitude: 0,
-    longitude: 0,
+    latitude: 36.355560,
+    longitude: 127.298388,
     temp: 0,
     city: '',
     weather_simple: '',
@@ -41,4 +42,7 @@ export default new Vuex.Store({
   modules: {  
     accounts,
   },
+  //vuex plugin 명시 
+  plugins: [createPersistedState()]
+
 })

@@ -4,7 +4,7 @@ import VueCookies from 'vue-cookies'
 const kakaoHeader = {
     'Authorization': '50634426dfc0150423190cbcb41d99e9',
     'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-};
+}
 
 // 토큰 받아오기
 const getKakaoToken = async (code) => {
