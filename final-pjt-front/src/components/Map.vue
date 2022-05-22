@@ -3,7 +3,7 @@
     <div id="map">
     </div>
     <!-- 검색 결과 표시 -->
-    <div class="results" v-for="result in search.results" :key="result.id" @click="showPlace">
+    <div class="results" v-for="result in results.documents " :key="result.id" @click="displayMarker(Positions)">
       <h4>>{{ result.place_name }}</h4>
       <p>{{ result.address_name }}</p>
    </div>
@@ -18,14 +18,11 @@ export default {
   data() {
     return {
       map: null,
-      markerPositions: [
+      Positions: [
         [ this.$store.state.latitude, this.$store.state.longitude ],
       ],
+      results: '',
       markers: [],
-      search: {
-        pgn: null,
-        results: [],
-      }
     }
   },
   // 지도 불러오기
@@ -49,8 +46,11 @@ export default {
         level: 8,
       }
       this.map = new window.kakao.maps.Map(container, options)
-      this.displayMarker(this.markerPositions)
       this.searchPlaces()
+      
+      this.displayInfoWindow()
+      this.displayMarker(this.Positions)
+      
       },
     // 마커 표시
     displayMarker(markerPositions) {
@@ -68,6 +68,7 @@ export default {
               map: this.map,
               position,
             }))
+
         const bounds = positions.reduce((bounds, latlng) => bounds.extend(latlng), new window.kakao.maps.LatLngBounds())
         this.map.setBounds(bounds)
       }
@@ -75,10 +76,43 @@ export default {
     searchPlaces() {
       var config = { headers: { 'Authorization': 'KakaoAK 683d19aa3f66f6c7d4ca3b08f6f139ed'}};
       var url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query='+'영화관&'+`y=${this.$store.state.latitude}&`+`x=${this.$store.state.longitude}`+'&radius=20000'
-        axios.get(url, config).then(function(response) {
-        console.log(JSON.stringify(response.data));
-			})
+        axios.get(url, config).then((response) => {
+          // 데이터 개수 response.data.documents.length
+          
+          this.results = response.data
+
+          for (var i=0; i< this.results.documents.length; i++){
+            var latitude = Number(this.results.documents[i].y)
+            var longitude = Number(this.results.documents[i].x)
+            this.Positions.push([latitude, longitude])
+          }
+        }
+			)
     },
+    // 내 위치 표시
+    displayInfoWindow() {
+      if (this.infowindow && this.infowindow.getMap()) {
+        //이미 생성한 인포윈도우가 있기 때문에 지도 중심좌표를 인포윈도우 좌표로 이동시킨다.
+        this.map.setCenter(this.infowindow.getPosition());
+        return;
+      }
+
+      var iwContent = '<div style="padding:5px;">내 위치</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        iwPosition = new window.kakao.maps.LatLng(this.Positions[0][0], this.Positions[0][1]), //인포윈도우 표시 위치입니다
+        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+      this.infowindow = new window.kakao.maps.InfoWindow({
+        map: this.map, // 인포윈도우가 표시될 지도
+        position: iwPosition,
+        content: iwContent,
+        removable: iwRemoveable,
+      });
+
+      this.map.setCenter(iwPosition);
+    },
+    showPlace() {
+
+    }
   },
 }
 </script>
