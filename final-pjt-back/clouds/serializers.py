@@ -10,6 +10,11 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = ('title', )
 
+class MovieAllSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = '__all__'
+
 
 class DropListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -59,3 +64,12 @@ class CommentCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         exclude = ('drop', 'user')
+
+class DropCardSerializer(serializers.ModelSerializer):
+    movie = MovieSerializer()
+    comments = CommentSimpleSerializer(many=True, read_only=True)
+    comment_count = serializers.IntegerField(source='comments.count', read_only=True)
+    # like_users = serializers.CharField(source='user.username', read_only = True)
+    class Meta:
+        model = Drop
+        fields = '__all__'

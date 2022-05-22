@@ -1,21 +1,22 @@
 <template>
   <div>
-    <DropCreate />
     <h1>게시판</h1>
-    <div v-for="drop in drops" :key="drop.id">
-      {{ drop }} -->
-    </div>
+    <DropCard
+      v-for="drop in drops"
+      :key="drop.id"
+      :drop="drop"
+    />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import DropCreate from '@/components/DropCreate.vue'
+import DropCard from '@/components/DropCard.vue'
 
 export default {
   name: 'DropList',
   components: {
-    DropCreate,
+    DropCard,
   },
   data() {
     return {
@@ -23,12 +24,7 @@ export default {
     }
   },
   created() {
-    const config = {
-      headers: {
-        Authorization: `Token ${this.$store.state.token}`
-      }
-    }
-    axios.get('http://127.0.0.1:8000/drops/', config)
+    axios.get('http://127.0.0.1:8000/drops/cards/')
       .then(response => {
         this.drops = response.data
       })

@@ -15,7 +15,7 @@ import MovieBoxofficeView from'@/views/MovieBoxOfficeView.vue'
 import NotFound404 from '../views/NotFound404.vue'
 
 import DropListView from '@/views/DropListView.vue'
-
+import DropCreateView from '@/views/Drops/DropCreateView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -89,6 +89,11 @@ const routes = [
     path: '/drops',
     name: 'DropList',
     component: DropListView
+  },
+  { 
+    path: '/drops/new',
+    name: 'DropCreateView',
+    component: DropCreateView
   },
   {
     path: '/404',

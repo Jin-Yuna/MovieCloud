@@ -15,23 +15,24 @@ from .serializers import (
     DropDretailSerializer,
     DropListSerializer,
     CommentListSerializer,
-    CommentCreateSerializer
+    CommentCreateSerializer,
+    DropCardSerializer
 )
 
-@api_view(['GET', 'POST']) # 임시로 목록 조회랑 같이 둠.
-def drop_create(request):
-    if request.method == 'GET':
-        drops = Drop.objects.annotate(comment_count=Count('comments', distinct=True)).order_by('-pk')
-        serializer = DropCreateSerializer(drops, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        print(request, '////////??')
-        print(request.user, '*****')
-        serializer = DropCreateSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user)
-            return Response(serializer.data, HTTP_201_CREATED)
+@api_view(['GET'])
+def drop_card(request):
+    drops = Drop.objects.annotate(comment_count=Count('comments', distinct=True)).order_by('-pk')
+    serializer = DropCardSerializer(drops, many=True)
+    return Response(serializer.data)
 
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated]) # 로그인 한 사용자만 글쓰기 가능
+def drop_create(request):
+    serializer = DropCreateSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(user=request.user)
+        return Response(serializer.data, HTTP_201_CREATED)
 
 @api_view(['GET'])
 def drop_detail(request, pk):

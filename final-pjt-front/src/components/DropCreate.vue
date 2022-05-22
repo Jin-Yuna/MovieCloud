@@ -41,7 +41,6 @@ export default {
   created() {
     axios.get('http://127.0.0.1:8000/movies/get_movie_title/')
       .then(response => {
-        console.log('뭐지?')
         this.movies_title = response.data
       // movie_id와 title 가져옴
       })
@@ -55,13 +54,11 @@ export default {
         movie: this.movie_pk,
         user_vote: this.user_vote,
       }
-      console.log(data)
       const config = {
         headers: {
-        Authorization: `Token ${this.$store.state.token}`
+          Authorization: `Token ${this.$store.state.accounts.token}`
         }
       }
-      // axios.post('http://127.0.0.1:8000/drops/new/', data)
       axios.post('http://127.0.0.1:8000/drops/new/', data, config)
         .then(response => {
           console.log(response.data)
