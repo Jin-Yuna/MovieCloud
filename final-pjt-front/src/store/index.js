@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import accounts from './modules/accounts'
+import drops from './modules/drops'
 import createPersistedState from 'vuex-persistedstate';
+
 
 Vue.use(Vuex)
 
