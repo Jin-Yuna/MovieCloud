@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 import accounts from './modules/accounts'
 import drops from './modules/drops'
+import weathers from './modules/weathers'
+
 import createPersistedState from 'vuex-persistedstate';
 
 
@@ -10,25 +12,33 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    latitude: 36.355560,
-    longitude: 127.298388,
-    temp: 0,
-    city: '',
-    weather_simple: '',
-    weather_description: '', 
+    location: {
+      latitude: 36.355560,
+      longitude: 127.298388,
+      city: '',
+    },
+    weather: {
+      weather_id: '',
+      weather_simple: '',
+      weather_description: '', 
+      temp: 0,
+    }
   },
   getters: {
+    location: state => state.location,
+    weather: state => state.weather,
   },
   mutations: {
     SET_LOCATION(state, loc) {
-      state.latitude = loc.latitude
-      state.longitude = loc.longitude
+      state.location.latitude = loc.latitude
+      state.location.longitude = loc.longitude
     },
     SET_WEATHER(state, weather) {
-      state.weather_description = weather.weather_description
-      state.weather_simple = weather.weather_simple
-      state.city = weather.city
-      state.temp = weather.temp
+      state.weather.weather_description = weather.weather_description
+      state.weather.weather_simple = weather.weather_simple
+      state.location.city = weather.city
+      state.weather.temp = weather.temp
+      state.weather.weather_id = weather.weather_id
     }
   },
   actions: {
@@ -44,6 +54,7 @@ export default new Vuex.Store({
   modules: {  
     accounts,
     drops,
+    weathers,
   },
   //vuex plugin 명시 
   plugins: [createPersistedState()]
