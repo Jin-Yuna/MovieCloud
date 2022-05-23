@@ -43,7 +43,7 @@
       ...mapActions(['login']),
       kakaoLogin() {
         const params = {
-          redirectUri:'http://localhost:8080/kakaoLogin',
+          redirectUri:'http://127.0.0.1:8000/kakaoLogin',
         }
         window.Kakao.Auth.authorize(params)
       }

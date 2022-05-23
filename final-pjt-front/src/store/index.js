@@ -5,6 +5,7 @@ import accounts from './modules/accounts'
 import drops from './modules/drops'
 import createPersistedState from 'vuex-persistedstate';
 
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({

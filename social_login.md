@@ -125,3 +125,24 @@ Admin 키 : 50634426dfc0150423190cbcb41d99e9
     ------------------------------
 
     그러면 DB를 따로 파야할까?
+
+
+
+user 정보
+
+id => id
+
+is_superuser => 0
+
+username => nickname
+
+is_staff => 0
+
+is_active => 1
+
+date_joined => connected_At
+
+----------------
+
+프론트에서 redirect만 하고 백에 다 넘겨주었더니 데이터를 들고 돌아올 방법,,? 어떻게 해야할까?
+
