@@ -13,7 +13,7 @@
 import axios from 'axios'
 import drf from '@/api/drf'
 import DropCard from '@/components/DropCard.vue'
-
+import { mapActions } from 'vuex'
 export default {
   name: 'DropListView',
   components: {
@@ -24,7 +24,11 @@ export default {
       drops : []
     }
   },
+  methods: {
+    ...mapActions(['getToday'])
+  },
   created() {
+    this.$store.dispatch('getToday')
     axios({
       url: drf.drops.drops(),
       method: 'get',

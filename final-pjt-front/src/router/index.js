@@ -10,6 +10,7 @@ import MovieView from'@/views/MovieView.vue'
 import MovieDetailView from'@/views/MovieDetailView.vue'
 import MovieWeatherView from'@/views/MovieWeatherView.vue'
 import MovieBoxofficeView from'@/views/MovieBoxOfficeView.vue'
+import MovieTopRatedView from '@/views/MovieTopRatedView.vue'
 
 import NotFound404 from '../views/NotFound404.vue'
 import CloudView from '@/views/CloudView.vue'
@@ -90,6 +91,11 @@ const routes = [
     path: '/movies/boxoffice',
     name: 'MovieBoxoffice',
     component: MovieBoxofficeView
+  },
+  {
+    path: '/movies/toprated',
+    name: 'MovieTopRatedView',
+    component: MovieTopRatedView
   },
   { 
     path: '/drops',
