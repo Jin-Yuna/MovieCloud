@@ -8,14 +8,11 @@ from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_204_NO_CONTENT,
 )
-from .models import Drop
+from .models import Drop, Comment
 from .serializers import (
-    CommentSimpleSerializer,
     DropCreateSerializer,
     DropDretailSerializer,
-    DropListSerializer,
-    CommentListSerializer,
-    CommentCreateSerializer,
+    CommentSerializer,
     DropCardSerializer
 )
 
@@ -53,12 +50,51 @@ def drop_detail(request, pk):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated]) # 로그인 한 사용자만 댓글달기 가능
-def comment_create(request, pk):
+@permission_classes([IsAuthenticated]) 
+def like_drop(request, pk):
     drop = get_object_or_404(Drop, pk=pk)
-    serializer = CommentCreateSerializer(data=request.data)
+    user = request.user
+    if drop.like_users.filter(pk=user.pk).exists():
+        drop.like_users.remove(user)
+        serializer = DropDretailSerializer(drop)
+        return Response(serializer.data)
+    else:
+        drop.like_users.add(user)
+        serializer = DropDretailSerializer(drop)
+        return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated]) # 로그인 한 사용자만 댓글달기 가능
+def create_comment(request, pk):
+    drop = get_object_or_404(Drop, pk=pk)
+    serializer = CommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(drop=drop, user=request.user)
         comments = drop.comments.all()
-        serializer = CommentSimpleSerializer(comments, many=True)
+        serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, HTTP_201_CREATED)
+
+
+
+@api_view(['PUT', 'DELETE'])
+def comment_update_or_delete(request, pk, comment_pk):
+    drop = get_object_or_404(Drop, pk=pk)
+    comment = get_object_or_404(Comment, pk=comment_pk)
+
+    if request.method == 'PUT':
+        if request.user == comment.user:
+            serializer = CommentSerializer(instance=comment, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                comments = drop.comments.all()
+                serializer = CommentSerializer(comments, many=True)
+                return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        if request.user == comment.user:
+            comment.delete()
+            comments = drop.comments.all()
+            serializer = CommentSerializer(comments, many=True)
+            return Response(serializer.data)
+    

@@ -19,6 +19,7 @@ export default {
   },
   mutations: {
     SET_DROP: (state, drop) => state.drop = drop,
+    SET_DROP_COMMENTS: (state, comments) => (state.drop.comments = comments),
   },
   actions: {
     createDrop({ commit, getters }, drop ) {
@@ -53,14 +54,6 @@ export default {
         })
     },
     updateDrop({ commit, getters }, { dropPk, title, content, user_vote, movie }) {
-      /* 게시글 수정
-      PUT: drop URL (게시글 입력정보, token)
-        성공하면
-          응답으로 받은 게시글을 state.drop에 저장
-          dropDetailView 로 이동
-        실패하면
-          에러 메시지 표시
-      */
       axios({
         url: drf.drops.drop(dropPk),
         method: 'put',
@@ -74,6 +67,57 @@ export default {
             params: { dropPk: dropPk }
           })
         })
+    },
+    deleteDrop({ commit, getters }, dropPk) {  
+      console.log('삭제')
+      if (confirm('삭제하시겠습니까?')) {
+        axios({
+          url: drf.drops.drop(dropPk),
+          method: 'delete',
+          headers: getters.authHeader,
+        })
+          .then(() => {
+            commit('SET_DROP', {})
+            router.push({ name: 'DropListView' })
+          })
+          .catch(error => console.error(error.response))
+      }
+    },
+    likeDrop({ commit, getters }, dropPk) {
+      axios({
+        url: drf.drops.likeDrop(dropPk),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+        .then(response => commit('SET_DROP', response.data))
+        .catch(error => console.error(error.response))
+    },
+    createComment({ commit, getters }, { dropPk, content }) {
+      const comment = { content }
+      axios({
+        url: drf.drops.comments(dropPk),
+        method: 'post',
+        data: comment,
+        headers: getters.authHeader,
+      })
+        .then(response => {
+          commit('SET_DROP_COMMENTS', response.data)
+        })
+        .catch(error => console.error(error.response))
+    },
+    updateComment({ commit, getters }, { dropPk, commentPk, content }) {
+      const comment = { content }
+
+      axios({
+        url: drf.drops.comment(dropPk, commentPk),
+        method: 'put',
+        data: comment,
+        headers: getters.authHeader,
+      })
+        .then(response => {
+          commit('SET_DROP_COMMENTS', response.data)
+        })
+        .catch(error => console.error(error.response))
     },
   },
 }
