@@ -3,6 +3,7 @@
     <h3>{{ boxOffice.movieNm }}</h3>
     <img :src="poster" alt="">
     <p>{{ boxOffice }}</p>
+    <p>{{ overview }}</p>
     <div v-if="imgs.length" class="flex">
       <BoxOfficeImg
         v-for="img in imgs"
@@ -30,6 +31,7 @@ export default {
       tmdb_movie_id: 0,
       imgs: [],
       poster: '',
+      overview: '',
     }
   },
   methods: {
@@ -44,12 +46,15 @@ export default {
       const TMDB_SEARCH_URL='https://api.themoviedb.org/3/search/movie'
       axios.get(TMDB_SEARCH_URL, config)
         .then(response => {
+          // 더 필요한 데이터가 있다면 여기 response(tbdb)에서 한번 찾아보기
+          // 장르는 장르 번호로 되어 있음.
+          this.overview = response.data.results[0].overview
+          const tmdb_movie_id = response.data.results[0].id
           config = {
             params: {
               'api_key': process.env.VUE_APP_TMDB_API_KEY,
             }
           }
-          const tmdb_movie_id = response.data.results[0].id
           const TBDM_IMG_URL = `https://api.themoviedb.org/3/movie/${tmdb_movie_id}/images`
           axios.get(TBDM_IMG_URL, config)
             .then(response => {
