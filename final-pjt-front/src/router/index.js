@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import store from '../store'
-import createPersistedState from 'vuex-persistedstate';
 import LoginView from '@/views/LoginView.vue'
 import LogoutView from '@/views/LogoutView.vue'
 import SignupView from '@/views/SignupView.vue'
 import KakaoLoginView from '@/views/KakaoLoginView.vue'
-
+import createPersistedState from 'vuex-persistedstate'
 import MovieView from'@/views/MovieView.vue'
 import MovieDetailView from'@/views/MovieDetailView.vue'
 import MovieWeatherView from'@/views/MovieWeatherView.vue'
