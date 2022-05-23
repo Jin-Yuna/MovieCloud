@@ -10,6 +10,10 @@ pip -r requirements.txt   (변동이 있으면 꼭 freeze)
 ```
 
 ```bash
+python manage.py migrate
+```
+
+```bash
 python manage.py loaddata 데이터파일이름
 ```
 

@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import store from '../store'
-
 import LoginView from '@/views/LoginView.vue'
 import LogoutView from '@/views/LogoutView.vue'
 import SignupView from '@/views/SignupView.vue'
 import KakaoLoginView from '@/views/KakaoLoginView.vue'
-
+import createPersistedState from 'vuex-persistedstate'
 import MovieView from'@/views/MovieView.vue'
 import MovieDetailView from'@/views/MovieDetailView.vue'
 import MovieWeatherView from'@/views/MovieWeatherView.vue'
@@ -14,8 +13,10 @@ import MovieBoxofficeView from'@/views/MovieBoxOfficeView.vue'
 
 import NotFound404 from '../views/NotFound404.vue'
 
-import DropListView from '@/views/DropListView.vue'
-
+import DropListView from '@/views/Drops/DropListView.vue'
+import DropCreateView from '@/views/Drops/DropCreateView.vue'
+import DropDetailView from '@/views/Drops/DropDetailView.vue'
+import DropEditView from '@/views/Drops/DropEditView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -87,8 +88,23 @@ const routes = [
   },
   { 
     path: '/drops',
-    name: 'DropList',
+    name: 'DropListView',
     component: DropListView
+  },
+  { 
+    path: '/drops/new',
+    name: 'DropCreateView',
+    component: DropCreateView
+  },
+  {
+    path: '/drops/:dropPk',
+    name: 'DropDetailView',
+    component: DropDetailView
+  },
+  {
+    path: '/drops/:dropPk/edit',
+    name: 'DropEditView',
+    component: DropEditView
   },
   {
     path: '/404',

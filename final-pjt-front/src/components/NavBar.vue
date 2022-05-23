@@ -11,11 +11,15 @@
         <router-link :to="{ name: 'logout' }">Logout</router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'DropList' }">새글쓰기</router-link>
+        <router-link :to="{ name: 'DropListView' }">글 목록</router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'DropCreateView' }">새글쓰기</router-link>
       </li>
       <li>
         <router-link :to="{ name: 'MovieHome' }">HOME</router-link>
       </li>
+
     </ul>
   </nav>
 </template>
