@@ -7,5 +7,7 @@ urlpatterns = [
     path('list/', views.drop_list),
     path('new/', views.drop_create),
     path('<int:pk>/', views.drop_detail),
-    path('comment_create/', views.comment_create),
+    path('<int:pk>/like/', views.like_drop),
+    path('<int:pk>/comments/', views.create_comment),
+    path('<int:pk>/comments/<int:comment_pk>/', views.comment_update_or_delete),
 ]

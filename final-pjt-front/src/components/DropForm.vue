@@ -1,10 +1,11 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <div>
+    <!-- 수정할 때는 영화목록 선택 안보이게 함 -->
+    <div v-if="isCreate"> 
       <label for="movie">영화</label>
       <select id="movie" v-model="newDrop.movie">
-        <option v-for="movie_title in movies_title" :key="movie_title.pk">
-          <p>{{ movie_title.pk }}</p>
+        <option v-for="movie_title in movies_title" :key="movie_title.id">
+          <p>{{ movie_title.id }}</p>
         </option>
       </select>
     </div>
@@ -39,7 +40,7 @@ export default {
       newDrop: {
         title: this.drop.title,
         content: this.drop.content,
-        movie: this.drop.movie_pk,
+        movie: this.drop.movie_id,
         user_vote: this.drop.user_vote,
         // movies_title : drop.movies_title,
       }
@@ -60,6 +61,11 @@ export default {
         this.updateDrop(payload)
       }
     },
+  },
+  computed : {
+    isCreate() {
+      return (this.action === 'create')
+    }
   },
   created() {
   }

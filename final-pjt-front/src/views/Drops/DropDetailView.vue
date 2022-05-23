@@ -7,17 +7,26 @@
       <router-link :to="{ name: 'DropEditView', params: { dropPk } }">
         <button>Edit</button>
       </router-link>
-      <!-- <button @click="deleteArticle(articlePk)">Delete</button> -->
+      <button @click="deleteDrop(dropPk)">Delete</button>
     </div>
+    <div>
+      좋아요:
+      <button
+        @click="likeDrop(dropPk)"
+      >{{ likeCount }}</button>
+    </div>
+    <CommentList :comments="drop.comments" />
   </div>
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
+  import CommentList from '@/components/Comments/CommentList.vue'
+
   export default {
     name: 'DropDetailView',
     components: {
-
+      CommentList,
     },
     data() {
       return {
@@ -29,11 +38,12 @@
       posterUrl() {
         return 'https://image.tmdb.org/t/p/w500' + this.drop.movie.poster_path
       },
+      likeCount() {
+        return this.drop.like_users?.length
+      }
     },
     methods: {
-      ...mapActions([
-        'getDrop',
-      ])
+      ...mapActions(['getDrop', 'deleteDrop', 'likeDrop', ])
     },
     created() {
       this.getDrop(this.dropPk)
