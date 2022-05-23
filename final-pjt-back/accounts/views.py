@@ -1,6 +1,9 @@
-from django.http import JsonResponse
 import requests
 from .models import User
+from django.shortcuts import get_object_or_404, redirect
+from rest_framework.response import Response
+from .serailizers import KakaoUserSerializer
+from rest_framework.decorators import api_view
 
 def kakaoLogin(request):
     
@@ -26,8 +29,7 @@ def kakaoLogin(request):
         if user.kakao_id == user_info_response['id']:
             is_exist = True
             break
-    user_123 = User.objects.filter(pk=7)
-    user_123.delete()
+    current_user = user_info_response['id']
     # 회원 가입
     if is_exist == False:
         User.objects.create(
@@ -40,5 +42,14 @@ def kakaoLogin(request):
             nickname = user_info_response['properties']['nickname']
         )
 
-    return JsonResponse({'user_info': user_info_response})
+    return redirect(f'http://localhost:8080/kakaoLogin/{current_user}/')
+
+
+@api_view(['GET'])
+def kakaoInfo(request, pk):
+    if request.method == 'GET':
+        current_user = get_object_or_404(User, kakao_id=pk)
+        serializer = KakaoUserSerializer(current_user)
+        return Response(serializer.data)
+
 

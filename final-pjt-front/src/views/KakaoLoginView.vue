@@ -3,44 +3,31 @@
 </template>
 
 <script>
-// import { getKakaoToken } from '@/services/login'
+import axios from 'axios'
 
-// export default {
-//   name: 'KakaoLoginView',
-//   created() {
-//       if (this.$route.query.code) {
-//         this.setKakaoToken();
-//       }
-//     },
-//   methods: {
-//     async setKakaoToken () {
-//       // 카카오 인증 코드
-//       const { data } = await getKakaoToken(this.$route.query.code);
-//       console.log('여기 진행 했니?')
-//       if (data.error) {
-//           alert('카카오톡 로그인 오류입니다.');
-//           this.$router.replace('/login');
-//           return;
-//       }
+export default {
+  name: 'KakaoLoginView',
+  data() {
+      return {
+        userPk: Number(this.$route.params.kakaoPk),
+        userdata: null,
+      }
+    },
+  created() {
+    this.Userdataget()
+  },
+  methods: {
+    Userdataget() {
+      axios.get(`http://127.0.0.1:8000/kakao_user_info/${this.userPk}/`)
+        .then(response => {
+          // this.userdata => 현재 유저 정보 
+          this.userdata = response.data
+          const token = this.userdata.password
+          this.$store.dispatch('saveToken', token)
+          this.$router.push('/movies')
+          })
+    }
+  }
+}
 
-//       window.Kakao.Auth.setAccessToken(data.access_token);
-//       this.$cookies.set('access-token', data.access_token, '1d');
-//       this.$cookies.set('refresh-token', data.refresh_token, '1d');
-//       await this.setUserInfo();
-//       this.$router.replace('/');
-//       this.$store.commit('SET_TOKEN', data.access_token)
-//     },
-    
-//     // // 유저 정보 뽑아오기
-//     // async setUserInfo () {
-//     //   const res = await getKakaoUserInfo();
-//     //   const userInfo = {
-//     //     id: res.id,
-//     //     name: res.kakao_account.profile.nickname,
-//     //     // platform: 'kakao',
-//     //   };
-//     //   this.$store.commit('setKakaoUser', userInfo);
-//     // },
-//   }
-// }
 </script>
