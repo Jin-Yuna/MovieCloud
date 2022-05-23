@@ -8,14 +8,14 @@ export default {
   state: {
     token: '',
     currentUser: {},
-    // profile: {},
+    profile: {},
     authError: null,
   },
 
   getters: {
     isLoggedIn: state => !!state.token,
     currentUser: state => state.currentUser,
-    // profile: state => state.profile,
+    profile: state => state.profile,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: `Token ${state.token}`}),
   },
@@ -23,14 +23,8 @@ export default {
   mutations: {
     SET_TOKEN: (state, token) => state.token = token,
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
-    // SET_PROFILE: (state, profile) => state.profile = profile,
+    SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
-    SET_CODE: (state, code) => state.code = code,
-    setKakaoUser(state, payload) {
-      state.id = payload.id
-      state.userName = payload.name
-      // state.platform = payload.platform
-    }
   },
 
   actions: {
@@ -86,7 +80,6 @@ export default {
       axios({
         url: drf.accounts.logout(),
         method: 'post',
-        // data: {},
         headers: getters.authHeader,
       })
         .then(() => {
@@ -116,12 +109,15 @@ export default {
       }
     },
 
-    // fetchProfile({ commit, getters }, { username }) {
-    //   /*
-    //   GET: profile URL로 요청보내기
-    //     성공하면
-    //       state.profile에 저장
-    //   */
-    // },
+    fetchProfile({ commit, getters }, { userPk }) {
+      axios({
+        url:drf.accounts.profile(userPk),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_PROFILE', res.data)
+        })
+    },
   },
 }

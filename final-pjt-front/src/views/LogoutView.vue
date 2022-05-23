@@ -12,14 +12,21 @@
       ...mapActions(['logout'])
     },
     computed: {
-      ...mapGetters(['isLoggedIn'])
+      ...mapGetters(['isLoggedIn', 'profile'])
     },
     created() {
-      if (this.isLoggedIn) {
-        this.logout()
-      } else {
-        alert('잘못된 접근')
-        this.$router.back()
+      if(this.profile.nickname) {
+        this.$store.dispatch('removeToken')
+        alert('성공적으로 logout!')
+        this.$router.push({ name: 'login' })
+      }
+      else {
+        if (this.isLoggedIn) {
+          this.logout()
+        } else {
+          alert('잘못된 접근')
+          this.$router.back()
+        }
       }
     },
   }

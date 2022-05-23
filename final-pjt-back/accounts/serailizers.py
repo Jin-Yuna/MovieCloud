@@ -6,4 +6,10 @@ class KakaoUserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('kakao_id', 'password', 'nickname', )
+        fields = ('pk', 'kakao_id', 'password', 'nickname', )
+
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'nickname')

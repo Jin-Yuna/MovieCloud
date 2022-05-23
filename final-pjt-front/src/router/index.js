@@ -12,7 +12,7 @@ import MovieWeatherView from'@/views/MovieWeatherView.vue'
 import MovieBoxofficeView from'@/views/MovieBoxOfficeView.vue'
 
 import NotFound404 from '../views/NotFound404.vue'
-
+import CloudView from '@/views/CloudView.vue'
 import DropListView from '@/views/Drops/DropListView.vue'
 import DropCreateView from '@/views/Drops/DropCreateView.vue'
 import DropDetailView from '@/views/Drops/DropDetailView.vue'
@@ -65,6 +65,11 @@ const routes = [
     path: '/kakaoLogin/:kakaoPk',
     name: 'kakaoLogin',
     component: KakaoLoginView
+  },
+  {
+    path: '/cloud/:pk',
+    name: 'ProfileView',
+    component: CloudView
   },
   {
     path: '/movies',

@@ -24,6 +24,8 @@ export default {
           this.userdata = response.data
           const token = this.userdata.password
           this.$store.dispatch('saveToken', token)
+          this.$store.commit('SET_CURRENT_USER', this.userdata)
+          this.$store.commit('SET_PROFILE', this.userdata)
           this.$router.push('/movies')
           })
     }

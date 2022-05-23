@@ -8,6 +8,16 @@
         <router-link :to="{ name: 'signup' }">Signup</router-link>
       </li>
       <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'ProfileView', params: { pk } }">
+          <div v-if="currentUser.username">
+            {{ currentUser.username }}'s page
+            </div>
+          <div v-else>
+            {{ currentUser.nickname }}'s page
+            </div>
+        </router-link>
+      </li>
+      <li v-if="isLoggedIn">
         <router-link :to="{ name: 'logout' }">Logout</router-link>
       </li>
       <li>
@@ -19,7 +29,6 @@
       <li>
         <router-link :to="{ name: 'MovieHome' }">HOME</router-link>
       </li>
-
     </ul>
   </nav>
 </template>
@@ -31,8 +40,9 @@
     name: 'NavBar',
     computed: {
       ...mapGetters(['isLoggedIn', 'currentUser']),
-      username() {
-        return this.currentUser.username ? this.currentUser.username : 'guest'
+      
+      pk() {
+        return this.currentUser.pk ? this.currentUser.pk : 'guest'
       },
     },
   }

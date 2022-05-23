@@ -2,7 +2,7 @@ import requests
 from .models import User
 from django.shortcuts import get_object_or_404, redirect
 from rest_framework.response import Response
-from .serailizers import KakaoUserSerializer
+from .serailizers import KakaoUserSerializer, ProfileSerializer
 from rest_framework.decorators import api_view
 
 def kakaoLogin(request):
@@ -47,9 +47,14 @@ def kakaoLogin(request):
 
 @api_view(['GET'])
 def kakaoInfo(request, pk):
-    if request.method == 'GET':
-        current_user = get_object_or_404(User, kakao_id=pk)
-        serializer = KakaoUserSerializer(current_user)
-        return Response(serializer.data)
+    current_user = get_object_or_404(User, kakao_id=pk)
+    serializer = KakaoUserSerializer(current_user)
+    return Response(serializer.data)
 
+@api_view(['GET'])
+def profile(request, pk):
+    
+    user = get_object_or_404(User, pk=pk)
+    serializer = ProfileSerializer(user)
+    return Response(serializer.data)
 
