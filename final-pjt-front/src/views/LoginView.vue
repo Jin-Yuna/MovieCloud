@@ -33,7 +33,8 @@
         credentials: {
           username: '',
           password: '',
-        }
+        },
+        data: null,
       }
     },
   computed: {
