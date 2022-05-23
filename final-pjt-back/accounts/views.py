@@ -17,6 +17,7 @@ def kakaoLogin(request):
     }
     token_response = requests.post(kakao_token_api, data=data)
     access_token = token_response.json().get('access_token')
+    refresh_token = token_response.json().get('refresh_token')
     user_info_response = requests.get('https://kapi.kakao.com/v2/user/me',
     headers={"Authorization": f'Bearer ${access_token}'})
     user_info_response = user_info_response.json()

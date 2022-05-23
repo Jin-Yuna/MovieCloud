@@ -4,6 +4,7 @@ const ACCOUNTS = 'accounts/'
 
 const DROPS = 'drops/'
 const COMMENTS = 'comments/'
+const WEATHER = 'weathers/'
 
 export default {
   accounts: {
@@ -23,5 +24,8 @@ export default {
     comments: dropPk => HOST + DROPS + `${dropPk}/` + COMMENTS,
     comment: (dropPk, commentPk) => HOST + DROPS + `${dropPk}/` + COMMENTS + `${commentPk}/`,
   },
+  weathers: {
+    weather: (weatherPk) => HOST + WEATHER + `${weatherPk}/`
+  }
 
 }

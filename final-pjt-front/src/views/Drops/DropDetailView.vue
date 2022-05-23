@@ -46,6 +46,7 @@
       ...mapActions(['getDrop', 'deleteDrop', 'likeDrop', ])
     },
     created() {
+      console.log(this.drop)
       this.getDrop(this.dropPk)
     },
   }
