@@ -5,7 +5,7 @@
       <label for="movie">영화</label>
       <select id="movie" v-model="newDrop.movie">
         <option v-for="movie_title in movies_title" :key="movie_title.id">
-          <p>{{ movie_title.id }}</p>
+          <p>{{ movie_title.pk }}</p>
         </option>
       </select>
     </div>
