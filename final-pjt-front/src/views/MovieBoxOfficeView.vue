@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>MovieBoxOfficeView</h1>
     <BoxOffice 
       v-for="boxOffice in boxOfficeList" 
       :key=boxOffice.movieCd
@@ -23,7 +24,7 @@ export default {
   },
   methods : {
     getBoxOffice () {
-      const BoxOfficeURL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json'
+      const BoxOfficeURL ='http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json'
       const config = {
         params: {
           key: process.env.VUE_APP_BOX_OFFICE_API_KEY,

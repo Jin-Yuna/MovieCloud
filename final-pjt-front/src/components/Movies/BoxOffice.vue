@@ -1,28 +1,42 @@
 <template>
   <div>
-    {{ boxOffice }}
+    <h3>{{ boxOffice.movieNm }}</h3>
+    <img :src="poster" alt="">
+    <p>{{ boxOffice }}</p>
+    <div v-if="imgs.length" class="flex">
+      <BoxOfficeImg
+        v-for="img in imgs"
+        :key="img"
+        :img="img"
+      />
+    </div>
+    <h4 v-else>이 영화는 이미지가 없습니다.</h4>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import BoxOfficeImg from '@/components/Movies/BoxOfficeImg.vue'
 export default {
   props: {
     boxOffice: Object,
+  },
+  components: {
+    BoxOfficeImg,
   },
   data () {
     return {
       movieName: '',
       tmdb_movie_id: 0,
-      result: null,
+      imgs: [],
+      poster: '',
     }
   },
   methods: {
     getIMG() {
-      // const KEY = process.env.VUE_APP_TMDB_API_KEY
       let config = {
         params: {
-          'api_key': '52b6ad83bc7c8b6b80a9cf2ccba6366f',
+          'api_key': process.env.VUE_APP_TMDB_API_KEY,
           'language': 'ko',
           'query': this.movieName,
         }
@@ -32,7 +46,7 @@ export default {
         .then(response => {
           config = {
             params: {
-              'api_key': '52b6ad83bc7c8b6b80a9cf2ccba6366f',
+              'api_key': process.env.VUE_APP_TMDB_API_KEY,
             }
           }
           const tmdb_movie_id = response.data.results[0].id
@@ -40,6 +54,11 @@ export default {
           axios.get(TBDM_IMG_URL, config)
             .then(response => {
               console.log(response.data)
+              this.poster = 'https://image.tmdb.org/t/p/w500' + response.data.posters[0].file_path
+              const imgobjects = response.data.backdrops
+              for (const img of imgobjects) {
+                this.imgs.push(img.file_path)
+              }
             })
         })
     }
@@ -52,5 +71,8 @@ export default {
 </script>
 
 <style>
+.flex {
+  display: flex;
+}
 
 </style>
