@@ -53,8 +53,15 @@ export default {
           const TBDM_IMG_URL = `https://api.themoviedb.org/3/movie/${tmdb_movie_id}/images`
           axios.get(TBDM_IMG_URL, config)
             .then(response => {
-              console.log(response.data)
-              this.poster = 'https://image.tmdb.org/t/p/w500' + response.data.posters[0].file_path
+              const posterobjects = response.data.posters
+              for (const poster of posterobjects) {
+                if (poster.iso_639_1 == 'ko' ) {
+                  this.poster = 'https://image.tmdb.org/t/p/w500' + poster.file_path
+                }
+              }
+              if (!this.poster) {
+                this.poster = 'https://image.tmdb.org/t/p/w500' + response.data.posters[0].file_path
+              }
               const imgobjects = response.data.backdrops
               for (const img of imgobjects) {
                 this.imgs.push(img.file_path)
