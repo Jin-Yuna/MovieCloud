@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     ...mapActions(['fetchProfile', 'follow']),
-    // 이 함수로는 팔로우 확인이 안됨....
+    // 팔로우 확인이 가능하긴 한데 새로고침 두번 해야함....
     isFollowed() {
       this.followed = this.profile.followers.includes(this.currentUser.pk)
     },
