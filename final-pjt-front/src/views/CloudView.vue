@@ -72,7 +72,7 @@ export default {
   },
   created() {
 
-    this.fetchProfile({userPk:this.$route.params.userPk})
+    this.fetchProfile({userPk:this.$route.params.pk })
     if (!this.profile) {
       const payload = { userPk: this.$route.params.userPk }
       this.fetchProfile(payload)

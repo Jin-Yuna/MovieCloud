@@ -8,7 +8,7 @@ from .serializers import MovieTitleSerializer
 @api_view(['GET']) # 임시로 목록 조회랑 같이 둠.
 def get_movie_title(request):
     if request.method == 'GET':
-        movies_title = Movie.objects.values('pk', 'movie_id', 'title')
+        movies_title = Movie.objects.values('pk', 'title')
         serializer = MovieTitleSerializer(movies_title, many=True)
         return Response(serializer.data)
 
