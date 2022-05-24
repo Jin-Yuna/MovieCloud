@@ -1,22 +1,27 @@
-from movies import models
+from movies.models import Movie
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.shortcuts import get_list_or_404
+from weathers.serializers import MovieSerializer
 
 
 weather = {
-    800: [',모험', '판타지', '액션'], # 800 맑은 날
-    801: ['애니메이션', 'SF', '역사', '서부'], # 801 구름 조금
-    80: ['코미디', '음악'],  # 80x 구름 많음
-    6: ['드라마', '가족', '다큐멘터리'],    # 6xx: Snow
-    2: ['범죄', '공포', '미스터리', '스릴러', '전쟁'],  # Group 2xx: Thunderstorm
-    7: ['코미디', '음악'],  # 7xx: Atmosphere
-    5: ['로맨스', 'TV 영화'],   # Group 3xx: Drizzle, Group 5xx: Rain
-    3: ['로맨스', 'TV 영화']
+  800: [12, 14, 28], # 800 맑은 날
+  801: [16, 878, 36, 37],# 8801 구름 조금
+  80: [35, 10402],  # 880x 구름 많음
+  6: [18, 10751, 99],    # 86xx: Snow
+  2: [80, 27, 9648, 53, 10752],  # 8Group 2xx: Thunderstorm
+  7: [35, 10402],  # 87xx: Atmosphere
+  5: [10749, 10770],   # 8Group 3xx: Drizzle, Group 5xx: Rain
+  3: [10749, 10770]
 }
 
 @api_view(['GET'])
 def weathers(request, pk):
-    Movies = models.Movie.objects.all()
+    movies = get_list_or_404(Movie)
+    serializer = MovieSerializer(movies, many=True)
+    data = serializer.data
+    
     based_num = pk // 100
     if based_num == 8:
         if pk == 800:
@@ -25,16 +30,13 @@ def weathers(request, pk):
             based_num = 801
         else:
             based_num = 80
-    genres = weather[based_num]
-    response = []
-    for Movie in Movies:
-        movies = Movies.split(',')
-        print(movies)
-        for i in range(Movie.genres.length):
+    genre = weather[based_num]
 
-            if Movie.genres[i] in genres:
-                print(Movie.genres[i])
-                response.append(Movie)
+    response = []
+    for i in range(len(data)):    
+        for j in range(len(data[i]['genres'])):
+            if data[i]['genres'][j] in genre:
+                response.append(data[i])
                 break
     print(response)
     return Response(response)
