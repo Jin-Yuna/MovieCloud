@@ -69,7 +69,6 @@ def create_comment(request, pk):
     drop = get_object_or_404(Drop, pk=pk)
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
-        print(serializer)
         serializer.save(drop=drop, user=request.user)
         comments = drop.comments.all()
         serializer = CommentSerializer(comments, many=True)

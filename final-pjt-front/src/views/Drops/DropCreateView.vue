@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>새글쓰기</h2>
+    {{ movies_title }}
     <DropForm :drop="drop" :movies_title="movies_title" action="create"/>
   </div>
 </template>

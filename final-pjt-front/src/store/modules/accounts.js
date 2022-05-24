@@ -56,9 +56,6 @@ export default {
           commit('SET_AUTH_ERROR', err.response.data)
         })
     },
-    
-
-
     signup({ commit, dispatch }, credentials) {
       axios({
         url: drf.accounts.signup(),
