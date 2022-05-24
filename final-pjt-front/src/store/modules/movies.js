@@ -1,15 +1,17 @@
 import axios from "axios"
 import router from '@/router'
+import drf from '@/api/drf'
 
 export default {
   state: {
     today: '',
     boxOffie: null,
     movieId: 0,
-    movieDetailAxios: null
+    movieDetailAxios: null,
+    movieSearchList: null,
   },
   getters: {
-
+    movieSearchList: state => state.movieSearchList,
   },
   mutations: {
     GET_TODAY(state, newToday ) {
@@ -23,6 +25,9 @@ export default {
     },
     GET_BOX_OFFICE(state, boxOffie) {
       state.boxOffie = boxOffie
+    },
+    GET_MOVIES_SEARCH(state, movies) {
+      state.movieSearchList = movies
     }
   },
   actions: {
@@ -65,5 +70,14 @@ export default {
           })
         })
     },
+    get_movies_search({ commit }) {
+      axios({
+        url:drf.movies.movies(),
+        method: 'get',
+      })
+        .then(res => {
+          commit('GET_MOVIES_SEARCH', res.data)
+        })
+    }
   },
 }
