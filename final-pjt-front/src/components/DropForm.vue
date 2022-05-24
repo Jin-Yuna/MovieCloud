@@ -5,13 +5,13 @@
       <label for="movie">영화</label>
       <select id="movie" v-model="newDrop.movie">
         <option v-for="movie_title in movies_title" :key="movie_title.id">
-          <p>{{ movie_title.pk }}</p>
+          <p>{{ movie_title.title }}</p>
         </option>
       </select>
     </div>
     <div>
       <label for="title">제목</label>
-      <input type="text" id="title" v-model="newDrop.title">
+      <input type="text" id="title" v-model="movietitle">
     </div>
     <div>
       <label for="content">내용</label>
@@ -40,10 +40,11 @@ export default {
       newDrop: {
         title: this.drop.title,
         content: this.drop.content,
-        movie: this.drop.movie_id,
+        movie: this.drop.movie_id, // 영화 아이디(pk)
         user_vote: this.drop.user_vote,
-        // movies_title : drop.movies_title,
-      }
+        movies_title : this.drop.movies_title,
+      },
+      movietitle : '',
     }
   },
 
@@ -52,7 +53,6 @@ export default {
     onSubmit() {
       if (this.action === 'create') {
         this.createDrop(this.newDrop)
-        // this.$store.actions.drops.createDrop(this.newDrop)
       } else if (this.action === 'update') {
         const payload = {
           dropPk: this.drop.id,
@@ -60,15 +60,14 @@ export default {
         }
         this.updateDrop(payload)
       }
+    
     },
   },
   computed : {
     isCreate() {
       return (this.action === 'create')
-    }
+    },
   },
-  created() {
-  }
 }
 </script>
 
