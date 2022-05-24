@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth', 
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
 
     'corsheaders',
     # native apps
@@ -61,6 +62,16 @@ INSTALLED_APPS = [
 
 # django.contrib.sites 사용시 반드시 SITE_ID 설정 필요
 SITE_ID = 1
+
+
+# 이미 있다면, 하위에 추가.
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
