@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.db.models import Count
 
@@ -25,7 +26,6 @@ def drop_list(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated]) # 로그인 한 사용자만 글쓰기 가능
 def drop_create(request):
-    print('요청옴')
     serializer = DropCreateSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=request.user)
@@ -39,7 +39,6 @@ def drop_detail(request, pk):
         serializer = DropDretailSerializer(drop)
         return Response(serializer.data)
     if request.method == 'PUT':
-        print('수정요청')
         serializer = DropCreateSerializer(drop, request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -81,7 +80,6 @@ def create_comment(request, pk):
 def comment_update_or_delete(request, pk, comment_pk):
     drop = get_object_or_404(Drop, pk=pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
-
     if request.method == 'PUT':
         if request.user == comment.user:
             serializer = CommentSerializer(instance=comment, data=request.data)

@@ -104,13 +104,23 @@ export default {
         })
         .catch(error => console.error(error.response))
     },
-    updateComment({ commit, getters }, { dropPk, commentPk, content }) {
-      const comment = { content }
-
+    updateComment({ commit, getters }, payload ) {
+      const comment = payload.content
       axios({
-        url: drf.drops.comment(dropPk, commentPk),
+        url: drf.drops.comment(payload.dropPk, payload.commentPk),
         method: 'put',
-        data: comment,
+        data: { content : comment },
+        headers: getters.authHeader,
+      })
+        .then(response => {
+          commit('SET_DROP_COMMENTS', response.data)
+        })
+        .catch(error => console.error(error.response))
+    },
+    deleteComment({ commit, getters }, payload ) {
+      axios({
+        url: drf.drops.comment(payload.dropPk, payload.commentPk),
+        method: 'delete',
         headers: getters.authHeader,
       })
         .then(response => {
