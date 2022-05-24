@@ -1,13 +1,12 @@
 <template>
   <div class="video-list-item">
-    <img :src="posterUrl" alt="포스터">
-    <router-link 
-      :to="{ name: 'DropDetailView', params: {dropPk: drop.id} }">
+    <router-link :to="{ name: 'DropDetailView', params: {dropPk: droppk} }">
+      <img :src="posterUrl" alt="포스터" class="img_size">  
       <h3>{{ drop.title }}</h3>
     </router-link>
-    <p>{{ drop.content }}</p>
-    <p>{{ drop.user.username }}</p>
-    <p>총 drop 데이터 : {{ drop }}</p>
+    <router-link :to="{ name: 'ProfileView', params: { userPk : userpk } }">
+      {{ username }}
+    </router-link> 
   </div>
 </template>
 
@@ -18,26 +17,38 @@ export default {
     drop: {
       type: Object,
       required: true,
-    }
+    },
+    profilename: String,
+    profilepk: Number,
   },
   methods: {
   },
   computed: {
     posterUrl() {
       return 'https://image.tmdb.org/t/p/w500' + this.drop.movie.poster_path
+    },
+    droppk() {
+      let droppk = 0
+      if (this.drop.pk) {droppk=this.drop.pk} else {droppk=this.drop.id}
+      return droppk
+    },
+    userpk() {
+      let userpk = 0
+      if (this.drop.user) {userpk = this.drop.user.pk } else {userpk=this.profilepk}
+      return userpk
+    },
+    username() {
+      let username = ''
+      if (this.drop.user) {username= this.drop.user.username} else {username=this.profilename}
+      return username
     }
   }
 }
 </script>
 
 <style scoped>
-.video-list-item {
-  margin: 1rem 0;
-}
-
-.video-list-item:hover {
-  cursor: pointer;
-  background-color: grey;
-  color: white;
+.img_size {
+  width: 200px;
+  height: 300px;
 }
 </style>

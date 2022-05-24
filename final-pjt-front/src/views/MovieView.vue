@@ -10,6 +10,7 @@
 import WeatherList from '@/components/WeatherList.vue'
 import BoxOfficeList from '@/components/BoxOfficeList.vue'
 import TopRatedList from '@/components/Movies/TopRatedList.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'MovieHome',
@@ -18,6 +19,12 @@ export default {
     BoxOfficeList,
     TopRatedList,
   },
+  methods: {
+    ...mapActions(['getToday'])
+  },
+  created() {
+    this.$store.dispatch('getToday')
+  }
 }
 </script>
 

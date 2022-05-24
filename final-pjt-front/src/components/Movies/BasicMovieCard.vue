@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div @click="getMovieDetailAxios(movie.id)">
     <img :src="getPoster" class="img_size" alt="">
     <h4>[ {{ movie.title }} ]</h4>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: {
     movie: Object,
@@ -14,6 +15,9 @@ export default {
     getPoster() {
       return 'https://image.tmdb.org/t/p/w500'+this.movie.poster_path
     }
+  },
+  methods: {
+    ...mapActions(['getMovieDetailAxios']),
   }
 }
 </script>

@@ -3,7 +3,8 @@ from .models import User
 from django.shortcuts import get_object_or_404, redirect
 from rest_framework.response import Response
 from .serailizers import KakaoUserSerializer, ProfileSerializer
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 def kakaoLogin(request):
     
@@ -59,3 +60,19 @@ def profile(request, pk):
     serializer = ProfileSerializer(user)
     return Response(serializer.data)
 
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def follow(request, pk):
+    person = get_object_or_404(User, pk=pk)
+    if person != request.user:
+        # 지금 보고있는 사람의 팔로잉 목록에 내가 있으면
+        if person.followers.filter(pk=request.user.pk).exists():
+            person.followers.remove(request.user)
+            serializer = ProfileSerializer(person)
+            return Response(serializer.data)
+        else:
+            person.followers.add(request.user)
+            serializer = ProfileSerializer(person)
+            return Response(serializer.data)
+    

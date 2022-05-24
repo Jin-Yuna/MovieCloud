@@ -3,7 +3,7 @@
     <h2>{{ drop.title }}</h2>
     <img :src="posterUrl" alt="포스터">
     <p>{{ drop.user }}</p>
-    <div v-if="drop.user.pk=this.$store.state.accounts.currentUser.pk">
+    <div v-if="drop.user.pk===this.$store.state.accounts.currentUser.pk">
       <router-link :to="{ name: 'DropEditView', params: { dropPk } }">
         <button>Edit</button>
       </router-link>
@@ -46,7 +46,6 @@
       ...mapActions(['getDrop', 'deleteDrop', 'likeDrop', ])
     },
     created() {
-      console.log(this.drop)
       this.getDrop(this.dropPk)
     },
   }

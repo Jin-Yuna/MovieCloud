@@ -15,6 +15,7 @@ export default {
     // Token 으로 현재 user 판단
     currentUserInfo: () => HOST + ACCOUNTS + 'user/',
     profile: userPk => HOST + 'profile/' + `${userPk}/`,
+    follow: userPk => HOST + 'follow/' + `${userPk}/`,
   },
   drops: {
     newDrop: () => HOST + DROPS + 'new/',

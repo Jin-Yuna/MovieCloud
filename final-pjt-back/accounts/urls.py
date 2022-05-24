@@ -6,5 +6,6 @@ app_name='accounts'
 urlpatterns = [
     path('kakaoLogin/', views.kakaoLogin),
     path('kakao_user_info/<int:pk>/', views.kakaoInfo),
-    path('profile/<int:pk>/', views.profile)
+    path('profile/<int:pk>/', views.profile),
+    path('follow/<int:pk>/', views.follow),
 ]

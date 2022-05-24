@@ -1,20 +1,16 @@
 <template>
   <div>
     <h1>MovieBoxOfficeView</h1>
-    <BoxOffice 
-      v-for="boxOffice in boxOfficeList" 
-      :key=boxOffice.movieCd
-      :boxOffice="boxOffice"
-    />
+
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import BoxOffice from '@/components/Movies/BoxOffice.vue'
+
 export default {
   components : {
-    BoxOffice,
+
   },
   data() {
     return {
