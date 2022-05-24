@@ -25,6 +25,7 @@ export default {
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
+    SET_FOLLOWINGS: (state, following) => state.following = following,
   },
 
   actions: {
@@ -109,7 +110,7 @@ export default {
       }
     },
 
-    fetchProfile({ commit, getters }, { userPk }) {
+    fetchProfile({ commit, getters, }, { userPk }) {
       axios({
         url:drf.accounts.profile(userPk),
         method: 'get',
@@ -119,5 +120,16 @@ export default {
           commit('SET_PROFILE', res.data)
         })
     },
+    follow({commit, getters }, { userPk }) {
+      console.log(userPk)
+      axios({
+        url:drf.accounts.follow(userPk),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+        .then(response => {
+          commit('SET_FOLLOWINGS', response.data)
+        })
+    }
   },
 }
