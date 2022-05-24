@@ -167,6 +167,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ALLOWED_ORIGINS = [
 #     'http://localhost:8080',
 #     'http://127.0.0.1:8001',
+#     'http://192.168.45.216:8080'
 # ]
 
 # DRF 인증 관련 설정
@@ -175,7 +176,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        
         'rest_framework.permissions.AllowAny', 
         # 인증된 사용자만 모든일이 가능 / 비인증 사용자는 모두 401 Unauthorized
         # 'rest_framework.permissions.IsAuthenticated'

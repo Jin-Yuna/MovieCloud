@@ -44,7 +44,7 @@
       ...mapActions(['login']),
       kakaoLogin() {
         const params = {
-          redirectUri:'http://127.0.0.1:8000/accounts/kakao/callback/',
+          redirectUri:'http://192.168.45.216:8080/kakaoLogin',
         }
         window.Kakao.Auth.authorize(params)
       }

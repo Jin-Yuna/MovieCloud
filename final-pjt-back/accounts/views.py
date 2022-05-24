@@ -4,28 +4,21 @@ from rest_framework.response import Response
 from .serailizers import ProfileSerializer
 from rest_framework.decorators import api_view
 from accounts.models import User
-from django.shortcuts import redirect
 from dj_rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 import requests
 from allauth.socialaccount.providers.kakao.views import KakaoOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
-from allauth.socialaccount.models import SocialAccount
 from django.http import JsonResponse
+from .serailizers import ProfileSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 def kakaoLogin(request):
-    auth_code = request.GET.get('code')
-    kakao_token_api = 'https://kauth.kakao.com/oauth/token'
-    data = {
-        'grant_type': 'authorization_code',
-        'client_id': '683d19aa3f66f6c7d4ca3b08f6f139ed',
-        'redirect_uri': 'http://127.0.0.1:8000/accounts/kakao/callback/',
-        'code': auth_code,
-    }
-    token_req = requests.post(kakao_token_api, data=data)
-    token_req_json = token_req.json()
-    access_token = token_req_json.get("access_token")
+    print('시작해랑')
+    auth_code = request.headers['code']
+    access_token = request.headers['Token']
     print(access_token)
     """
     Email Request
@@ -52,26 +45,7 @@ def kakaoLogin(request):
     print(accept_json)
     accept_json.pop('user', None)
     print(accept_json)
-    return JsonResponse(accept_json)
-    # # 회원 가입
-    # User.objects.create(
-    #     kakao_id = profile_json['id'],
-    #     is_superuser = 0,
-    #     is_staff = 0,
-    #     is_active = 1, 
-    #     date_joined = profile_json['connected_at'],
-    #     password = access_token,
-    #     nickname = profile_json['properties']['nickname']
-    # )
-
-    # return redirect(f'http://localhost:8080/kakaoLogin/{current_user}/')
-    # try:
-    #     # 기존에 가입된 유저의 Provider가 kakao가 아니면 에러 발생, 맞으면 로그인
-    #     user = User.objects.get(email=email)
-    #     social_user = SocialAccount.objects.get(user=user)
-    #     print(social_user)
-    # except User.DoesNotExist:
-        
+    return JsonResponse(accept_json)      
 
 class KakaoLogin(SocialLoginView):
     adapter_class = KakaoOAuth2Adapter
@@ -85,3 +59,19 @@ def profile(request, pk):
     serializer = ProfileSerializer(user)
     return Response(serializer.data)
 
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def follow(request, pk):
+    person = get_object_or_404(User, pk=pk)
+    if person != request.user:
+        # 지금 보고있는 사람의 팔로잉 목록에 내가 있으면
+        if person.followers.filter(pk=request.user.pk).exists():
+            person.followers.remove(request.user)
+            serializer = ProfileSerializer(person)
+            return Response(serializer.data)
+        else:
+            person.followers.add(request.user)
+            serializer = ProfileSerializer(person)
+            return Response(serializer.data)
+    

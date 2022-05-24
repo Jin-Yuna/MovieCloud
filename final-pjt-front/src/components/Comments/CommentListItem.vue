@@ -39,7 +39,6 @@ export default {
       this.isEditing = !this.isEditing
     },
     onUpdate() {
-      console.log(this.payload, 'onupdate')
       this.isEditing = false
     }
   },

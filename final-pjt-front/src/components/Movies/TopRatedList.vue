@@ -33,7 +33,6 @@ export default {
       axios.get(TMDB_TOP_RATED_URL, config)
         .then(response => {
           this.topMovies=response.data.results.slice(0,10)
-          console.log(this.topMovies)
         })
     }
   },

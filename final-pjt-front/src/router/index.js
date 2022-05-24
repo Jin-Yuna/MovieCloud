@@ -63,7 +63,7 @@ const routes = [
     component: SignupView
   },
   {
-    path: '/kakaoLogin/:kakaoPk',
+    path: '/kakaoLogin',
     name: 'kakaoLogin',
     component: KakaoLoginView
   },
