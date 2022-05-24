@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import accounts from './modules/accounts'
 import drops from './modules/drops'
+import movies from './modules/movies'
 import weathers from './modules/weathers'
 
 import createPersistedState from 'vuex-persistedstate';
@@ -55,6 +56,7 @@ export default new Vuex.Store({
     accounts,
     drops,
     weathers,
+    movies,
   },
   //vuex plugin 명시 
   plugins: [createPersistedState()]
