@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--  -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div class="container-fluid">
         <router-link class="navbar-brand" :to="{ name: 'MovieHome' }">HOME</router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,4 +62,8 @@
   }
 </script>
 
-<style></style>
+<style>
+body {
+  padding-top: 20px;
+}
+</style>

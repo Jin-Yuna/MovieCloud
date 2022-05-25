@@ -4,11 +4,11 @@
     <router-link :to="{ name: 'MovieWeather' }">Weather</router-link>
     오늘 같은 {{ weather.weather_simple }} 날씨의 추천 영화는 {{ genre_name }}
     <div class="flex">
-    <BasicMovieCard 
+    <!-- <BasicMovieCard 
       v-for="movie in weather_movies"
       :key="movie.id"
       :movie="movie"
-    />
+    /> -->
     </div>
   </div>
 </template>
@@ -16,12 +16,12 @@
 <script>
 import axios from 'axios'
 import { mapActions, mapGetters } from 'vuex'
-import BasicMovieCard from '@/components/Movies/BasicMovieCard.vue'
+// import BasicMovieCard from '@/components/Movies/BasicMovieCard.vue'
 
 export default {
   name: 'WeaherList',
   components: {
-    BasicMovieCard,
+    // BasicMovieCard,
   },
   data() {
     return {
