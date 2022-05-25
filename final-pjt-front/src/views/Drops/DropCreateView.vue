@@ -29,10 +29,7 @@ export default {
     ...mapActions(['setMoviesTitle'])
   },
   created() {
-    if (!this.movies_title.length) {
-      this.setMoviesTitle()
-    }
-    
+    this.setMoviesTitle()
   },
 }
 </script>

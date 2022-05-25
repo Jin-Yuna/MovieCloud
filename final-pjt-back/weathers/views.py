@@ -38,5 +38,4 @@ def weathers(request, pk):
             if data[i]['genres'][j] in genre:
                 response.append(data[i])
                 break
-    print(response)
     return Response(response)

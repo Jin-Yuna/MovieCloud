@@ -72,7 +72,7 @@ export default {
       axios.get(TMDB_DETAIL_URL, config)
         .then(response => {
           commit('GET_MOVIE_DETAIL_AXIOS', response.data)
-          dispatch('SET_MOVIE_ID', movieId)
+          dispatch('SET_MOVIE_ID', movieId) 
           router.push({
             name: 'MovieDetail',
             params: { moviePk: movieId }
@@ -80,11 +80,12 @@ export default {
         })
     },
     setMoviesTitle({ commit, state }) {
-      if (!state.movies_title.length) {
+      if (!state.movies_title) {
         axios.get('http://127.0.0.1:8000/movies/get_movie_title/')
           .then(response => {
           // const movies_title = response.data
           // movie_id와 title 가져옴
+          console.log(response.data)
           commit('SET_MOVIES_TITLE', response.data)
       })
       }
