@@ -6,7 +6,7 @@ export default {
   // namespaced: true,
 
   state: {
-    token: '',
+    token: localStorage.getItem('token') || '',
     currentUser: {},
     profile: {},
     authError: null,
@@ -115,6 +115,7 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
+          console.log(res.data)
           commit('SET_PROFILE', res.data)
         })
     },

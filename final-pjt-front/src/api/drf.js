@@ -5,6 +5,7 @@ const ACCOUNTS = 'accounts/'
 const DROPS = 'drops/'
 const COMMENTS = 'comments/'
 const WEATHER = 'weathers/'
+const MOVIES = 'movies/'
 
 export default {
   accounts: {
@@ -27,6 +28,8 @@ export default {
   },
   weathers: {
     weather: (weatherPk) => HOST + WEATHER + `${weatherPk}/`
+  },
+  movies: {
+    movies: () => HOST + MOVIES + 'get_movie_search/'
   }
-
 }

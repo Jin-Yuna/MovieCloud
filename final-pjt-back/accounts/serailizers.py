@@ -3,12 +3,6 @@ from .models import User
 from clouds.models import Drop
 from movies.models import Movie
 
-class KakaoUserSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = User
-        fields = ('pk', 'kakao_id', 'password', 'nickname', )
-
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie

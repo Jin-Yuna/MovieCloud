@@ -26,6 +26,7 @@
       <li>
         <router-link :to="{ name: 'DropCreateView' }">새글쓰기</router-link>
       </li>
+      <SearchBar />
       <li>
         <router-link :to="{ name: 'MovieHome' }">HOME</router-link>
       </li>
@@ -35,9 +36,13 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import SearchBar from '@/components/SearchBar'
   
   export default {
     name: 'NavBar',
+    components: {
+      SearchBar,
+    },
     computed: {
       ...mapGetters(['isLoggedIn', 'currentUser']),
       
