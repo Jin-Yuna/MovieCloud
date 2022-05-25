@@ -108,6 +108,8 @@ export default {
     },
 
     fetchProfile({ commit, getters, }, { userPk }) {
+      
+      console.log(userPk)
       axios({
         url:drf.accounts.profile(userPk),
         method: 'get',

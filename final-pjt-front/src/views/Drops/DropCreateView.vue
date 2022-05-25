@@ -1,13 +1,12 @@
 <template>
   <div>
     <h2>새글쓰기</h2>
-    {{ movies_title }}
     <DropForm :drop="drop" :movies_title="movies_title" action="create"/>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import { mapActions } from 'vuex'
 import DropForm from '@/components/DropForm.vue'
 export default {
   name: 'DropCreateView',
@@ -23,15 +22,17 @@ export default {
         user_vote: 0,
         // movie_pk: null,
       },
-      movies_title: [],
+      movies_title: this.$store.state.movies.movies_title,
     }
   },
+  methods: {
+    ...mapActions(['setMoviesTitle'])
+  },
   created() {
-    axios.get('http://127.0.0.1:8000/movies/get_movie_title/')
-      .then(response => {
-        this.movies_title = response.data
-      // movie_id와 title 가져옴
-    })
+    if (!this.movies_title.length) {
+      this.setMoviesTitle()
+    }
+    
   },
 }
 </script>

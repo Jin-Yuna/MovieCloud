@@ -61,8 +61,6 @@ export default {
       this.followed = this.profile.followers.includes(this.currentUser.pk)
     },
     created() {
-      console.log(this.profile.username)
-      this.fetchProfile({userPk: this.$route.params.pk })
       if (!this.profile) {
         const payload = { userPk: this.$route.params.userPk }
         this.fetchProfile(payload)
@@ -70,6 +68,14 @@ export default {
     },
     buttonchange() {
       this.followed = !this.followed
+    }
+  },
+  created() {
+    console.log(this.$route.params.pk )
+    this.fetchProfile({userPk:this.$route.params.pk })
+    if (!this.profile) {
+      const payload = { userPk: this.$route.params.pk }
+      this.fetchProfile(payload)
     }
   },
   mounted() {

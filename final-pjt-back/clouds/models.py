@@ -10,7 +10,7 @@ class Drop(models.Model):
     user_vote = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_drops')
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_drops', null=True)
 
 
 class Comment(models.Model):
