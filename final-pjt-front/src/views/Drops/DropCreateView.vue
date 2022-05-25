@@ -1,7 +1,9 @@
 <template>
   <div>
-    <h2>새글쓰기</h2>
-    <DropForm :drop="drop" :movies_title="movies_title" action="create"/>
+    <div class="container">
+      <h2>새글쓰기</h2>
+      <DropForm :drop="drop" :movies_title="movies_title" action="create"/>
+    </div>
   </div>
 </template>
 
@@ -26,7 +28,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setMoviesTitle'])
+    ...mapActions(['setMoviesTitle']),
   },
   created() {
     if (!this.movies_title.length) {
