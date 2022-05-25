@@ -30,9 +30,8 @@ export default {
       })
         .then(response => {
           commit('SET_DROP', response.data)
-          console.log(drop)
           router.push({
-            name: 'DropListView',
+            name: 'DropListView'
           })
         })
     },

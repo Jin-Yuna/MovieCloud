@@ -1,16 +1,16 @@
 <template>
-  <div>    
-    <Map />
+  <div>
     <router-link :to="{ name: 'MovieBoxoffice' }">
       BoxOffice
     </router-link>
-    <div class="flex">
+    <Map />
+    <div class="d-flex"> 
       <BoxOffice 
         v-for="boxOffice in boxOfficeList" 
         :key=boxOffice.movieCd
         :boxOffice="boxOffice"
       />
-    </div>
+    </div> 
   </div>
 </template>
 

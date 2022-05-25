@@ -1,7 +1,18 @@
 <template>
-  <div @click="getMovieDetailAxios(movie.id)">
-    <img :src="getPoster" class="img_size" alt="">
-    <h4>[ {{ movie.title }} ]</h4>
+  <div class="card" style="width: 18rem;" @click="getMovieDetailAxios(movie.id)" >
+    <!-- <img :src="getPoster" class="card-img-top" alt="포스터이미지">
+    <div class="card-body">
+      <p class="card-text">{{movie.title}}.</p>
+    </div> -->
+    <!--  -->
+    {{ movie }}
+    <div class="card bg-dark text-white" style="width: 18rem;" @click="getMovieDetailAxios(movie.id)">
+      <img :src="getPoster" class="card-img" alt="포스터이미지">
+      <div class="card-img-overlay">
+        <h5 class="card-title">{{ movie.title}}</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -23,8 +34,7 @@ export default {
 </script>
 
 <style>
-.img_size {
-  width: 200px;
-  height: 300px;
+.myhover:hover {
+  filter: brightness(50%);
 }
 </style>
