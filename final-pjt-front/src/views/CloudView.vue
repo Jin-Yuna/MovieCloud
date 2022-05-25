@@ -61,8 +61,6 @@ export default {
       this.followed = this.profile.followers.includes(this.currentUser.pk)
     },
     created() {
-      console.log(this.profile.username)
-      this.fetchProfile({userPk: this.$route.params.pk })
       if (!this.profile) {
         const payload = { userPk: this.$route.params.userPk }
         this.fetchProfile(payload)
@@ -73,9 +71,10 @@ export default {
     }
   },
   created() {
-    this.fetchProfile({userPk:this.$route.params.userPk })
+    console.log(this.$route.params.pk )
+    this.fetchProfile({userPk:this.$route.params.pk })
     if (!this.profile) {
-      const payload = { userPk: this.$route.params.userPk }
+      const payload = { userPk: this.$route.params.pk }
       this.fetchProfile(payload)
     }
   },

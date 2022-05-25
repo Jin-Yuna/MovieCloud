@@ -8,11 +8,8 @@ export default {
     boxOffie: null,
     movieId: 0,
     movieDetailAxios: null,
-<<<<<<< HEAD
     movies_title: [],
-=======
     movieSearchList: null,
->>>>>>> 739f05a7f76e19774a35f606d88ab24e6ea28914
   },
   getters: {
     movieSearchList: state => state.movieSearchList,
@@ -30,13 +27,11 @@ export default {
     GET_BOX_OFFICE(state, boxOffie) {
       state.boxOffie = boxOffie
     },
-<<<<<<< HEAD
     SET_MOVIES_TITLE(state, movies_title) {
       state.movies_title = movies_title
-=======
+    },
     GET_MOVIES_SEARCH(state, movies) {
       state.movieSearchList = movies
->>>>>>> 739f05a7f76e19774a35f606d88ab24e6ea28914
     }
   },
   actions: {
@@ -79,7 +74,6 @@ export default {
           })
         })
     },
-<<<<<<< HEAD
     setMoviesTitle({ commit, state }) {
       if (!state.movies_title.length) {
         axios.get('http://127.0.0.1:8000/movies/get_movie_title/')
@@ -89,7 +83,7 @@ export default {
           commit('SET_MOVIES_TITLE', response.data)
       })
       }
-=======
+    },
     get_movies_search({ commit }) {
       axios({
         url:drf.movies.movies(),
@@ -98,7 +92,6 @@ export default {
         .then(res => {
           commit('GET_MOVIES_SEARCH', res.data)
         })
->>>>>>> 739f05a7f76e19774a35f606d88ab24e6ea28914
     }
   },
 }
