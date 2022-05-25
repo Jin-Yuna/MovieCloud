@@ -9,9 +9,11 @@ export default {
     movieId: 0,
     movieDetailAxios: null,
     movieSearchList: null,
+    movieTitiles: [],
   },
   getters: {
     movieSearchList: state => state.movieSearchList,
+    movieTitles: state => state.movieTitiles
   },
   mutations: {
     GET_TODAY(state, newToday ) {
@@ -28,7 +30,10 @@ export default {
     },
     GET_MOVIES_SEARCH(state, movies) {
       state.movieSearchList = movies
-    }
+    },
+    SET_MOVIE_TITLES(state, movie_titles) {
+      state.movieTitiles = movie_titles
+    },
   },
   actions: {
     getToday({ commit }) {
@@ -77,6 +82,12 @@ export default {
       })
         .then(res => {
           commit('GET_MOVIES_SEARCH', res.data)
+          const movies = res.data
+          var movie_titles = []
+          for (var movie of movies) {
+            movie_titles.push(movie['title']) 
+          }
+          commit('SET_MOVIE_TITLES', movie_titles)
         })
     }
   },

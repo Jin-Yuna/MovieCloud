@@ -66,7 +66,7 @@ export default {
       if (!this.profile) {
         const payload = { userPk: this.$route.params.userPk }
         this.fetchProfile(payload)
-      }
+      } 
     },
     buttonchange() {
       this.followed = !this.followed

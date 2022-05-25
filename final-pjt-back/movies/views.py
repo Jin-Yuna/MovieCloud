@@ -17,4 +17,5 @@ def get_movie_title(request):
 def get_movie_search(request):
     movie = Movie.objects.values('id', 'title')
     serailizer = MovieSearchSerializer(movie, many=True)
+    print(serailizer.data)
     return Response(serailizer.data)
