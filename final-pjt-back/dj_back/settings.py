@@ -61,7 +61,7 @@ INSTALLED_APPS = [
 ]
 
 # django.contrib.sites 사용시 반드시 SITE_ID 설정 필요
-SITE_ID = 1
+SITE_ID = 2
 
 
 # 이미 있다면, 하위에 추가.

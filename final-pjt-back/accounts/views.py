@@ -19,6 +19,7 @@ def kakaoLogin(request):
     print('시작해랑')
     auth_code = request.headers['code']
     access_token = request.headers['Token']
+    print(auth_code)
     print(access_token)
     """
     Email Request
@@ -33,6 +34,7 @@ def kakaoLogin(request):
     Signup or Signin Request
     """
     # 기존에 가입된 유저가 없으면 새로 가입
+    # BASE_URL = ''
     BASE_URL = 'http://127.0.0.1:8000/'
     data = {'access_token': access_token, 'code': auth_code}
     accept = requests.post(

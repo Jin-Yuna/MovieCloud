@@ -20,13 +20,13 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
-  import AccountErrorList from '@/components/AccountErrorList.vue'
+  import { mapActions } from 'vuex'
+  // import AccountErrorList from '@/components/AccountErrorList.vue'
 
   export default {
     name: 'LoginView',
     components: {
-      AccountErrorList,
+      // AccountErrorList,
     },
     data() {
       return {
@@ -38,13 +38,13 @@
       }
     },
   computed: {
-      ...mapGetters(['authError'])
+      // ...mapGetters(['authError'])
     },
     methods: {
       ...mapActions(['login']),
       kakaoLogin() {
         const params = {
-          redirectUri:'http://192.168.45.216:8080/kakaoLogin',
+          redirectUri:'http://localhost:8080/kakaoLogin',
         }
         window.Kakao.Auth.authorize(params)
       }

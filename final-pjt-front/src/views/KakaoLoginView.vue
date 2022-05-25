@@ -32,12 +32,14 @@ export default {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json; charset = utf-8'
       }
-      axios.get('/accounts/kakao/callback/', { headers: token_header })
+      axios.get('/kakaoLogin/', { headers: token_header })
         .then(response => {
-          const token = response.key
+          console.log(response)
+          const token = response.data.key
+
           this.$store.dispatch('saveToken', token)
           this.$store.dispatch('fetchCurrentUser')
-          this.router.push({ name: 'MovieHome' })
+          this.$router.push({ name: 'MovieHome' })
         })
     },
   }

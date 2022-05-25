@@ -11,7 +11,7 @@ const getKakaoToken = async (code) => {
         const data = {
             grant_type: 'authorization_code',
             client_id: '683d19aa3f66f6c7d4ca3b08f6f139ed',
-            redirect_uri: 'http://192.168.45.216:8080/kakaoLogin',
+            redirect_uri: 'http://localhost:8080/kakaoLogin',
             code: code,
         };
         var esc = encodeURIComponent;
