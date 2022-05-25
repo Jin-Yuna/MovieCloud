@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
-    <nav-bar></nav-bar>
+  <v-app>
+    <NavBar></NavBar>
     <hr />
     <router-view></router-view>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -45,3 +45,4 @@
 </script>
 
 <style></style>
+
