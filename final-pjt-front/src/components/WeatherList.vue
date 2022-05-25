@@ -34,13 +34,11 @@ export default {
   },
   mounted() {
     this.showWeather()
-    console.log(this.weather.weather_id)
     this.get_weather_movies(this.weather.weather_id)
     this.recommend_genres(this.weather.weather_id)
   },
   methods: {
     showWeather() {
-      console.log(this.location.latitude)
       let apiKey = "8b0343f881770cdb1dbb079901414e9e"
       let weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + this.location.latitude
               + "&lon=" + this.location.longitude
@@ -76,11 +74,8 @@ export default {
           based_num = 80
         }
       }
-      console.log(this.weather_genres[based_num])
       const genres_id_list = this.weather_genres[based_num]
       for (var genre_id of genres_id_list) {
-        console.log(genre_id)
-        console.log(this.genres)
         for (var genre of this.genres) {
           if (genre_id === genre.id) {
             this.genre_name.push(genre.name)

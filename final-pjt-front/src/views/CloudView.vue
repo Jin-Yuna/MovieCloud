@@ -4,12 +4,7 @@
       <h1> 나의 프로필</h1>
     </div>
     <div v-else>
-      <h1 v-if="profile.username">
-        {{ profile.username }} 프로필
-      </h1>
-      <h1 v-else>
-        {{ profile.nickname }} 프로필
-      </h1>
+       <h1>{{ profile.username }}</h1>
       <button @click="follow({userPk : profile.pk}); buttonchange()">
         <span v-if="followed">팔로우취소</span>
         <span v-else>팔로우</span>
@@ -58,7 +53,6 @@ export default {
   },
   computed: {
     ...mapGetters(['profile']),
-    
   },
   methods: {
     ...mapActions(['fetchProfile', 'follow']),
@@ -66,16 +60,16 @@ export default {
     isFollowed() {
       this.followed = this.profile.followers.includes(this.currentUser.pk)
     },
+    created() {
+      console.log(this.profile.username)
+      this.fetchProfile({userPk: this.$route.params.pk })
+      if (!this.profile) {
+        const payload = { userPk: this.$route.params.userPk }
+        this.fetchProfile(payload)
+      }
+    },
     buttonchange() {
       this.followed = !this.followed
-    }
-  },
-  created() {
-
-    this.fetchProfile({userPk:this.$route.params.pk })
-    if (!this.profile) {
-      const payload = { userPk: this.$route.params.userPk }
-      this.fetchProfile(payload)
     }
   },
   mounted() {
