@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
+  <v-app>
     <nav-bar></nav-bar>
     <hr />
     <router-view></router-view>
-  </div>
+  </v-app>
 </template>
 
 <script>
-  import NavBar from '@/components/NavBar.vue'
+ import NavBar from '@/components/NavBar.vue'
   import { mapActions } from 'vuex'
 
   export default {
@@ -71,3 +71,4 @@
 }
 
 </style>
+

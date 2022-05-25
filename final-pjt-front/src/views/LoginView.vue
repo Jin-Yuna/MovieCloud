@@ -17,9 +17,9 @@
                 <img class="password" src="../assets/passwordicon.svg" alt="패스워드 아이콘">
                 <input v-model="credentials.password" placeholder="비밀번호" type="password" id="password" required />
               </div>
-              <div class="wrong-alert">
+              <!-- <div class="wrong-alert">
                 <account-error-list v-if="authError"></account-error-list>
-              </div>
+              </div> -->
               <div class="login-btn-wrap"><button class="login-button">Login</button></div>
             </form>
             <button class="kakaologin" @click="kakaoLogin"><img class="kakaologin-img" src="../assets/kakao_login.png"></button>
@@ -31,13 +31,13 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
-  import AccountErrorList from '@/components/AccountErrorList.vue'
+  import { mapActions } from 'vuex'
+  // import AccountErrorList from '@/components/AccountErrorList.vue'
 
   export default {
     name: 'LoginView',
     components: {
-      AccountErrorList,
+      // AccountErrorList,
     },
     data() {
       return {
@@ -49,7 +49,7 @@
       }
     },
   computed: {
-      ...mapGetters(['authError'])
+      // ...mapGetters(['authError'])
     },
     methods: {
       ...mapActions(['login']),
