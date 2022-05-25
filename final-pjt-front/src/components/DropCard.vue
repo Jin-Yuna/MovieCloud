@@ -4,7 +4,7 @@
       <img :src="posterUrl" alt="포스터" class="img_size">  
       <h3>{{ drop.title }}</h3>
     </router-link>
-    <router-link :to="{ name: 'ProfileView', params: { userPk : userpk } }">
+    <router-link :to="{ name: 'ProfileView', params: {userPk:userpk} }">
       {{ username }}
     </router-link> 
   </div>

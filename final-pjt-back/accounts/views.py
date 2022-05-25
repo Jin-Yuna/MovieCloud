@@ -56,7 +56,7 @@ class KakaoLogin(SocialLoginView):
 
 @api_view(['GET'])
 def profile(request, pk):
-    
+    print(pk)
     user = get_object_or_404(User, pk=pk)
     serializer = ProfileSerializer(user)
     return Response(serializer.data)

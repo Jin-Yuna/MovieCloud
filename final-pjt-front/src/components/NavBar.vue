@@ -9,12 +9,10 @@
       </li>
       <li v-if="isLoggedIn">
         <router-link :to="{ name: 'ProfileView', params: { pk } }">
-          <div v-if="currentUser.username">
+          <div>
             {{ currentUser.username }}'s page
-            </div>
-          <div v-else>
-            {{ currentUser.nickname }}'s page
-            </div>
+          </div>
+ 
         </router-link>
       </li>
       <li v-if="isLoggedIn">
