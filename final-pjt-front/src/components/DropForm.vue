@@ -1,17 +1,18 @@
 <template>
   <form @submit.prevent="onSubmit">
     <!-- 수정할 때는 영화목록 선택 안보이게 함 -->
+  
     <div v-if="isCreate"> 
       <label for="movie">영화</label>
       <select id="movie" v-model="newDrop.movie">
-        <option v-for="movie_title in movies_title" :key="movie_title.id">
-          <p>{{ movie_title.title }}</p>
+        <option v-for="movie_title in movies_title" :value="movie_title.pk" :key="movie_title.pk">
+          <span>{{ movie_title.title }}</span>
         </option>
       </select>
     </div>
     <div>
       <label for="title">제목</label>
-      <input type="text" id="title" v-model="movietitle">
+      <input type="text" id="title" v-model="newDrop.title">
     </div>
     <div>
       <label for="content">내용</label>
@@ -19,7 +20,7 @@
     </div>
     <div>
       <label for="user_vote">평점</label>
-      <input type="number" id="user_vote" min="0" max="5" step="0.5" v-model="newDrop.user_vote">
+      <input type="number" id="user_vote" min="0" max="5" step="1" v-model="newDrop.user_vote">
     </div>
     <button>작성</button>
   </form>
@@ -44,7 +45,7 @@ export default {
         user_vote: this.drop.user_vote,
         movies_title : this.drop.movies_title,
       },
-      movietitle : '',
+      movietitle : null,
     }
   },
 
@@ -60,7 +61,17 @@ export default {
         }
         this.updateDrop(payload)
       }
-    
+    },
+    getmovieid(movietitle) {
+  // { "pk": 953233, "title": "말괄량이 길들이기" }
+      if (this.action === 'create') {
+        for (const movie in this.movies_title ) {
+          if (movie.title === movietitle) {
+            this.newDrop.movie = movie.pk
+            console.log(movie.pk)
+        }
+      }    
+      }
     },
   },
   computed : {
@@ -71,4 +82,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.display-none {
+  display: none;
+}
+</style>

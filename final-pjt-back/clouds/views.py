@@ -26,6 +26,7 @@ def drop_list(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated]) # 로그인 한 사용자만 글쓰기 가능
 def drop_create(request):
+    print(request.data, '***********************')
     serializer = DropCreateSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=request.user)

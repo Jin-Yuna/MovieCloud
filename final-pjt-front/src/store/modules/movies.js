@@ -6,7 +6,8 @@ export default {
     today: '',
     boxOffie: null,
     movieId: 0,
-    movieDetailAxios: null
+    movieDetailAxios: null,
+    movies_title: [],
   },
   getters: {
 
@@ -23,6 +24,9 @@ export default {
     },
     GET_BOX_OFFICE(state, boxOffie) {
       state.boxOffie = boxOffie
+    },
+    SET_MOVIES_TITLE(state, movies_title) {
+      state.movies_title = movies_title
     }
   },
   actions: {
@@ -65,5 +69,15 @@ export default {
           })
         })
     },
+    setMoviesTitle({ commit, state }) {
+      if (!state.movies_title.length) {
+        axios.get('http://127.0.0.1:8000/movies/get_movie_title/')
+          .then(response => {
+          // const movies_title = response.data
+          // movie_id와 title 가져옴
+          commit('SET_MOVIES_TITLE', response.data)
+      })
+      }
+    }
   },
 }
