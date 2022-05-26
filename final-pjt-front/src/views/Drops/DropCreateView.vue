@@ -2,11 +2,12 @@
   <div class="weather_container">
     <v-container>
       <!-- <h2 class="bold_text">드롭 생성하기</h2> -->
+      <br><br>
       <div class="content">
         <h2>Create Drop</h2>
         <h2>Create Drop</h2>
       </div>
-      <h2><br><br></h2>
+      <br><br><br><br>
       <DropForm :drop="drop" :movies_title="movies_title" action="create"/>
     </v-container>
   </div>
@@ -44,7 +45,9 @@ export default {
 <style scoped>
 .weather_container {
   background: linear-gradient(to top, #BBDEFB, #ffffff);
-  /* height: 100rem; */
+  height: 100vh;
+  background-size: cover;
+  
 }
 
 .bold_text {
@@ -63,7 +66,7 @@ export default {
 
 /* 텍스트 효과 */
 .content {
-  margin-top: 7rem;
+  margin-top: 10rem;
   font-family: 'LeferiPoint-BlackA';
   position: relative;
   left: calc(50% - 290px/2 + 100px);

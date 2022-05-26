@@ -71,7 +71,6 @@ export default {
     }
   },
   created() {
-    console.log(this.$route.params.pk )
     this.fetchProfile({userPk:this.$route.params.pk })
     if (!this.profile) {
       const payload = { userPk: this.$route.params.pk }

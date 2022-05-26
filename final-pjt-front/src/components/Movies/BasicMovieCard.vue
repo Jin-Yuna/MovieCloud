@@ -46,7 +46,6 @@ export default {
     ...mapActions(['getMovieDetailAxios']),
   },
   created(){
-    console.log(this.movie)
   }
 }
 </script>

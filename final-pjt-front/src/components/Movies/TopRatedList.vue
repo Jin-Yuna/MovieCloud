@@ -51,7 +51,6 @@ export default {
         .then(response => {
           this.items.topMovies1=response.data.results.slice(0,10)
           this.items.topMovies2=response.data.results.slice(10,20)
-          this.items.topMovies3=response.data.results.slice(11,20)
         }),
       config = {
         params: {
@@ -62,7 +61,6 @@ export default {
       }
       axios.get(TMDB_TOP_RATED_URL, config)
         .then(response => {
-          console.log(response)
           this.items.topMovies3=response.data.results.slice(0,10)
           this.items.topMovies4=response.data.results.slice(10,20)
         })

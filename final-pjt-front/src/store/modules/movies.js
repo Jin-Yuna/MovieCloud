@@ -80,12 +80,11 @@ export default {
         })
     },
     setMoviesTitle({ commit, state }) {
-      if (!state.movies_title) {
+      if (!state.movies_title.length) {
         axios.get('http://127.0.0.1:8000/movies/get_movie_title/')
           .then(response => {
           // const movies_title = response.data
           // movie_id와 title 가져옴
-          console.log(response.data)
           commit('SET_MOVIES_TITLE', response.data)
       })
       }

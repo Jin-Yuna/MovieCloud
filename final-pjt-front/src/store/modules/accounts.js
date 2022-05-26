@@ -108,20 +108,17 @@ export default {
     },
 
     fetchProfile({ commit, getters, }, { userPk }) {
-      
-      console.log(userPk)
       axios({
         url:drf.accounts.profile(userPk),
         method: 'get',
         headers: getters.authHeader,
       })
         .then(res => {
-          console.log(res.data)
           commit('SET_PROFILE', res.data)
         })
     },
     follow({commit, getters }, { userPk }) {
-      console.log(userPk)
+
       axios({
         url:drf.accounts.follow(userPk),
         method: 'post',
