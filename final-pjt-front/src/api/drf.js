@@ -30,6 +30,7 @@ export default {
     weather: (weatherPk) => HOST + WEATHER + `${weatherPk}/`
   },
   movies: {
-    movies: () => HOST + MOVIES + 'get_movie_search/'
+    movies: () => HOST + MOVIES + 'get_movie_search/',
+    getTitle: () => 'http://127.0.0.1:8000/movies/get_movie_title/',
   }
 }

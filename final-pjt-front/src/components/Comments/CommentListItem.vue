@@ -1,16 +1,40 @@
 <template>
-  <li class="comment-list-item">
+  <div class="comment-list-item">
     <span v-if="!isEditing">{{ payload.content }} | {{ comment.user.username }}</span>
     <span v-if="isEditing">
-      <input type="text" v-model="payload.content">
-      <button @click="onUpdate">Update</button> |
-      <button @click="switchIsEditing">Cancle</button>
+    <v-flex>
+      <v-text-field @keyup.enter="onUpdate" type="text" v-model="payload.content"></v-text-field>
+      <button @click="onUpdate">수정 |</button>
+      <button @click="switchIsEditing">&nbsp;취소</button>
+    </v-flex>
     </span>
     <span v-if="currentUser.username === comment.user.username && !isEditing">
-      <button @click="switchIsEditing">Edit</button> |
-      <button @click="deleteComment(payload)">Delete</button>
+      <v-btn
+        @click="switchIsEditing"
+        class="mx-2"
+        fab
+        dark
+        x-small
+        color="cyan"
+      >
+        <v-icon dark>
+          mdi-pencil
+        </v-icon>
+      </v-btn>
+      <v-btn
+        @click="deleteComment(payload)"
+        class="mx-2"
+        fab
+        dark
+        x-small
+        color="cyan"
+      >
+        <v-icon dark>
+          mdi-minus
+        </v-icon>
+      </v-btn>
     </span>
-  </li>
+  </div>
 </template>
 
 <script>
@@ -49,9 +73,6 @@ export default {
 }
 </script>
 
-<style>
-.comment-list-item {
-  border: 1px solid green;
+<style scoped>
 
-}
 </style>

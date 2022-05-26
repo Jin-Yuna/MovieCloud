@@ -1,39 +1,128 @@
 <template>
-  <div>
-    <div v-if="profile.pk===currentUser.pk">
-      <h1> 나의 프로필</h1>
-    </div>
-    <div v-else>
-       <h1>{{ profile.username }}</h1>
-      <button @click="follow({userPk : profile.pk}); buttonchange()">
-        <span v-if="followed">팔로우취소</span>
-        <span v-else>팔로우</span>
-      </button>
-      <span>팔로워 수 : {{ profile.followers.length }}</span>
-    </div>
-    <h2 v-if="profile.followings.length"> 팔로우 목록 : {{ profile.followings }}</h2>
-    
-    <h2>작성한 글</h2>
+  <div class="weather_container">
+  <v-container class="mt-16">
+    <div class="mt-16">
+      <div v-if="profile.pk===currentUser.pk">
+        <h1 class="my_card_title">Hi {{ profile.username }}!</h1>
+      </div>
+      <div v-else>
+        <h1 class="my_card_title">{{ profile.username }}</h1>
+        <v-row
+          align="center"
+          justify="end"
+          class="mr-4"
+          @click="follow({userPk : profile.pk}); buttonchange()"
+        >
+          <v-btn
+            tile
+            color="amber darken-1"
+            v-if="followed"
+          >
+            <v-icon left>
+              mdi-star
+            </v-icon>
+            팔로우중
+          </v-btn>
+          <v-btn
+            tile
+            color="grey lighten-1"
+            v-else
+          >
+            <v-icon left>
+              mdi-star
+            </v-icon>
+            팔로우
+          </v-btn>
+        </v-row>
+        <span>팔로워 수 : {{ profile.followers.length }}</span>
+      </div>
+      <h2 v-if="profile.followings.length"> 팔로우 목록 : {{ profile.followings }}</h2>  
+      <v-tab class="mt-16">
+        <v-badge
+          color="blue darken-1"
+          :content="profile.drops.length"
+        >
+          <h2 class="my_card_datas">작성한 글</h2>
+        </v-badge>
+      </v-tab>
+  
+  <!--  -->
+      <v-sheet
+        class="mx-auto"
+        elevation="8"
+        max-width="120em"
+        back
+        color="transparent"
+      >
+        <v-slide-group
+          v-model="model"
+          class="pa-4"
+          show-arrows
+        >
+          <v-slide-item
+            v-for="drop in profile.drops "
+            :key="drop.pk"
+            v-slot="{ toggle }"
+          >
+            <v-card
+              class="ma-4"
+              height="290"
+              width="200"
+              @click="toggle"
+            >
+            <DropCard 
+              :drop = drop
+              :profilename="profile.username"
+              :profilepk="profile.pk"
+            />
+            </v-card>
+          </v-slide-item>
+        </v-slide-group>
+      </v-sheet>
 
-    <div class="flex">
-      <DropCard
-        v-for="drop in profile.drops"
-        :key="drop.pk"
-        :drop="drop"
-        :profilename="profile.username"
-        :profilepk="profile.pk"
-      />
+
+      <v-tab class="mt-16">
+        <v-badge
+          color="blue darken-1"
+          :content="profile.like_drops.length"
+        >
+          <h2 class="my_card_datas">좋아요한 글</h2>
+        </v-badge>
+      </v-tab>
+      <v-sheet
+        class="mx-auto"
+        elevation="8"
+        max-width="120em"
+        color="transparent"
+      >
+        <v-slide-group
+          v-model="model"
+          class="pa-4"
+          active-class="success"
+          show-arrows
+        >
+          <v-slide-item
+            v-for="drop in profile.like_drops "
+            :key="drop.pk"
+            v-slot="{ toggle }"
+          >
+            <v-card
+              class="ma-4"
+              height="290"
+              width="200"
+              @click="toggle"
+            >
+            <DropCard 
+              :drop = drop
+              :profilename="profile.username"
+              :profilepk="profile.pk"
+            />
+            </v-card>
+          </v-slide-item>
+        </v-slide-group>
+      </v-sheet>
     </div>
-    <h2>좋아요한 글</h2>
-    <div class="flex">
-      <DropCard
-        v-for="like_drop in profile.like_drops"
-        :key="like_drop.pk"
-        :drop="like_drop"
-        :profilename="profile.username"
-        :profilepk="profile.pk"
-      />
-    </div>
+  </v-container>
   </div>
 </template>
 
@@ -48,7 +137,8 @@ export default {
   data() {
     return{
       currentUser: this.$store.state.accounts.currentUser,
-      followed : false
+      followed : false,
+      model: null,
     }
   },
   computed: {
@@ -83,10 +173,35 @@ export default {
   },
 }
 
+
+
+
+
 </script>
 
-<style>
-.flex {
-  display: flex;
+<style scoped>
+.weather_container {
+  background: linear-gradient(to top, #BBDEFB, #ffffff);
+  height: 100vh;
+  background-size: cover;
 }
+.my_card_title {
+  /* left: calc(50% - 481px/2 - 298.5px);
+  top: calc(50% - 63px/2 - 1298px); */
+  font-family: 'LeferiPoint-BlackA';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 63px;
+  color: #425E7A;
+}
+.my_card_datas {
+  font-family: 'LeferiPoint-BlackA';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 63px;
+  color: #425E7A;
+}
+
 </style>
