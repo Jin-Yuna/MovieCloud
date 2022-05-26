@@ -33,7 +33,7 @@ import { mapActions, mapGetters } from 'vuex'
 import BasicMovieCard from '@/components/Movies/BasicMovieCard.vue'
 
 export default {
-  name: 'WeaherList',
+  name: 'WeatherList',
   components: {
     BasicMovieCard,
   },
@@ -104,7 +104,6 @@ export default {
     },
     getRamdomMovie() {
       const random = _.sampleSize(this.weather_movies, 3)
-      console.log(random)
       this.ramdomMovie=  random
     },
     ...mapActions(['get_weather_movies'])

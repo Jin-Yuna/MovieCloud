@@ -67,7 +67,6 @@ export default {
         })
     },
     deleteDrop({ commit, getters }, dropPk) {  
-      console.log('삭제')
       if (confirm('삭제하시겠습니까?')) {
         axios({
           url: drf.drops.drop(dropPk),
