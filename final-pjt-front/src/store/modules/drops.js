@@ -28,6 +28,10 @@ export default {
             name: 'DropListView'
           })
         })
+        .catch(err=>{
+          console.lpg(err)
+          router.push('login')
+        })
     },
     getDrop({ commit, getters }, dropPk) {
       axios({

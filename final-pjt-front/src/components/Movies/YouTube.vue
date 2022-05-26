@@ -36,11 +36,13 @@ export default {
 
       axios.get(API_URL, config)
         .then(response => {
+          console.log('요청', response)
           this.selectedVideo = response.data.items[0]
         })
+        .catch(err=>{console.log(err)})
     },
   },
-  created() {
+  mounted() {
     this.getVideo()
   }
 }

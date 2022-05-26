@@ -88,7 +88,7 @@ export default {
   display: flex;
   align-items: center;
   text-align: center;
-  color: #425E7A;
+  color: #1A2940;
   left: calc(50% - 290px/2 - 205px);
   top: calc(50% - 26px/2 + 318.5px);
 }
@@ -103,7 +103,7 @@ export default {
   display: flex;
   align-items: center;
   text-align: center;
-  color: #425E7A;
+  color: #1A2940;
   left: calc(50% - 290px/2 - 0px);
   top: calc(50% - 26px/2 + 300.5px);
 }

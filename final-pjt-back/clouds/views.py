@@ -18,6 +18,7 @@ from .serializers import (
 )
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated]) # 로그인 한 사용자만 조회 가능
 def drop_list(request):
     drops = Drop.objects.annotate(comment_count=Count('comments', distinct=True)).order_by('-pk')
     serializer = DropCardSerializer(drops, many=True)

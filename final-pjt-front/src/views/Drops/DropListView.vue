@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import axios from 'axios'
 import drf from '@/api/drf'
 import RealDropCard from '@/components/RealDropCard.vue'
@@ -72,7 +73,10 @@ export default {
       curPageNum: 1,
     }
   },
+  methods : {
+  },
   computed: {
+    ...mapGetters(['authHeader']),
     startOffset() {
       return ((this.curPageNum - 1) * this.dataPerPage);
     },
@@ -89,6 +93,7 @@ export default {
   created() {
     axios({
       url: drf.drops.drops(),
+      headers: this.authHeader,
       method: 'get',
     })
     .then(response => {

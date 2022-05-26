@@ -36,9 +36,6 @@ export default {
   methods: {
     ...mapActions(['setMoviesTitle']),
   },
-  created() { 
-      this.setMoviesTitle()
-  },
 }
 </script>
 

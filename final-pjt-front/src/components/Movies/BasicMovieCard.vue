@@ -45,8 +45,6 @@ export default {
   methods: {
     ...mapActions(['getMovieDetailAxios']),
   },
-  created(){
-  }
 }
 </script>
 

@@ -9,7 +9,6 @@
       <v-list flat>
         <v-subheader>내 근방 영화관</v-subheader>
         <v-list-item-group
-          v-model="selectedItem"
           color="#1A2940"
         >
           <v-list-item
