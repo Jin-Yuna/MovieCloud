@@ -1,12 +1,12 @@
 <template>
   <div class="video-list-item">
-    <router-link :to="{ name: 'DropDetailView', params: {dropPk: droppk} }">
-      <img :src="posterUrl" alt="포스터" class="img_size">  
+    <router-link :to="{ name: 'DropDetailView', params: {dropPk: droppk} }"> 
+      <img :src="posterUrl" alt="포스터" class="img_size">
       <h3>{{ drop.title }}</h3>
     </router-link>
     <router-link :to="{ name: 'ProfileView', params: {userPk:userpk} }">
       {{ username }}
-    </router-link> 
+    </router-link>
   </div>
 </template>
 
@@ -51,4 +51,5 @@ export default {
   width: 200px;
   height: 300px;
 }
+
 </style>

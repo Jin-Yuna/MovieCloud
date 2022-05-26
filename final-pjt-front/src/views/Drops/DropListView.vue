@@ -71,11 +71,6 @@ export default {
     calData() {
       return this.drops.slice(this.startOffset, this.endOffset)
     },
-    // reversedComments() {
-    //   const reversedDrops = [...this.drops].reverse();
-    //   this.reversedDrops = reversedDrops
-    //   return reversedDrops
-    // },
   },
   created() {
     axios({
