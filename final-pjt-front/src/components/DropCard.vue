@@ -41,8 +41,8 @@ export default {
       let username = ''
       if (this.drop.user) {username= this.drop.user.username} else {username=this.profilename}
       return username
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -50,7 +50,5 @@ export default {
 .img_size {
   width: 200px;
   height: 300px;
-  filter: blur(1px);
 }
-
 </style>

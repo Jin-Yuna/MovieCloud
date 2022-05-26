@@ -15,7 +15,7 @@
         @click="likeDrop(dropPk)"
       >{{ likeCount }}</button>
     </div>
-    <CommentList :comments="drop.comments" />
+    <CommentList :comments="reversedComments" />
   </div>
 </template>
 
@@ -40,7 +40,11 @@
       },
       likeCount() {
         return this.drop.like_users?.length
-      }
+      },
+      reversedComments() {
+        const reversedComments = [...this.drop.comments].reverse();
+        return reversedComments
+      },
     },
     methods: {
       ...mapActions(['getDrop', 'deleteDrop', 'likeDrop', ])
@@ -51,4 +55,6 @@
   }
 </script>
 
-<style></style>
+<style>
+
+</style>

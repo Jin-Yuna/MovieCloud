@@ -1,10 +1,10 @@
 <template>
-  <div class="video-list-item">
+  <div>
     <router-link :to="{ name: 'DropDetailView', params: {dropPk: droppk} }">
       <img :src="posterUrl" alt="포스터" class="drop">  
       <h3 class="overflow-x-hidden">{{ drop.title }}</h3>
     </router-link>
-    <router-link :to="{ name: 'ProfileView', params: {userPk:userpk} }">
+    <router-link :to="{ name: 'ProfileView', params: {userPk:drop.user.pk} }">
       {{ username }}
     </router-link> 
   </div>
