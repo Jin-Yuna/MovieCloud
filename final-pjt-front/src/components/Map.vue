@@ -49,8 +49,7 @@ export default {
       this.searchPlaces()
       
       this.displayInfoWindow()
-      this.displayMarker(this.Positions)
-      
+      this.displayMarker(this.Positions)   
       },
     // 마커 표시
     displayMarker(markerPositions) {
@@ -119,7 +118,7 @@ export default {
 
 <style>
 #map {
-  width: 100%;
+  width: 900px;
   height: 600px;
 }
 

@@ -86,6 +86,7 @@ export default {
           // const movies_title = response.data
           // movie_id와 title 가져옴
           console.log(response.data)
+          localStorage.setItem('movie_titles', response.data)
           commit('SET_MOVIES_TITLE', response.data)
       })
       }

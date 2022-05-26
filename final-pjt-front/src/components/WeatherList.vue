@@ -72,7 +72,6 @@ export default {
             temp: response.data.main.temp - 273,
           }
           this.$store.dispatch('saveWeather', weather)
-          
           this.textContent = 'Your location data is ' + this.location.latitude + ', ' + this.location.longitude + " ( " + this.location.city + " ) "
           + 'weather is ' + this.weather.weather_simple + ' ' + this.weather.weather_description
           + 'temperature is ' + this.weather.temp 
