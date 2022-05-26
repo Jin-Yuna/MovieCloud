@@ -96,6 +96,7 @@ export default {
       })
         .then(res => {
           commit('GET_MOVIES_SEARCH', res.data)
+          console.log('여기', res.data)
           const movies = res.data
           var movie_titles = []
           for (var movie of movies) {

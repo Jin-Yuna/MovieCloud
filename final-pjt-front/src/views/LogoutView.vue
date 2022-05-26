@@ -21,7 +21,6 @@
         alert('잘못된 접근')
         this.$router.back()
       }
-      
     },
   }
 </script>

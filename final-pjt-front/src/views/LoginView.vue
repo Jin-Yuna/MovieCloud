@@ -17,7 +17,7 @@
                 <v-text-field
                     prepend-inner-icon="mdi-lock"
                     type="password"
-                    label="Password"
+                    label="비밀번호"
                     color="#1A2940" v-model="credentials.password" id="password" required
                   >
                 </v-text-field>
@@ -30,7 +30,8 @@
             </form>
             <button class="kakaologin" @click="kakaoLogin"><img class="kakaologin-img" src="../assets/kakao_login_medium_wide.png"></button>
             <transition name="fade" mode="out-in">             
-              <div class="go-to-signup"><a href="/signup">처음 오셨나요?</a></div> 
+              <div class="go-to-signup">
+                <router-link class="signup-link" :to="{ name: 'signup' }">처음 오셨나요?</router-link></div> 
             </transition>
 
           </div>
@@ -40,13 +41,13 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
-  // import AccountErrorList from '@/components/AccountErrorList.vue'
+  import { mapActions, mapGetters } from 'vuex'
+  import AccountErrorList from '@/components/AccountErrorList.vue'
 
   export default {
     name: 'LoginView',
     components: {
-      // AccountErrorList,
+      AccountErrorList,
     },
     data() {
       return {
@@ -58,7 +59,7 @@
       }
     },
   computed: {
-      // ...mapGetters(['authError'])
+      ...mapGetters(['authError'])
     },
     methods: {
       ...mapActions(['login']),
