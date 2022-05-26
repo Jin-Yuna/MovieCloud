@@ -144,9 +144,6 @@
   color: #425E7A;
 }
 .my_card_datas {
-  width: 391px;
-  height: 26px;
-
   font-family: 'LeferiBaseType-RegularA';
   font-style: normal;
   font-weight: 400;

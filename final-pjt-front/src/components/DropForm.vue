@@ -13,7 +13,7 @@
         >
         </v-autocomplete>
       </div>
-      <div>
+      <v-flex>
         <v-text-field
           label="제목"
           outlined
@@ -35,7 +35,7 @@
           </div>
         </div>
         <!--  -->
-      </div>
+      </v-flex>
       <div class="mt-5">
         <v-textarea
           outlined
@@ -123,7 +123,7 @@ textarea {
 
 /* 별점 */
 #myrate fieldset{
-  display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+  display: inline-block; /*하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
   direction: rtl; /* 이모지 순서 반전 */
   border: 0; /* 필드셋 테두리 제거 */
 }
@@ -131,7 +131,7 @@ textarea {
   display: none; /* 라디오박스 감춤 */
 }
 #myrate label{
-  font-size: 1em; /* 이모지 크기 */
+  font-size: 1.4em; /* 이모지 크기 */
   color: transparent; /* 기존 이모지 컬러 제거 */
   text-shadow: 0 0 0 #c6dced; /* 새 이모지 색상 부여 */
 }
@@ -148,9 +148,10 @@ textarea {
   text-shadow: 0 0 0 rgb(89, 108, 216); /* 마우스 클릭 체크 */
 }
 .myrate_potition {
-  position: absolute;
-  left: calc(50% + 179px/2 + 600px);
-  top: calc(50% - 26px/2 - 370px);
+  position: relative;
+  margin: 1rem;
+  /* left: calc(50% + 179px/2 + 600px);
+  top: calc(50% - 24px/2 - 0px); */
 }
 /* 택스트 효과 */
 

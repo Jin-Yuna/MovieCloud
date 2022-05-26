@@ -3,10 +3,15 @@
     <v-flex class="justify-center">
       <h1 class="my_bord_text">DROPS</h1>
     </v-flex>
+      <v-pagination
+        v-model="curPageNum"
+        :length="numOfPages"
+        circle
+      ></v-pagination>
       <v-container class="mymargintop">
         <v-row justify="center">
           <v-col
-            v-for="drop in drops"
+            v-for="drop in calData"
             :key="drop.id"
             cols="auto"
           >
@@ -47,14 +52,32 @@ export default {
   },
   data() {
     return {
-      drops : []
+      drops : [],
+      reversedDrops: [],
+      dataPerPage: 20,
+      curPageNum: 1,
     }
   },
-  methods: {
-
+  computed: {
+    startOffset() {
+      return ((this.curPageNum - 1) * this.dataPerPage);
+    },
+    endOffset() {
+      return (this.startOffset + this.dataPerPage);
+    },
+    numOfPages() {
+      return Math.ceil(this.drops.length / this.dataPerPage);
+    },
+    calData() {
+      return this.drops.slice(this.startOffset, this.endOffset)
+    },
+    // reversedComments() {
+    //   const reversedDrops = [...this.drops].reverse();
+    //   this.reversedDrops = reversedDrops
+    //   return reversedDrops
+    // },
   },
   created() {
-
     axios({
       url: drf.drops.drops(),
       method: 'get',
