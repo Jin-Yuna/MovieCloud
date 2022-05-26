@@ -1,46 +1,36 @@
 <template>
-  <div>
-    <!--  -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <div class="container-fluid">
-        <router-link class="navbar-brand" :to="{ name: 'MovieHome' }">HOME</router-link>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'DropCreateView' }">새글쓰기</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'DropListView' }">글 목록</router-link>
-            </li>
-            <!-- 로그인, 프로필 -->
-            <li class="nav-item" v-if="isLoggedIn">
-              <router-link class="nav-link" :to="{ name: 'ProfileView', params: { pk } }">
-                <div>
-                  {{ currentUser.username }}'s page
-                </div>
-              </router-link>
-            </li>
-            <li class="nav-item" v-if="isLoggedIn">
-              <router-link class="nav-link" :to="{ name: 'logout' }">Logout</router-link>
-            </li>
-            <li class="nav-item" v-if="!isLoggedIn">
-              <router-link class="nav-link" :to="{ name: 'login' }">Login</router-link>
-            </li>
-            <li class="nav-item" v-if="!isLoggedIn">
-              <router-link class="nav-link" :to="{ name: 'signup' }">Signup</router-link>
-            </li>
-            <!--  -->
-            <li class="nav-item">
-              <SearchBar />
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </div>
+  <v-app-bar fixed color="#F6FAFE" >
+    <v-app-bar-title>
+      <router-link class="logo-title" :to="{ name: 'MovieHome' }">MOVIE CLOUD</router-link>
+    </v-app-bar-title>
+    <v-app-bar-nav-icon>
+        <router-link :to="{ name: 'MovieHome' }">
+          <img class="logo-image" 
+          src="../assets/logo.png" 
+          alt="로고이미지">
+      </router-link>
+    </v-app-bar-nav-icon>
+    <v-spacer></v-spacer>
+    <ul>
+      <li>
+        <router-link :to="{ name: 'MovieHome' }" class="link-to">MOVIE</router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'DropListView' }" class="link-to">CLOUD</router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'ProfileView', params: { pk } }" 
+        v-if="isLoggedIn" classs="link-to">{{ currentUser.username }}'S CLOUD</router-link>
+      </li>
+    </ul>
+    <SearchBar />
+    <div class="btn-group">
+      <router-link :to="{ name: 'login' }" v-if="!isLoggedIn">
+        <v-btn color="#F6FAFE">Login</v-btn>
+      </router-link>
+      <router-link :to="{ name: 'logout' }" v-if="isLoggedIn" class="logout-link"><v-btn dark color="#1A2940">Logout</v-btn></router-link>
+    </div>
+  </v-app-bar>
 </template>
 
 <script>
@@ -62,8 +52,48 @@
   }
 </script>
 
-<style>
-body {
-  padding-top: 20px;
+<style scoped>
+.logo-title {
+  margin-left: 450px;
+  font-family: 'Arial';
+  font-weight: 700;
+  font-size: 30px;
+  text-decoration: none;
+  color: #1A2940;
+  line-height: 34px;
+  margin-right: 10px;
+} 
+.logo-image{
+  width: 55px;
+ }
+ ul {
+   list-style: none;
+   display: flex;
+ }
+ li {
+   margin: 10px;
+ }
+a {
+  font-family: 'LeferiBaseType-RegularA';
+  color: #1A2940;
+  text-decoration: none;
 }
+a:visited {
+  color: #1A2940;
+  text-decoration: none;
+}
+ .link-to {
+  font-family: 'LeferiBaseType-RegularA';
+  color: #1A2940;
+  font-weight: 700;
+  font-size: 20px;
+ }
+ .btn-group {
+   margin-right: 450px;
+ }
+ .logout-link {
+    font-family: 'LeferiBaseType-RegularA';
+    color: #F6FAFE;
+    text-decoration-line: none;
+ }
 </style>

@@ -9,21 +9,30 @@
             <h1>로그인</h1>
             <p>WELCOME!</p>
             <form class="login-input-container" @submit.prevent="login(credentials)">
-              <div class="login-input-wrap input-id">
-                <img class="usericon" src="../assets/loginusericon.svg" alt="로그인 유저 아이콘">
-                <input v-model="credentials.username" placeholder="아이디"  type="text" id="username" required />         
-              </div>
-              <div class="login-input-wrap input-password">
-                <img class="password" src="../assets/passwordicon.svg" alt="패스워드 아이콘">
-                <input v-model="credentials.password" placeholder="비밀번호" type="password" id="password" required />
-              </div>
-              <!-- <div class="wrong-alert">
+              <v-text-field
+                    label="아이디"
+                    prepend-inner-icon="mdi-account"
+                    color="#1A2940" v-model="credentials.username" type="text" id="username" required
+                  ></v-text-field>
+                <v-text-field
+                    prepend-inner-icon="mdi-lock"
+                    type="password"
+                    label="Password"
+                    color="#1A2940" v-model="credentials.password" id="password" required
+                  >
+                </v-text-field>
+              <div class="wrong-alert">
                 <account-error-list v-if="authError"></account-error-list>
-              </div> -->
-              <div class="login-btn-wrap"><button class="login-button">Login</button></div>
+              </div>
+              <v-btn class="login-button" type="submit" large
+                    block
+                    dark>로그인</v-btn>
             </form>
-            <button class="kakaologin" @click="kakaoLogin"><img class="kakaologin-img" src="../assets/kakao_login.png"></button>
-            <div class="go-to-signup"><a href="/signup">처음 오셨나요?</a></div>
+            <button class="kakaologin" @click="kakaoLogin"><img class="kakaologin-img" src="../assets/kakao_login_medium_wide.png"></button>
+            <transition name="fade" mode="out-in">             
+              <div class="go-to-signup"><a href="/signup">처음 오셨나요?</a></div> 
+            </transition>
+
           </div>
         </div>
     </div>
@@ -65,7 +74,7 @@
 
 <style scoped>
 .login {
-  background-color: #425E7A;
+  background-color: #1A2940;
   height: 100vh;
 }
 * {
@@ -97,7 +106,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color:#425E7A;
+    color:#1A2940;
     background: linear-gradient(176.69deg, #BBDEFB 1.71%, #D4EAFC 36.3%, #F6FAFE 98.2%);
 }
 .login-form-real-jjin .logo {
@@ -111,7 +120,7 @@
     font-weight: 700;
     font-size: 40px;
     line-height: 46px;
-    color: #425E7A;;
+    color: #1A2940;
     width:100%;
     text-align: center;
 }
@@ -120,7 +129,7 @@
     font-weight: 400;
     font-size: 15px;
     line-height: 129.49%;
-    color: #425E7A;
+    color: #1A2940;
     padding-top: 10px;
 }
 .login-input-container{
@@ -131,7 +140,7 @@
     height: 45px;
     margin-top: 20px;
     border-radius: 2px;
-    border-bottom: 3px solid #425E7A;
+    border-bottom: 3px solid #1A2940;
     /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
 }
 .password {
@@ -152,33 +161,30 @@
     align-items: center;
 }
 .login-button {
-  margin-left: 53px;
-  margin-bottom: 3px;
-  width: 202px;
-  height: 52px;
+  margin-top: 10px;
+  margin-bottom: 0;
   color:white;
   font-family: 'LeferiBaseType-RegularA';
-  font-size: 18px;
+  font-size: 16px;
   border: 0;
   border-radius: 7px;
-  background: #425E7A;;
-  background: linear-gradient(162deg, #425E7A 0%, rgb(56, 77, 110) 50%, #425E7A 100%);
+  background: #1A2940;;
+  background: linear-gradient(162deg, #1A2940 0%, rgb(56, 77, 110) 50%, #1A2940 100%);
 }
 .kakaologin {
-  margin-top: 0;
-  height: 100%;
-  width: 100%;
+  margin-top: 15px;
+
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border: none;
   background: none;
   outline: none;
 }
 .kakaologin-img {
-  width: 202px;
-  height: 52px;
+  width: 310px;
+  height: 45px;
 }
 .go-to-signup{
-  margin-top: 40px;
+  margin-top: 70px;
   font-family: 'LeferiPoint-WhiteA';
   font-weight: 400;
   font-size: 14px;
@@ -188,7 +194,20 @@
   text-align: center;
   text-decoration: none;
   text-decoration-line: underline;
-  color: #425E7A;
+  color: #1A2940;
+}
+a:visited {
+  color: #1A2940;
 }
 
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-out;
+}
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

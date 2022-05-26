@@ -1,7 +1,7 @@
 <template>
 <div class="background-image">
   <div class="gradient">
-    <h1 class="title">MOVIE CLOUD</h1>
+    <h1 class="logo_titile">MOVIE CLOUD</h1>
     <router-link class="login-link" :to="{ name: 'login' }">
       <img class="logo" 
       src="../assets/logo.png" 
@@ -26,22 +26,20 @@ export default {
 }
 .gradient {
   background: linear-gradient(90.04deg, rgba(219, 202, 255, 0.5) 0.05%, rgba(250, 246, 254, 0.5) 99.97%);
-  position: absolute;
   width: 100%;
   height: 100%;
   left: 0px;
   top: 40px;
 }
-.title {
+.logo_titile {
   white-space: nowrap; 
   position: absolute;
   width: 464px;
   height: 92px;
-  left: calc(50% - 600px/2);
+  left: calc(50% - 500px/2);
   top: calc(50% - 200px/2);
 
-  font-family: 'LeferiPoint-BlackA';
-  font-style: normal;
+  font-family: 'Arial';
   font-weight: 700;
   font-size: 80px;
   line-height: 92px;
@@ -59,6 +57,6 @@ export default {
   width: 204px;
   height: 183px;
   left: calc(50% - 200px/2);
-  top: 25%;
+  top: 26%;
 }
 </style>
