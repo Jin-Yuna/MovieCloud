@@ -19,7 +19,7 @@ export default {
     return {
       map: null,
       Positions: [
-        [ this.$store.state.latitude, this.$store.state.longitude ],
+        [ this.$store.state.location.latitude, this.$store.state.location.longitude ],
       ],
       results: '',
       markers: [],
@@ -42,7 +42,7 @@ export default {
     initMap() {
       const container = document.getElementById("map")
       const options = {
-        center: new window.kakao.maps.LatLng(this.$store.state.latitude, this.$store.state.longitude),
+        center: new window.kakao.maps.LatLng(this.$store.state.location.latitude, this.$store.state.location.longitude),
         level: 8,
       }
       this.map = new window.kakao.maps.Map(container, options)
@@ -74,7 +74,7 @@ export default {
     },
     searchPlaces() {
       var config = { headers: { 'Authorization': 'KakaoAK 683d19aa3f66f6c7d4ca3b08f6f139ed'}};
-      var url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query='+'영화관&'+`y=${this.$store.state.latitude}&`+`x=${this.$store.state.longitude}`+'&radius=20000'
+      var url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query='+'영화관&'+`y=${this.$store.state.location.latitude}&`+`x=${this.$store.state.location.longitude}`+'&radius=20000'
         axios.get(url, config).then((response) => {
           // 데이터 개수 response.data.documents.length
           
