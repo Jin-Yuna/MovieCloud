@@ -8,24 +8,22 @@
               alt="로고이미지">
             <h1>회원가입</h1>
             <p>회원가입시 서비스 이용이 가능합니다</p>
+ 
             <form class="signup-input-container" @submit.prevent="signup(credentials)">
-                  <v-text-field
-                    label="아이디"
-                    prepend-inner-icon="mdi-account"
-                    color="#1A2940" v-model="credentials.username" type="text" id="username" required
-                  ></v-text-field>
+              <v-text-field
+                label="아이디"
+                prepend-inner-icon="mdi-account"
+                color="#1A2940" v-model="credentials.username" type="text" id="username" required />
               <v-text-field
                   prepend-inner-icon="mdi-lock"
-                  type="password"
-                  label="Password"
-                  color="#1A2940" v-model="credentials.password1" id="password1" required>
-              </v-text-field>
+                  type="password1"
+                  label="비밀번호" 
+                  color="#1A2940" v-model="credentials.password1" id="password1" required />
               <v-text-field
                   prepend-inner-icon="mdi-lock"
-                  type="password"
-                  label="Password"
-                  color="#1A2940" v-model="credentials.password2" id="password2" required>
-              </v-text-field>
+                  type="password2"
+                  label="비밀번호 확인" 
+                  color="#1A2940" v-model="credentials.password2" id="password2" required  />
               <div class="wrong-alert">
                 <account-error-list v-if="authError"></account-error-list>
               </div>
@@ -35,7 +33,9 @@
               </form>
             <button class="kakaologin" @click="kakaoLogin"><img class="kakaologin-img" src="../assets/kakao_login_medium_wide.png"></button>
             <transition name="fade" mode="out-in"> 
-            <div class="go-to-login"><a href="/login">처음 오셨나요?</a></div>
+              <div class="go-to-signup">
+              <router-link class="login-link" :to="{ name: 'login' }">이미 회원이신가요?</router-link>
+              </div>
             </transition>
           </div>
         </div>
@@ -65,7 +65,13 @@
       ...mapGetters(['authError'])
     },
     methods: {
-      ...mapActions(['signup'])
+      ...mapActions(['signup']),
+      kakaoLogin() {
+        const params = {
+          redirectUri:'http://localhost:8080/kakaoLogin',
+        }
+        window.Kakao.Auth.authorize(params)
+      }
     },
   }
 </script>
@@ -181,7 +187,7 @@
   width: 310px;
   height: 45px;
 }
-.go-to-login{
+.go-to-signup{
   margin-top: 70px;
   font-family: 'LeferiPoint-WhiteA';
   font-weight: 400;

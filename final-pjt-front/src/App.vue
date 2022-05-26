@@ -46,6 +46,10 @@
 </script>
 
 <style>
+body {
+  padding-top: 40px;
+  /* 생략 */
+}
 
 /* 가장 두꺼운 거 */
 @font-face {

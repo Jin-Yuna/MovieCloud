@@ -1,7 +1,6 @@
 <template>
   <div class="weather_container">
-    <p>{{ textContent }}</p>
-    <router-link :to="{ name: 'MovieWeather' }">Weather</router-link>
+    <router-link :to="{ name: 'MovieWeather' }">
     <h2 class="weather_text text_position1">오늘 같은 {{ weather.weather_simple }}</h2>
     <h2 class="weather_text text_position2">날씨의 추천 영화는</h2>
     <p class="text_small">오늘의 추천 영화는 {{ genre_name }}
@@ -23,6 +22,7 @@
         />
       </div>
     </div>
+  </router-link>  
   </div>
 </template>
 
@@ -76,6 +76,7 @@ export default {
           this.textContent = 'Your location data is ' + this.location.latitude + ', ' + this.location.longitude + " ( " + this.location.city + " ) "
           + 'weather is ' + this.weather.weather_simple + ' ' + this.weather.weather_description
           + 'temperature is ' + this.weather.temp 
+        console.log(this.textContent)
         })
         .catch((error) => console.log(error))
     },
@@ -157,7 +158,7 @@ export default {
   line-height: 63px;
   align-items: center;
   text-align: center;
-  color: #425E7A;
+  color: #1A2940;
 }
 .text_position1 {
   position: absolute;
@@ -179,7 +180,7 @@ export default {
   display: flex;
   align-items: center;
   text-align: left;
-  color: #425E7A;
+  color: #1A2940;
   left: calc(50% - 481px/2 - 494.5px);
   top: calc(50% - 63px/2 + 10px);
 }

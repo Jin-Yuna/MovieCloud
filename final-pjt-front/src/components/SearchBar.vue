@@ -1,26 +1,44 @@
 <template>
 <div>
-  <transition>
-  <div id="search" class="modal" v-if="show">
-    <div class="bg"></div>
-    <div class="searchbar">
-      <div class="flex explain">
-        <p>영화를 검색해보아용</p>
-        <button @click="toggleShow">닫기</button>
-      </div>
-      <input type="text" @keyup.enter="search">
-      <div v-if="result_show">
-        <div 
-          v-for="result_movie in result"
-          :key="result_movie.id"
-          @click="getMovieDetailAxios(result_movie.id)">
-            {{ result_movie.title }}
-        </div>
-      </div>
-    </div>
-    </div>
-   </transition>
-  <button @click="toggleShow">검색 아이콘</button>
+  <v-row justify="center">
+      <v-dialog
+        v-model="dialog"
+        max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn class="search" @click="setMoviesTitle()">
+            <v-icon color="#1A2940" icon v-bind="attrs" v-on="on">mdi-magnify</v-icon> </v-btn>
+        </template>
+        <v-card>
+          <v-card-title class="flex card-title">
+            <span class="movie-search-title">영화 조회</span>
+            <p class="explain">영화 검색 후 enter를 누르면 해당 영화로 안내됩니다</p>
+          </v-card-title>
+          <v-card-text>
+            <form @submit.prevent="search()" class="mt-10">
+              <v-autocomplete
+                auto-select-first
+                clearable
+                v-model="result"
+                :items="movies_title"
+                item-text="title"
+                item-value="pk"
+                placeholder="찾는 영화를 검색해보세요"
+              ></v-autocomplete>
+            </form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="#1A2940"
+              text
+              @click="dialog = false"
+              class="close">
+              닫기
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
 </div>
 </template>
 
@@ -33,15 +51,18 @@ export default {
     return {
       show: false,
       inputValue: '',
-      result: [],
+      result: null,
       result_show: false,
+      dialog: false,
+      movies_title: this.movieTitiles
     }
   },
   computed: {
     ...mapGetters(['movieSearchList', 'movieTitiles'])
   },
   created() {
-    this.$store.dispatch('get_movies_search')
+    this.setMoviesTitle()
+    console.log(this.movies_title)
   },
   methods: {
     toggleShow() {
@@ -50,54 +71,52 @@ export default {
         this.result = []
       }
     },
-    search(event) {
-      this.inputValue = event.target.value
-      const movies = this.movieSearchList
-      for (var movie of movies) {
-        if (movie.title.includes(this.inputValue)) {
-          this.result.push(movie)
-        }
-      }
-      this.result_show = true
+    search() {
+      this.inputValue = this.result
+      console.log('여기', this.inputValue)
+      this.getMovieDetailAxios(this.inputValue)
+      this.result = null
+      this.dialog = false
+      return
     },
-    ...mapActions(['getMovieDetailAxios']),
+    ...mapActions(['getMovieDetailAxios','setMoviesTitle']),
   }
+
 }
 </script>
 
 <style>
-.v-enter-active, .v-leave-active {
-  transition: opacity 1s;
+.search {
+  padding: 0;
+  margin: 20px;
 }
-/* 더 이상 보이게 되지 않았을 때의 투명도 */
-.v-enter, .v-leave-to {
-  opacity: 0;
+.movie-search-title {
+  margin-top: 10px;
+  font-family: 'LeferiBaseType-RegularA';
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 46px;
+  color: #1A2940;
+  width:100%;
+  text-align: center;
 }
+.close {
+  font-family: 'LeferiBaseType-RegularA';
+  font-weight: 700;
+  font-size: 30px;
+}
+.explain{
+    width: 450px;
+    margin: 0 auto;
+    font-family: 'LeferiBaseType-RegularA';
+    font-weight: 400;
 
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    font-size: 18px;
+    line-height: 129.49%;
+    color: #1A2940;
+    padding-top: 10px;
 }
-.modal .bg {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-        }
-.searchbar {
-  position: absolute;
-  background-color: #fff;
-  width: 400px;
-  height: 300px;
-  padding: 15px;
-        }
-.explain {
+.card-title {
   align-items: center;
-  justify-content: space-between;
 }
 </style>

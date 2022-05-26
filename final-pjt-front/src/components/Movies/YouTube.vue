@@ -1,8 +1,8 @@
 <template>
   <div>
     <iframe
-      width="640"
-      height="360"
+      width="1280"
+      height="720"
       :src="`https://www.youtube.com/embed/${selectedVideo.id.videoId}`"
       frameborder="0">
     </iframe>
