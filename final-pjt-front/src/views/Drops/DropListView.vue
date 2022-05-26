@@ -1,5 +1,19 @@
 <template>
   <div class="mymargintop">
+    <v-container>
+      <router-link :to="{ name: 'DropCreateView' }" class="deco_no">
+        <v-btn
+          class="ml-15 mb-4"
+          fab
+          dark
+          color="indigo"
+        >
+          <v-icon dark>
+            mdi-plus
+          </v-icon>
+        </v-btn>
+      </router-link>
+    </v-container>
     <v-flex class="justify-center">
       <h1 class="my_bord_text">DROPS</h1>
     </v-flex>
@@ -103,7 +117,9 @@ export default {
 
   color: #425E7A;
 }
-
+.deco_no {
+  text-decoration: none;
+}
 
 /* 긁긁 */
 /* html, body { height: 100%; }

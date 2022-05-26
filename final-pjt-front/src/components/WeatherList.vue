@@ -47,13 +47,11 @@ export default {
   computed: {
     ...mapGetters(['location', 'weather', 'weather_movies', 'weather_genres', 'genres'])
   },
-  created() {
-    this.getRamdomMovie()
-  },
   mounted() {
     this.showWeather()
     this.get_weather_movies(this.weather.weather_id)
     this.recommend_genres(this.weather.weather_id)
+    this.getRamdomMovie()
   },
   methods: {
     showWeather() {
@@ -81,6 +79,7 @@ export default {
         .catch((error) => console.log(error))
     },
     recommend_genres(id) {
+      console.log(id, '실행됨!')
       var based_num = parseInt(id / 100)
       if (based_num === 8) {
         if (id === 800) {
