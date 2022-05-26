@@ -1,5 +1,4 @@
 import axios from 'axios'
-import _ from 'lodash'
 import drf from '@/api/drf'
 import router from '@/router'
 
@@ -9,12 +8,7 @@ export default {
     drop: {},
   },
   getters: {
-    drop: state => state.drop,
-    // isAuthor 안됨
-    isAuthor: (state, getters) => {
-      return state.drop.user.username === getters.accounts.currentUser.username
-    },
-    isDrop: state => !_.isEmpty(state.drops.drop),
+    drop: state => state.drop
   },
   mutations: {
     SET_DROP: (state, drop) => state.drop = drop,

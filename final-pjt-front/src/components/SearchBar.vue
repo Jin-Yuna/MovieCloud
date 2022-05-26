@@ -60,7 +60,7 @@ export default {
   computed: {
     ...mapGetters(['movieSearchList', 'movieTitiles'])
   },
-  created() {
+  mounted() {
     this.setMoviesTitle()
     console.log(this.movies_title)
   },

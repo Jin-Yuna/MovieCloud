@@ -32,7 +32,7 @@ import { mapGetters, mapActions } from 'vuex'
     methods: {
       ...mapActions(['getDrop'])
     },
-    created() {
+    mounted() {
       this.getDrop(this.$route.params.dropPk)
       axios.get('http://127.0.0.1:8000/movies/get_movie_title/')
       .then(response => {

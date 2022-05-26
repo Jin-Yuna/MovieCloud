@@ -44,9 +44,9 @@
     computed: {
       ...mapGetters(['isLoggedIn', 'currentUser']),
       
-      pk() {
-        return this.currentUser.pk ? this.currentUser.pk : 'guest'
-      },
+      // pk() {
+      //   return this.currentUser.pk ? this.currentUser.pk : 'guest'
+      // },
     },
   }
 </script>

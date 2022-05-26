@@ -13,7 +13,7 @@
       
       <div class="flex">
       <!--  -->
-        <div class="boxcardsize">
+        <div>
         <v-carousel
           cycle
           hide-delimiter-background

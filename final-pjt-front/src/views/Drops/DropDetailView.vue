@@ -121,7 +121,7 @@
     methods: {
       ...mapActions(['getDrop', 'deleteDrop', 'likeDrop', ])
     },
-    created() {
+    mounted() {
       this.getDrop(this.dropPk)
     },
   }
@@ -130,7 +130,7 @@
 <style scoped>
 .weather_container {
   background: linear-gradient(to top, #BBDEFB, #ffffff);
-  height: 100vh;
+  height: 150vh;
   background-size: cover;
 }
 .my_card_title {

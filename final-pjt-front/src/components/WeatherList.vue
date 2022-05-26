@@ -47,13 +47,11 @@ export default {
   computed: {
     ...mapGetters(['location', 'weather', 'weather_movies', 'weather_genres', 'genres'])
   },
-  created() {
-    this.getRamdomMovie()
-  },
   mounted() {
     this.showWeather()
     this.get_weather_movies(this.weather.weather_id)
     this.recommend_genres(this.weather.weather_id)
+    this.getRamdomMovie()
   },
   methods: {
     showWeather() {

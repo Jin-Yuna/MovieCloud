@@ -150,18 +150,11 @@ export default {
     isFollowed() {
       this.followed = this.profile.followers.includes(this.currentUser.pk)
     },
-    created() {
-      if (!this.profile) {
-        const payload = { userPk: this.$route.params.userPk }
-        this.fetchProfile(payload)
-      } 
-    },
     buttonchange() {
       this.followed = !this.followed
     }
   },
   created() {
-    console.log(this.$route.params.pk )
     this.fetchProfile({userPk:this.$route.params.pk })
     if (!this.profile) {
       const payload = { userPk: this.$route.params.pk }
