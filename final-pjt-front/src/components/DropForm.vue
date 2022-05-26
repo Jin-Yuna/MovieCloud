@@ -4,8 +4,8 @@
     <form @submit.prevent="onSubmit" class="form">
       <!-- 수정할 때는 영화목록 선택 안보이게 함 -->
       <div v-if="this.action==='create'"> 
-        <label class="form-label" for="movie">영화</label>
-        <input class="form-control" type="text" @click="toggleShow" :placeholder="this.result_movie">
+        <label for="movie">영화</label>
+        <input type="text" @click="toggleShow" :placeholder="this.result_movie">
         <!-- <select id="movie" v-model="newDrop.movie">
           <option v-for="movie_title in movies_title" :value="movie_title.pk" :key="movie_title.pk">
             <span>{{ movie_title.title }}</span>
@@ -13,16 +13,16 @@
         </select> -->
       </div>
       <div>
-        <label class="form-label" for="title">제목</label>
-        <input class="form-control" type="text" id="title" v-model="newDrop.title">
+        <label for="title">제목</label>
+        <input type="text" id="title" v-model="newDrop.title">
       </div>
       <div>
-        <label class="form-label" for="content">내용</label>
-        <textarea class="form-control" id="content" cols="30" rows="10" v-model="newDrop.content"></textarea>
+        <label for="content">내용</label>
+        <textarea id="content" cols="30" rows="10" v-model="newDrop.content"></textarea>
       </div>
       <div>
-        <label class="form-label" for="user_vote">평점</label>
-        <input class="form-control" type="number" id="user_vote" min="0" max="5" step="1" v-model="newDrop.user_vote">
+        <label for="user_vote">평점</label>
+        <input type="number" id="user_vote" min="0" max="5" step="1" v-model="newDrop.user_vote">
       </div>
       <button>작성</button>
     </form>
