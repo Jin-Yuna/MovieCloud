@@ -1,5 +1,6 @@
 <template>
-  <div class="comment-list">
+<v-container>
+  <div>
     <CommentListItem
       v-for="comment in calData"
       :comment="comment"
@@ -12,8 +13,9 @@
       :length="numOfPages"
       circle
     ></v-pagination>
+    </div>
   </div>
-  </div>
+</v-container>
 </template>
 
 <script>
@@ -52,7 +54,5 @@ export default {
 </script>
 
 <style>
-.comment-list {
-  border: 1px solid blue;
-}
+
 </style>
