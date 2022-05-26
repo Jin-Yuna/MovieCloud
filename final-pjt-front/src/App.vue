@@ -7,8 +7,8 @@
 </template>
 
 <script>
- import NavBar from '@/components/NavBar.vue'
-  import { mapActions } from 'vuex'
+import NavBar from '@/components/NavBar.vue'
+import { mapActions } from 'vuex'
 
   export default {
     name: 'App',
@@ -16,9 +16,10 @@
     created() {
       this.fetchCurrentUser()
       this.geofind()
+      this.setMoviesTitle()
     },
     methods: {
-      ...mapActions(['fetchCurrentUser']),
+      ...mapActions(['fetchCurrentUser', 'setMoviesTitle']),
     geofind() {
       if(!("geolocation" in navigator)) {
         this.textContent = 'Geolocation is not available.';
@@ -34,7 +35,6 @@
       }
       
       this.$store.dispatch('saveLocation', loc)
-      // console.log(this.$store.state.latitude)
 
       }, err => {
       this.textContent = err.message;

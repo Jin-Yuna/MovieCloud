@@ -3,18 +3,17 @@
   <div class="gradient">
     <h1 class="logo_titile">MOVIE CLOUD</h1>
     <router-link class="login-link" :to="{ name: 'login' }">
-      <img class="logo" 
+      <img class="logo"
       src="../assets/logo.png" 
       alt="로고이미지">
+      {{this.$store.state.latitude}}
     </router-link>
   </div>
 </div>
 </template>
 
 <script>
-export default {
 
-}
 </script>
 
 <style scoped>

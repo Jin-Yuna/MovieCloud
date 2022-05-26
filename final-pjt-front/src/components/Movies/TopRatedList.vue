@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-16">
+  <div class="mb-16 rated">
     <p class="middle_size_text">마이너스 점수는 왜 존재하지 않는가</p>
     <p class="small_size_text ">평점 순으로 영화를 추천해드립니다</p>
     <v-carousel hide-delimiters>
@@ -75,7 +75,7 @@ export default {
 <style scoped>
 .flex {
   display: flex;
-  margin: 5rem;
+  margin-bottom: 13rem;
 }
 .middle_size_text {
   margin-top: 10rem;
@@ -106,5 +106,8 @@ export default {
   color: #425E7A;
   left: calc(50% - 290px/2 - 0px);
   top: calc(50% - 26px/2 + 300.5px);
+}
+.rated {
+  margin-bottom: 20px;
 }
 </style>

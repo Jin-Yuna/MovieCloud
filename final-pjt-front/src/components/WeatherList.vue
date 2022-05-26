@@ -1,6 +1,5 @@
 <template>
   <div class="weather_container">
-    <router-link :to="{ name: 'MovieWeather' }">
     <h2 class="weather_text text_position1">오늘 같은 {{ weather.weather_simple }}</h2>
     <h2 class="weather_text text_position2">날씨의 추천 영화는</h2>
     <p class="text_small">오늘의 추천 영화는 {{ genre_name }}
@@ -22,7 +21,6 @@
         />
       </div>
     </div>
-  </router-link>  
   </div>
 </template>
 
@@ -70,7 +68,6 @@ export default {
             temp: response.data.main.temp - 273,
           }
           this.$store.dispatch('saveWeather', weather)
-          
           this.textContent = 'Your location data is ' + this.location.latitude + ', ' + this.location.longitude + " ( " + this.location.city + " ) "
           + 'weather is ' + this.weather.weather_simple + ' ' + this.weather.weather_description
           + 'temperature is ' + this.weather.temp 
@@ -93,20 +90,18 @@ export default {
       }
       const genres_id_list = this.weather_genres[based_num]
       for (var genre_id of genres_id_list) {
-        for (var genre of this.genres) {
-          if (genre_id === genre.id) {
-            this.genre_name.push(genre.name)
-          }
+        this.genre_name.push(this.genres[genre_id])
         }
-      }
-      return
-    },
-    getRamdomMovie() {
+         return
+      },
+      getRamdomMovie() {
       const random = _.sampleSize(this.weather_movies, 3)
       this.ramdomMovie=  random
     },
     ...mapActions(['get_weather_movies'])
-  },
+
+    },
+    
 }
 </script>
 

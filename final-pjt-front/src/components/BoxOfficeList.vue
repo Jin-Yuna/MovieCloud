@@ -4,11 +4,9 @@
       <p class="middle_size_text">역시 영화는 영화관이지</p>
       <p class="small_size_text ">내 위치의 주변 반경 20km 내의 영화관을 알려드려요</p>
       <p class="little_small_size_text">BOXOFFICE 순위도 궁금하다면?</p>
-      <router-link :to="{ name: 'MovieBoxoffice' }">
         <div style="text-align: center;">
-          <v-btn style="display:inline-block;" class="boxoffice-button" x-large dark>BOXOFFICE 보러 가기</v-btn>
+          <v-btn style="display:inline-block;" class="boxoffice-button" x-large dark @click="onClickRedirect()">BOXOFFICE 보러 가기</v-btn>
         </div>
-      </router-link>
     </div>
       
       <div class="flex">
@@ -65,7 +63,10 @@ export default {
     }
   },
   methods : {
-    ...mapActions(['getBoxOffice'])
+    ...mapActions(['getBoxOffice']),
+    onClickRedirect() {   
+      window.open("https://www.kobis.or.kr/kobis/business/main/main.do", "_blank");    
+    }
   },
   created() {
     this.getBoxOffice()

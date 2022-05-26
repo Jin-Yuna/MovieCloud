@@ -2,11 +2,34 @@
   <div>
     <div id="map">
     </div>
-    <!-- 검색 결과 표시 -->
+    <v-btn color="#F6FAFE" class="show-button" @click="displayMarker(Positions)">내 주변 영화관 찾기</v-btn>
+    <div class="result-list" v-if="show" >
+      <v-card 
+      class="mx-auto list-card">
+      <v-list flat>
+        <v-subheader>내 근방 영화관</v-subheader>
+        <v-list-item-group
+          v-model="selectedItem"
+          color="#1A2940"
+        >
+          <v-list-item
+            class="results" v-for="result in results.documents " :key="result.id" >
+            <v-list-item-content>
+              <v-list-item-title><h4>{{ result.place_name }}</h4></v-list-item-title>
+              <p>{{ result.address_name }}</p>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-card>
+    </div>
+    <!-- 검색 결과 표시
+    </div>
+    
     <div class="results" v-for="result in results.documents " :key="result.id" @click="displayMarker(Positions)">
-      <h4>>{{ result.place_name }}</h4>
+      <h4>>{{ result.place_name }}<h4>
       <p>{{ result.address_name }}</p>
-   </div>
+   </div> -->
   </div>
 </template>
 
@@ -19,10 +42,11 @@ export default {
     return {
       map: null,
       Positions: [
-        [ this.$store.state.latitude, this.$store.state.longitude ],
+        [ this.$store.state.location.latitude, this.$store.state.location.longitude ],
       ],
       results: '',
       markers: [],
+      show: false,
     }
   },
   // 지도 불러오기
@@ -38,19 +62,21 @@ export default {
     }
   },
   methods: {
+    look() {
+      this.show = true
+    },
     // 지도 표시
     initMap() {
       const container = document.getElementById("map")
       const options = {
-        center: new window.kakao.maps.LatLng(this.$store.state.latitude, this.$store.state.longitude),
+        center: new window.kakao.maps.LatLng(this.$store.state.location.latitude, this.$store.state.location.longitude),
         level: 8,
       }
       this.map = new window.kakao.maps.Map(container, options)
       this.searchPlaces()
       
       this.displayInfoWindow()
-      this.displayMarker(this.Positions)
-      
+      this.displayMarker(this.Positions)   
       },
     // 마커 표시
     displayMarker(markerPositions) {
@@ -72,10 +98,11 @@ export default {
         const bounds = positions.reduce((bounds, latlng) => bounds.extend(latlng), new window.kakao.maps.LatLngBounds())
         this.map.setBounds(bounds)
       }
+      this.show = ! this.show
     },
     searchPlaces() {
       var config = { headers: { 'Authorization': 'KakaoAK 683d19aa3f66f6c7d4ca3b08f6f139ed'}};
-      var url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query='+'영화관&'+`y=${this.$store.state.latitude}&`+`x=${this.$store.state.longitude}`+'&radius=20000'
+      var url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query='+'영화관&'+`y=${this.$store.state.location.latitude}&`+`x=${this.$store.state.location.longitude}`+'&radius=20000'
         axios.get(url, config).then((response) => {
           // 데이터 개수 response.data.documents.length
           
@@ -109,18 +136,38 @@ export default {
       });
 
       this.map.setCenter(iwPosition);
-    },
-    showPlace() {
 
     }
   },
 }
 </script>
 
-<style>
+<style scoped>
 #map {
-  width: 100%;
+  width: 900px;
   height: 600px;
 }
+.result-list {
+  top: 30px;
+  left: 400px;
+  font-family: 'LeferiBaseType-RegularA';
+  color: #1A2940;
+}
+.list-card {
+  overflow: auto;
+  margin-left: 1rem;
+  width: 300px;
+  height: 580px;
+  object-fit: cover;
+}
+.show-button {
+  margin-top: 12px;
+  margin-left: 720px;
+  font-family: 'LeferiBaseType-RegularA';
+  font-size: 16px;
+  border: 0;
+  border-radius: 7px;
+}
+
 
 </style>

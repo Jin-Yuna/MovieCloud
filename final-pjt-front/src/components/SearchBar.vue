@@ -5,7 +5,7 @@
         v-model="dialog"
         max-width="600px">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn class="search" @click="setMoviesTitle()">
+          <v-btn class="search">
             <v-icon color="#1A2940" icon v-bind="attrs" v-on="on">mdi-magnify</v-icon> </v-btn>
         </template>
         <v-card>
@@ -19,7 +19,7 @@
                 auto-select-first
                 clearable
                 v-model="result"
-                :items="movies_title"
+                :items="this.$store.state.movies.movies_title"
                 item-text="title"
                 item-value="pk"
                 placeholder="찾는 영화를 검색해보세요"
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'SearchBar',
@@ -52,19 +52,11 @@ export default {
       show: false,
       inputValue: '',
       result: null,
-      result_show: false,
       dialog: false,
-      movies_title: this.movieTitiles
     }
   },
-  computed: {
-    ...mapGetters(['movieSearchList', 'movieTitiles'])
-  },
-  mounted() {
-    this.setMoviesTitle()
-    console.log(this.movies_title)
-  },
   methods: {
+    ...mapActions(['getMovieDetailAxios']),
     toggleShow() {
       this.show = !this.show
       if (!this.show) {
@@ -73,15 +65,12 @@ export default {
     },
     search() {
       this.inputValue = this.result
-      console.log('여기', this.inputValue)
       this.getMovieDetailAxios(this.inputValue)
       this.result = null
       this.dialog = false
       return
-    },
-    ...mapActions(['getMovieDetailAxios','setMoviesTitle']),
+    }
   }
-
 }
 </script>
 
