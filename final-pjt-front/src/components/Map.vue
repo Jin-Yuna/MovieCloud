@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div id="map">
+    <div id="map" style="width: 900px;height: 600px;position:relative;overflow:hidden">
     </div>
     <v-btn color="#F6FAFE" class="show-button" @click="displayMarker(Positions)">내 주변 영화관 찾기</v-btn>
-    <div class="result-list" v-if="show" >
+    <div class="result-list" v-if="!show">
       <v-card 
       class="mx-auto list-card">
       <v-list flat>
@@ -12,7 +12,7 @@
           color="#1A2940"
         >
           <v-list-item
-            class="results" v-for="result in results.documents " :key="result.id" >
+            class="results" v-for="result in results.documents " :key="result.id" @click="displayMarker([[result.y, result.x]])">
             <v-list-item-content>
               <v-list-item-title><h4>{{ result.place_name }}</h4></v-list-item-title>
               <p>{{ result.address_name }}</p>
@@ -22,13 +22,6 @@
       </v-list>
     </v-card>
     </div>
-    <!-- 검색 결과 표시
-    </div>
-    
-    <div class="results" v-for="result in results.documents " :key="result.id" @click="displayMarker(Positions)">
-      <h4>>{{ result.place_name }}<h4>
-      <p>{{ result.address_name }}</p>
-   </div> -->
   </div>
 </template>
 
@@ -103,10 +96,8 @@ export default {
       var config = { headers: { 'Authorization': 'KakaoAK 683d19aa3f66f6c7d4ca3b08f6f139ed'}};
       var url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query='+'영화관&'+`y=${this.$store.state.location.latitude}&`+`x=${this.$store.state.location.longitude}`+'&radius=20000'
         axios.get(url, config).then((response) => {
-          // 데이터 개수 response.data.documents.length
-          
           this.results = response.data
-
+          console.log(this.results)
           for (var i=0; i< this.results.documents.length; i++){
             var latitude = Number(this.results.documents[i].y)
             var longitude = Number(this.results.documents[i].x)
@@ -142,19 +133,18 @@ export default {
 </script>
 
 <style scoped>
-#map {
-  width: 900px;
-  height: 600px;
-}
 .result-list {
-  top: 30px;
-  left: 400px;
+  position: absolute;
+  margin-left: 58rem;
+  top:44%;
+  bottom: 0;
+  width: 250px;
+  z-index: 1;
   font-family: 'LeferiBaseType-RegularA';
   color: #1A2940;
 }
 .list-card {
   overflow: auto;
-  margin-left: 1rem;
   width: 300px;
   height: 580px;
   object-fit: cover;
