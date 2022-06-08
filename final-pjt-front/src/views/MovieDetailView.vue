@@ -1,48 +1,70 @@
 <template>
   <div class="detail_container">
 
-    <figure class="image-container">
+    <div class="image-container" sytle="position: absolute; top:0; left:0; z-index: -1">
       <img class="backdrop" :src="backdroppath" alt="backdrop">
-    </figure>
-    <div class="overview-container">
-      <h2 class="movie-title text_position1">{{ movie.title }}</h2>
-      <p class="original-title">{{movie.original_title}}</p>
-      <v-progress-linear class="line"
-        color="#F4F8FB"
-        rounded
-        value="100"
-      ></v-progress-linear>
-      <p class="movie-small-explain">
-        {{ movie.release_date }} 개봉작 | 런타임 {{movie.runtime }}분</p>
-      <p class="movie-small-explain-1">선호도</p>
-      <v-chip class="chips-popularity" color="pink" text-color="white">
-        <span>{{movie.popularity}}</span>
-      </v-chip>
-      <p class="movie-small-explain-2">평점</p>
-      <v-chip class="chips-popularity2" color="pink" text-color="white">
-        <span>{{ movie.vote_average }}</span>
-      </v-chip>
-      <p class="tagline">"{{movie.tagline }}"</p>
-      <div>
-      </div>
-      <div class="please">
-       <v-chip outlined class="chips" color="indigo darken-3" v-for="genre in movie.genres" v-bind:key="genre.id">
-        <span>{{genre.name}}</span>
-      </v-chip>
-      </div>
-      <p class="text_small">{{ movie.overview }}</p>
     </div>
-    <div class="flex">
-      <img class="poster" :src="posterUrl" alt="포스터">
-    </div>
-        <!-- {{ movie }} -->
-    <p class="middle_size_text">영화 미리보기</p>
-    <div class="youtube_movie">
-      <YouTube :movietitle="movie.title" class="real"/>
-    </div>
-        <!-- <div class="abc">{{ movie }}</div> -->
+      <v-card
+          class="mx-auto my-0"
+          max-width="1500"
+          style="background: transparent; box-shadow: initial; position: absolute; top: 250px; left: 20%;"
+        >
+      <v-list-item three-line>
+        <v-list-item-content>
+          <div class="mb-4">
+            <v-chip class="chips" color="pink" text-color="white" v-for="genre in movie.genres" v-bind:key="genre.id">
+              <span>{{genre.name}}</span>
+            </v-chip>
+          </div>
+          <v-list-item-title class="movie-title">
+            {{ movie.title }}
+          </v-list-item-title>
+          <p class="mb-2 original-title">{{movie.original_title}}</p>
+          <v-progress-linear class="line"
+            color="#F4F8FB"
+            rounded
+            value="100"
+            style="width: 100px;"
+          ></v-progress-linear>
+          <p class="movie-small-explain">
+          {{ movie.release_date }} 개봉작 | 런타임 {{movie.runtime }}분</p>
+          <div class="popularity"> 
+            <p class="movie-small-explain-1">선호도</p>
+            <v-chip outlined class="chips-popularity" color="pink" text-color="white">
+              <span>{{movie.popularity}}</span>
+            </v-chip>
+            <p class="movie-small-explain-2">평점</p>
+            <v-chip outlined class="chips-popularity2" color="pink" text-color="white">
+              <span>{{ movie.vote_average }}</span>
+            </v-chip>
+          </div>
+        <p style="max-width: 800px;" class="tagline" v-if="movie.tagline">"{{movie.tagline }}"</p>
+        <div style="max-width: 800px;">
+          <p class="text_small">
+            {{ movie.overview }}
+          </p>
+        </div>
+        </v-list-item-content>
+  
+        <v-list-item-avatar
+          class="ma-3 poster"
+          width="530"
+          height="750"
+          tile
+        >
+        <v-img :src="posterUrl"></v-img>
+        </v-list-item-avatar>
 
-</div>
+        </v-list-item>
+      </v-card>
+      <div style="position: absolute;">
+
+      </div>
+      <p class="middle_size_text">영화 미리보기</p>
+        <div class="youtube_movie">
+          <YouTube :movietitle="movie.title" class="real"/>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -71,176 +93,100 @@ export default {
 </script>
 
 <style scoped>
-.abc {
-  margin-top: 3rem;
-}
 .detail_container {
-  position: relative;
+  background-color: #1A2940; 
 }
-.backdrop {
-    width: 100%;
-    display: block;
-}
-
 .image-container .backdrop {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 1300px;
   -webkit-mask-image: linear-gradient(to top, transparent 0.5%, black 80%);
   mask-image: linear-gradient(to top, transparent 0.5%, black 100%);
 } 
+/* 장르 */
+.chips {
+  height: 30px;
+  margin-right: 7px;
+  font-family: 'LeferiPoint-WhiteA';
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 타이틀 */
 .movie-title {
+  margin-left: 0;
   font-family: 'LeferiPoint-BlackA';
   font-weight: 300;
   font-size: 45px;
   line-height: 63px;
   color: #F4F8FB;
   text-shadow: 0px 1px 7px rgba(0, 0, 0, 1);
-  align-items: center;
-  text-align: center;
 }
-
+/* 라인 */
+.line {
+  width: 500px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+/* 포스터 */
+.poster {
+  width: 530px;
+  box-shadow: 5px 5px 5px #000;
+}
+/* 타이틀2 */
 .original-title {
   font-family: 'LeferiBaseType-RegularA';
   font-weight: 300;
   font-size: 25px;
-  line-height: 63px;
   color: #F4F8FB;
   text-shadow: 0px 1px 7px rgba(0, 0, 0, 1);
-  align-items: center;
-  text-align: center;
-  position: absolute;
-  left: calc(50% - 481px/2 - 500.5px);
-  top: 15%;
-}
-/* 제목 */
-.text_position1 {
-  position: absolute;
-  left: calc(50% - 481px/2 - 500.5px);
-  top: 13%;
-}
-.text_position2 {
-  position: absolute;
-  left: calc(50% - 481px/2 - 500.5px);
-  top: 20%;
-}
-.overview-container {
-  display: flex;
-}
-.text_small {
-  margin-top: 100px;
-  margin-right: 50%;
-  position: absolute;
-  font-family: 'LeferiPoint-WhiteA';
-  font-weight: 100;
-  font-size: 23px;
-  line-height: 29px;
-  display: flex;
-  align-items: center;
-  text-align: left;
-  color: #F4F8FB;
-  text-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
-  left: calc(50% - 481px/2 - 494.5px);
-  top: 650px;
-}
-.poster {
-  position: absolute;
-  width: 450px;
-  left: calc(62%);
-  top: calc(13%);
-  box-shadow: 5px 5px 5px #000;
-}
-/* 영화 미리보기 */
-.middle_size_text {
-  position: absolute;
-  font-family: 'LeferiPoint-BlackA';
-  font-weight: 500;
-  font-size: 48px;
-  line-height: 63px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #F4F8FB;
-  text-shadow: 0px 1px 7px rgba(0, 0, 0, 1);
-  left: 45%;
-  top: 1150px;
-}
-.youtube_movie {
-  margin-left: 580px; 
-  margin-bottom: 400px;
-}
-.real {
-  width: 100%
-}
-.line {
-  position: absolute;
-  width: 750px;
-  left: 19%;
-  top: 17%;
 }
 /* release runtime */
 .movie-small-explain {
-  position: absolute;
   font-family: 'LeferiPoint-WhiteA';
   font-weight: 100;
   font-size: 15px;
-  line-height: 63px;
-  display: flex;
+  color: #F4F8FB;
+  margin-bottom: 8px;
+  text-shadow: 0px 1px 7px rgba(0, 0, 0, 1);
+}
+/* 선호도 배점 */
+.popularity {
+  margin: 0;
+  padding: 0;
   align-items: center;
-  text-align: center;
+  display: flex;
+}
+.movie-small-explain-1 {
+  font-family: 'LeferiPoint-WhiteA';
+  margin-bottom: 0;
+  margin-right: 7px;
+  font-weight: 100;
+  font-size: 15px;
   color: #F4F8FB;
   text-shadow: 0px 1px 7px rgba(0, 0, 0, 1);
-  left: 19%;
-  top: 420px;
 }
-.chips {
-  margin-right: 5px;
+.movie-small-explain-2 {
+  font-family: 'LeferiPoint-WhiteA';
+  margin-bottom: 0;
+  font-weight: 100;
+  font-size: 15px;
+  margin-right: 7px;
+  color: #F4F8FB;
+  text-shadow: 0px 1px 7px rgba(0, 0, 0, 1);
 }
 
 /* chips */
 .chips-popularity {
   height: 28px;
-  position: absolute;
-  left: 21%;
-  top:465px;
+  margin-right: 15px;
 }
 .chips-popularity2 {
   height: 28px;
-  position: absolute;
-  left: 25.5%;
-  top: 465px;
 }
-.movie-small-explain-1 {
-  position: absolute;
-  font-family: 'LeferiPoint-WhiteA';
-  font-weight: 100;
-  font-size: 15px;
-  line-height: 63px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #F4F8FB;
-  text-shadow: 0px 1px 7px rgba(0, 0, 0, 1);
-  left: 19%;
-  top: 450px;
-}
-.movie-small-explain-2 {
-  position: absolute;
-  font-family: 'LeferiPoint-WhiteA';
-  font-weight: 100;
-  font-size: 15px;
-  line-height: 63px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #F4F8FB;
-  text-shadow: 0px 1px 7px rgba(0, 0, 0, 1);
-  left: 24%;
-  top: 450px;
-}
-/* tagline */
+/* 태그라인 */
 .tagline {
-  position: absolute;
+  margin-top: 70px;
   font-family: 'LeferiBaseType-RegularA';
   font-weight: 500;
   font-size: 40px;
@@ -250,13 +196,40 @@ export default {
   text-align: center;
   color: #F4F8FB;
   text-shadow: 0px 1px 7px rgba(0, 0, 0, 1);
-  left: 19%;
-  top: 600px;
 }
-.please {
-  position: absolute;
-  left: 74%;
-  top: 40%;
+
+/* overview 설명 */
+.text_small {
+  margin-top: 80px;
+  font-family: 'LeferiPoint-WhiteA';
+  font-weight: 100;
+  font-size: 23px;
+  line-height: 33px;
+  color: #F4F8FB;
+  text-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
 }
+
+/* 영화 미리보기 */
+.middle_size_text {
+  margin-top: 0;
+  margin-bottom: 100px;
+  font-family: 'LeferiPoint-BlackA';
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 63px;
+  text-align: center;
+  color: #F4F8FB;
+  text-shadow: 0px 1px 7px rgba(0, 0, 0, 1);
+}
+.youtube_movie {
+  margin-left: 28%; 
+  margin-bottom: 400px;
+}
+.real {
+  width: 100%
+}
+
+
+
 
 </style>
