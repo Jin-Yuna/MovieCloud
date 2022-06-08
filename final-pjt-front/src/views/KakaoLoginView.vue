@@ -34,7 +34,6 @@ export default {
       }
       axios.get('/kakaoLogin/', { headers: token_header })
         .then(response => {
-          console.log(response)
           const token = response.data.key
 
           this.$store.dispatch('saveToken', token)

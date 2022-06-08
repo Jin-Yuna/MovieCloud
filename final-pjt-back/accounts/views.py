@@ -16,20 +16,15 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 def kakaoLogin(request):
-    print('시작해랑')
     auth_code = request.headers['code']
     access_token = request.headers['Token']
-    print(auth_code)
-    print(access_token)
     """
     Email Request
     """
     profile_request = requests.get(
         "https://kapi.kakao.com/v2/user/me", headers={"Authorization": f"Bearer {access_token}"})
     profile_json = profile_request.json()
-    print(profile_json)
     kakao_account = profile_json.get('kakao_account')
-    print(kakao_account)
     """
     Signup or Signin Request
     """
@@ -42,9 +37,7 @@ def kakaoLogin(request):
         return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
     # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
     accept_json = accept.json()
-    print(accept_json)
     accept_json.pop('user', None)
-    print(accept_json)
     return JsonResponse(accept_json)      
 
 class KakaoLogin(SocialLoginView):

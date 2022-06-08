@@ -20,4 +20,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-window.Kakao.init('fcf79d7950891e2a0bcbec183a0187dd')
+window.Kakao.init(process.env.VUE_APP_KAKAO_JAVASCRIPT_API_KEY)

@@ -53,10 +53,7 @@ export default {
   },
   methods: {
     showWeather() {
-      let apiKey = "8b0343f881770cdb1dbb079901414e9e"
-      let weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + this.location.latitude
-              + "&lon=" + this.location.longitude
-              + "&appid=" + apiKey; 
+      let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${this.location.latitude}&lon=${this.location.longitude}&appid=${process.env.VUE_APP_WEATHER_API_KEY}` 
       //요청
       axios.get(weatherUrl)
         .then(response => {
@@ -68,10 +65,6 @@ export default {
             temp: response.data.main.temp - 273,
           }
           this.$store.dispatch('saveWeather', weather)
-          this.textContent = 'Your location data is ' + this.location.latitude + ', ' + this.location.longitude + " ( " + this.location.city + " ) "
-          + 'weather is ' + this.weather.weather_simple + ' ' + this.weather.weather_description
-          + 'temperature is ' + this.weather.temp 
-        console.log(this.textContent)
         })
         .catch((error) => console.log(error))
     },

@@ -45,7 +45,7 @@ export default {
   mounted() {
     if ( !window.kakao || !window.kakao.maps ) {
       const script = document.createElement("script")
-      script.src ='https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=fcf79d7950891e2a0bcbec183a0187dd&libraries=services'
+      script.src ='https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=' + process.env.VUE_APP_KAKAO_JAVASCRIPT_API_KEY + '&libraries=services'
       script.onload = () => window.kakao.maps.load(this.initMap)
       document.head.appendChild(script)
     }
@@ -93,11 +93,10 @@ export default {
       this.show = ! this.show
     },
     searchPlaces() {
-      var config = { headers: { 'Authorization': 'KakaoAK 683d19aa3f66f6c7d4ca3b08f6f139ed'}};
+      var config = { headers: { 'Authorization': 'KakaoAK ' + process.env.VUE_APP_KAKAO_REST_API_KEY}};
       var url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query='+'영화관&'+`y=${this.$store.state.location.latitude}&`+`x=${this.$store.state.location.longitude}`+'&radius=20000'
         axios.get(url, config).then((response) => {
           this.results = response.data
-          console.log(this.results)
           for (var i=0; i< this.results.documents.length; i++){
             var latitude = Number(this.results.documents[i].y)
             var longitude = Number(this.results.documents[i].x)

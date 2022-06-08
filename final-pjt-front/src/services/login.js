@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const kakaoHeader = {
-    'Authorization': '50634426dfc0150423190cbcb41d99e9',
+    'Authorization': process.env.VUE_APP_KAKAO_ADMIN_API_KEY,
     'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
 };
 
@@ -10,7 +10,7 @@ const getKakaoToken = async (code) => {
     try {
         const data = {
             grant_type: 'authorization_code',
-            client_id: '683d19aa3f66f6c7d4ca3b08f6f139ed',
+            client_id: process.env.VUE_APP_KAKAO_REST_API_KEY,
             redirect_uri: 'http://localhost:8080/kakaoLogin',
             code: code,
         };
