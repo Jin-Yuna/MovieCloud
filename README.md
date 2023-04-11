@@ -72,7 +72,7 @@
 
 
 
-- **커뮤니티 및 게시글 CRUD **
+- **커뮤니티 및 게시글 CRUD**
 
   <p align="center"><img src="./README.assets/image-20230411201438006.png" width=450 /></p>
 
